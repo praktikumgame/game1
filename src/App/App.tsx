@@ -1,14 +1,14 @@
-import React, { PureComponent, ReactPropTypes } from "react";
-import "./App.scss";
+import React, { PureComponent, ReactPropTypes } from 'react';
+import './App.scss';
 
 interface IState {
-  test: string;
+    test: string;
 }
 export class App extends PureComponent<ReactPropTypes, IState> {
-  static state = {
-    test: "Текст для теста",
-  };
-  public render() {
-    return <div className="test">{this.state.test}</div>;
-  }
+    static state = {
+        test: 'Текст для теста',
+    };
+    public render() {
+        return <div className="test">{this.state.test}</div>;
+    }
 }
