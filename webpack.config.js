@@ -1,6 +1,6 @@
-const path = require('path')
+const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -29,22 +29,22 @@ const cssLoaders = (scss) => {
 };
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: isDev ? 'source-map' : '',
+  devtool: isDev && 'source-map',
   optimization: optimization(),
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -53,12 +53,18 @@ module.exports = {
       {
         test: /\.s[ac]ss$/,
         use: cssLoaders(true),
-      }
-    ]
+      },
+    ],
+  },
+  output: {
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
       minify: {
         collapseWhitespace: !isDev,
       },
@@ -66,6 +72,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'static/[name].[contentHash].css',
     }),
-    new CleanWebpackPlugin()
-  ]
+    new CleanWebpackPlugin(),
+  ],
 };
