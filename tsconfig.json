@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
@@ -20,21 +17,10 @@
     "baseUrl": ".",
     "outDir": "./dist",
     "paths": {
-      "*": [
-        "./src/*"
-      ]
+      "*": ["./src/*"]
     },
-    "typeRoots": [
-      "typings/**/*.d.ts",
-      "node_modules/@types"
-    ],
+    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
   },
-  "include": [
-    "src",
-    "typings/**/*.d.ts",
-    "./node_modules/@types"
-  ],
-  "exclude": [
-    "**/*.js"
-  ]
+  "include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
+  "exclude": ["**/*.js"]
 }
