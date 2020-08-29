@@ -1,5 +1,5 @@
 import { App } from './App';
-import { AuthProviderWithRouter, PrivateRoute, withAuth, authContext } from './Auth/';
+import { AuthProvider, PrivateRoute, withAuth, authContext } from './Auth/';
 import { Form } from './Form/';
 import { Signup, stateInputValuesSignupType } from '../components/Signup';
 import { Signin, stateInputValuesSigninType } from '../components/Signin';
@@ -13,7 +13,7 @@ import { NotFound } from './NotFound';
 export {
   App,
   Header,
-  AuthProviderWithRouter,
+  AuthProvider,
   PrivateRoute,
   withAuth,
   Form,

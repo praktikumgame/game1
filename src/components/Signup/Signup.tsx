@@ -9,7 +9,9 @@ import { AuthApi } from '../../api/';
 import './Signup.scss';
 
 const Signup = withAuth(({ isAuthorized, authorize }) => {
+  const [formIsLoad, setFormIsLoad] = useState(false);
   const [values, setValues] = useState<stateInputValuesSignupType>({ email: '', login: '', password: '' });
+  const [serverError, setServerError] = useState('');
 
   const clearValues = () => {
     setValues({ email: '', login: '', password: '' });
@@ -20,20 +22,60 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
     setValues({ ...values, ...{ [name]: value } });
   };
 
-  const sendFormHandler = (): Promise<void> => {
-    const authApi = new AuthApi();
-    return authApi
-      .signup(values)
-      .then(() => clearValues())
-      .then(() => authorize());
+  const clearError = () => {
+    setServerError('');
   };
 
-  return isAuthorized ? (
+  const errorHandler = (status: number, message: string) => {
+    switch (status) {
+      case 409: {
+        if (message.startsWith('Email')) {
+          setServerError('Пользователь с таким email уже существует');
+          break;
+        }
+        if (message.startsWith('Login')) {
+          setServerError('Логин уже занят');
+          break;
+        }
+      }
+      case 500: {
+        setServerError('Ошибка сервера');
+        break;
+      }
+      default: {
+        setServerError('Неизвестная ошибка');
+        return;
+      }
+    }
+  };
+
+  const sendFormHandler = (event: React.MouseEvent): void => {
+    event.preventDefault();
+
+    const authApi = new AuthApi();
+
+    setFormIsLoad(true);
+
+    authApi
+      .signup(values)
+      .then(() => authorize())
+      .then(() => clearValues())
+      .catch(({ status, message }) => errorHandler(status, message))
+      .finally(() => setFormIsLoad(false));
+  };
+
+  return isAuthorized && !formIsLoad ? (
     <Redirect to="/game" />
   ) : (
     <div className="signup">
       <h2 className="signup__title">Signup to play</h2>
-      <Form sendFormHandler={sendFormHandler} buttonText="Signup">
+      <Form
+        sendFormHandler={sendFormHandler}
+        buttonText="Signup"
+        formIsLoad={formIsLoad}
+        serverError={serverError}
+        clearError={clearError}
+      >
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateEmail}

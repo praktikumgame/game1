@@ -1,2 +1,3 @@
 import { AuthApi } from './authApi';
-export { AuthApi };
+import { UserApi } from './userApi';
+export { AuthApi, UserApi };

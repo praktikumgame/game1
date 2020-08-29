@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { useState, ReactNode, useEffect } from 'react';
 import { authContext } from './types';
+import { AuthApi } from '../../api/';
+const authApi = new AuthApi();
 
 const { Provider, Consumer } = React.createContext<authContext>({
   isAuthorized: false,
@@ -12,36 +13,26 @@ const { Provider, Consumer } = React.createContext<authContext>({
   },
 });
 
-const AuthProvider = ({ children, history }: { children: ReactNode } & RouteComponentProps): JSX.Element => {
-  const _isMounted = useRef(true);
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [auth, setAuth] = useState({ isAuthorized: false });
+
   useEffect(() => {
-    if (localStorage.getItem('isAuthorized')) {
-      setAuth({ isAuthorized: true });
-    }
-    return () => {
-      _isMounted.current = false;
-    };
+    authApi
+      .getUserInfo()
+      .then(() => authorize())
+      .catch(() => logout());
   }, []);
 
   const authorize = () => {
-    if (_isMounted.current) {
-      setAuth({ isAuthorized: true });
-      localStorage.setItem('isAuthorized', 'true');
-      history.push('/game');
-    }
+    setAuth({ isAuthorized: true });
+    localStorage.setItem('isAuthorized', 'true');
   };
 
   const logout = () => {
-    if (_isMounted.current) {
-      setAuth({ isAuthorized: false });
-      localStorage.removeItem('isAuthorized');
-      history.push('/signin');
-    }
+    setAuth({ isAuthorized: false });
+    localStorage.removeItem('isAuthorized');
   };
   return <Provider value={{ ...auth, authorize, logout }}>{children}</Provider>;
 };
 
-const AuthProviderWithRouter = withRouter(AuthProvider);
-
-export { AuthProviderWithRouter, Consumer };
+export { AuthProvider, Consumer };

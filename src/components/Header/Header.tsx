@@ -10,7 +10,7 @@ const Header = withAuth(
     const logoutHandler = () => {
       const authApi = new AuthApi();
 
-      authApi.logout().then(() => logout());
+      authApi.logout().finally(() => logout());
     };
 
     return (

@@ -9,7 +9,9 @@ import { AuthApi } from '../../api/';
 import './Signin.scss';
 
 const Signin = withAuth(({ isAuthorized, authorize }) => {
+  const [formIsLoad, setFormIsLoad] = useState(false);
   const [values, setValues] = useState<stateInputValuesSigninType>({ login: '', password: '' });
+  const [serverError, setServerError] = useState('');
 
   const clearValues = () => {
     setValues({ login: '', password: '' });
@@ -20,20 +22,54 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     setValues({ ...values, ...{ [name]: value } });
   };
 
-  const sendFormHandler = (): Promise<void> => {
-    const authApi = new AuthApi();
-    return authApi
-      .signin(values)
-      .then(() => clearValues())
-      .then(() => authorize());
+  const clearError = () => {
+    setServerError('');
   };
 
-  return isAuthorized ? (
+  const errorHandler = (status: number) => {
+    switch (status) {
+      case 401: {
+        setServerError('Не правильные логин или пароль');
+        break;
+      }
+      case 500: {
+        setServerError('Ошибка сервера');
+        break;
+      }
+      default: {
+        setServerError('Неизвестная ошибка');
+        return;
+      }
+    }
+  };
+
+  const sendFormHandler = (event: React.MouseEvent): void => {
+    event.preventDefault();
+
+    const authApi = new AuthApi();
+
+    setFormIsLoad(true);
+
+    authApi
+      .signin(values)
+      .then(() => authorize())
+      .then(() => clearValues())
+      .catch((err) => errorHandler(err.status))
+      .finally(() => setFormIsLoad(false));
+  };
+
+  return isAuthorized && !formIsLoad ? (
     <Redirect to="/game" />
   ) : (
     <div className="signin">
       <h2 className="signin__title">Signin to play</h2>
-      <Form sendFormHandler={sendFormHandler} buttonText="Signin">
+      <Form
+        sendFormHandler={sendFormHandler}
+        buttonText="Signin"
+        formIsLoad={formIsLoad}
+        serverError={serverError}
+        clearError={clearError}
+      >
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateLogin}

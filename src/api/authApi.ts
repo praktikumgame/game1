@@ -38,6 +38,13 @@ class AuthApi extends BaseAPI implements IAuthApi {
       credentials: 'include',
     }).then(this.getResponseText);
   }
+
+  public async getUserInfo(): Promise<{ [key: string]: string }> {
+    return await fetch(this.getFullUrl(this.handles.GET_USER_INFO), {
+      method: 'GET',
+      credentials: 'include',
+    }).then(this.getResponseJSON);
+  }
 }
 
 export { AuthApi };

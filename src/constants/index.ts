@@ -12,5 +12,6 @@ export const PASSWORD_ERROR_LENGTH = 'Minimum password length 8 characters';
 export const PASSWORD_ERROR_REGISTER = 'Need two letters in different registers';
 export const PASSWORD_ERROR_LATIN = 'Password must contain latin letters and numbers';
 export const PASSWORD_ERROR_NUMBERS = 'Password must contain at least one number';
+export const PASSWORD_ERROR_MISMATCH = 'Новый пароль должен отличаться от старого пароля';
 
 export const UNKNOWN_ERROR = 'Unknown error';
