@@ -6,7 +6,7 @@ const PrivateRoute = withAuth(({ isAuthorized, component: Component, ...rest }) 
   return (
     <Route
       {...rest}
-      render={(routeProps) => (isAuthorized ? <Component {...routeProps} /> : <Redirect to="/signup" />)}
+      render={(routeProps) => (isAuthorized ? <Component {...routeProps} /> : <Redirect to="/signin" />)}
     />
   );
 });

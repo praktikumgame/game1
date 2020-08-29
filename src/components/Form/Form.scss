@@ -9,17 +9,11 @@
 .form {
   max-width: 202px;
 }
-.form__button {
-}
 
 .loader {
-  display: none;
+  display: flex;
   justify-content: center;
   margin-bottom: 22px;
-}
-
-.loader_active {
-  display: flex;
 }
 
 .loader__react {

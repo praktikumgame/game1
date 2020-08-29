@@ -54,8 +54,40 @@ module.exports = {
         test: /\.s[ac]ss$/,
         use: cssLoaders(true),
       },
+      {
+        test: /\.(png|jpg|gif|ico|svg)$/,
+        use: [
+          'file-loader?name=./images/[name].[ext]',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              disable: true,
+
+              mozjpeg: {
+                progressive: true,
+                quality: 85,
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75,
+              },
+            },
+          },
+        ],
+      },
     ],
   },
+
   output: {
     publicPath: '/',
   },
