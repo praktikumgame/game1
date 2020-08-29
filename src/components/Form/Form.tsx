@@ -7,7 +7,7 @@ const Form = ({
   sendFormHandler,
   children,
   buttonText,
-  formValidator,
+  formValidator = () => true,
   formIsLoad,
   serverError,
   clearError,
