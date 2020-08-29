@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { stateInputValuesSigninType } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
-import { validatePassword, validateLogin } from '../../helpers';
+import { validatePassword, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
 
 import './Signin.scss';

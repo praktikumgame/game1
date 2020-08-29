@@ -1,7 +1,7 @@
 import React, { useState, createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage, withAuth } from '../';
 import { stateInputValuesChangePassword } from './types';
-import { validatePassword } from '../../helpers/validators/validatePassword';
+import { validatePassword } from '../../services/validators';
 import { authApi, userApi } from '../../services/api';
 import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
