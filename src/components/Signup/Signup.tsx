@@ -5,6 +5,7 @@ import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
+import { EMAIL_IS_EXIST, LOGIN_IS_EXIST, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../constants';
 
 import './Signup.scss';
 
@@ -30,20 +31,20 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
     switch (status) {
       case 409: {
         if (message.startsWith('Email')) {
-          setServerError('Пользователь с таким email уже существует');
+          setServerError(EMAIL_IS_EXIST);
           break;
         }
         if (message.startsWith('Login')) {
-          setServerError('Логин уже занят');
+          setServerError(LOGIN_IS_EXIST);
           break;
         }
       }
       case 500: {
-        setServerError('Ошибка сервера');
+        setServerError(INITIAL_SERVER_ERROR);
         break;
       }
       default: {
-        setServerError('Неизвестная ошибка');
+        setServerError(UNKNOWN_ERROR);
         return;
       }
     }

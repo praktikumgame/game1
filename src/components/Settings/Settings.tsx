@@ -3,6 +3,7 @@ import { Form, InputWithMessage, withAuth } from '../';
 import { stateInputValuesChangePassword } from './types';
 import { validatePassword } from '../../services/validators';
 import { authApi, userApi } from '../../services/api';
+import { AVATAR_API, PASSWORD_ERROR_MISMATCH, AVATAR_ERROR } from '../../constants';
 import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
 
@@ -21,7 +22,7 @@ const Settings = withAuth(
       authApi
         .getUserInfo()
         .then(({ avatar }) => {
-          setUserAvatar(`https://ya-praktikum.tech${avatar}`);
+          setUserAvatar(`${AVATAR_API}${avatar}`);
         })
         .catch(() => logout());
     }, []);
@@ -48,7 +49,7 @@ const Settings = withAuth(
     const formValidator = (value: string): boolean => {
       console.log(value);
       if (passwordIsMismatch(value)) {
-        setPasswordError('Старый и новый пароль должны отличатся');
+        setPasswordError(PASSWORD_ERROR_MISMATCH);
         return false;
       }
       return true;
@@ -78,8 +79,8 @@ const Settings = withAuth(
         userApi.changeAvatar(formData).then(() => {
           authApi
             .getUserInfo()
-            .then(({ avatar }) => setUserAvatar(`https://ya-praktikum.tech${avatar}`))
-            .catch(() => setAvatarError('Не удалось загрузить автар'))
+            .then(({ avatar }) => setUserAvatar(`${AVATAR_API}${avatar}`))
+            .catch(() => setAvatarError(AVATAR_ERROR))
             .finally(() => setAvatarIsLoad(false));
         });
       }

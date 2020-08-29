@@ -5,6 +5,7 @@ import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
+import { LOGIN_OR_EMAIL_ERROR, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../constants';
 
 import './Signin.scss';
 
@@ -29,15 +30,15 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
   const errorHandler = (status: number) => {
     switch (status) {
       case 401: {
-        setServerError('Не правильные логин или пароль');
+        setServerError(LOGIN_OR_EMAIL_ERROR);
         break;
       }
       case 500: {
-        setServerError('Ошибка сервера');
+        setServerError(INITIAL_SERVER_ERROR);
         break;
       }
       default: {
-        setServerError('Неизвестная ошибка');
+        setServerError(UNKNOWN_ERROR);
         return;
       }
     }
