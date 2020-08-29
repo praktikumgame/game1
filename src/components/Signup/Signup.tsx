@@ -63,7 +63,10 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
         const message = (await err.json()).reason;
         errorHandler(err.status, message);
       })
-      .finally(() => setFormIsLoad(false));
+      .finally(() => {
+        setFormIsLoad(false);
+        clearValues();
+      });
   };
 
   return isAuthorized && !formIsLoad ? (

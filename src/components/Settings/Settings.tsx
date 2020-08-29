@@ -28,16 +28,26 @@ const Settings = withAuth(
     useEffect(() => {
       authApi
         .getUserInfo()
-        .then(({ avatar }) => {
-          setUserAvatar(`${AVATAR_API}${avatar}`);
-        })
+        .then(checkAndSetAvatar)
         .catch(() => logout());
     }, []);
 
     const fileInput: RefObject<HTMLInputElement> = createRef();
 
+    const checkAndSetAvatar = ({ avatar }: { [key: string]: string }) => {
+      if (avatar) {
+        setUserAvatar(`${AVATAR_API}${avatar}`);
+      } else {
+        setUserAvatar(exampleAvatar);
+      }
+    };
+
     const clearPasswordError = () => {
       setPasswordError('');
+    };
+
+    const clearValues = () => {
+      setValues({ oldPassword: '', newPassword: '' });
     };
 
     const saveInputValue = (target: HTMLInputElement) => {
@@ -54,7 +64,6 @@ const Settings = withAuth(
     };
 
     const formValidator = (value: string): boolean => {
-      console.log(value);
       if (passwordIsMismatch(value)) {
         setPasswordError(PASSWORD_ERROR_MISMATCH);
         return false;
@@ -85,7 +94,10 @@ const Settings = withAuth(
       userApi
         .changePassword(values)
         .catch(({ status }) => errorPasswordHandler(status))
-        .finally(() => setPasswordIsLoad(false));
+        .finally(() => {
+          clearValues();
+          setPasswordIsLoad(false);
+        });
     };
 
     const clearAvatarError = () => {
@@ -103,7 +115,7 @@ const Settings = withAuth(
         userApi.changeAvatar(formData).then(() => {
           authApi
             .getUserInfo()
-            .then(({ avatar }) => setUserAvatar(`${AVATAR_API}${avatar}`))
+            .then(checkAndSetAvatar)
             .catch(() => setAvatarError(AVATAR_ERROR))
             .finally(() => setAvatarIsLoad(false));
         });
@@ -125,7 +137,11 @@ const Settings = withAuth(
               <label className="settings__input_wrapper">
                 <input className="settings__input-file" type="file" ref={fileInput} />
                 <div className="setting__wrapper-avatar">
-                  <img src={userAvatar || exampleAvatar} alt="avatar" className="settings__avatar" />
+                  {!userAvatar ? (
+                    <div className="settings__loader"></div>
+                  ) : (
+                    <img src={userAvatar} alt="avatar" className="settings__avatar" />
+                  )}
                   <div className="setting__custom-input"></div>
                 </div>
               </label>

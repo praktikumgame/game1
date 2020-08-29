@@ -4,7 +4,6 @@ import { withAuth } from './helpers/withAuthHOC';
 import './PrivateRoute.scss';
 
 const PrivateRoute = withAuth(({ isLoad, isAuthorized, component: Component, ...rest }) => {
-  console.log(isLoad);
   return isLoad ? (
     <div className="pre-loader">Loading...</div>
   ) : (

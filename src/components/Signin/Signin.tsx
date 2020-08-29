@@ -52,11 +52,13 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     authApi
       .signin(values)
       .then(() => authorize())
-      .then(() => clearValues())
       .catch(async (err) => {
         errorHandler(err.status);
       })
-      .finally(() => setFormIsLoad(false));
+      .finally(() => {
+        clearValues();
+        setFormIsLoad(false);
+      });
   };
 
   return isAuthorized && !formIsLoad ? (
