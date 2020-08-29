@@ -15,12 +15,14 @@ const { Provider, Consumer } = React.createContext<authContext>({
 
 const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [auth, setAuth] = useState({ isAuthorized: false });
+  const [isLoad, seIsLoad] = useState(true);
 
   useEffect(() => {
     authApi
       .getUserInfo()
       .then(() => authorize())
-      .catch(() => logout());
+      .catch(() => logout())
+      .finally(() => seIsLoad(false));
   }, []);
 
   const authorize = () => {
@@ -32,7 +34,7 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     setAuth({ isAuthorized: false });
     localStorage.removeItem('isAuthorized');
   };
-  return <Provider value={{ ...auth, authorize, logout }}>{children}</Provider>;
+  return <Provider value={{ ...auth, authorize, logout, isLoad }}>{children}</Provider>;
 };
 
 export { AuthProvider, Consumer };
