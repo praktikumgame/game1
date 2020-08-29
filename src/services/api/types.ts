@@ -7,6 +7,7 @@ import {
 interface IAuthApi {
   signup(body: stateInputValuesSignupType): Promise<string>;
   signin(body: stateInputValuesSigninType): Promise<string>;
+  getUserInfo(): Promise<{ [key: string]: string }>;
   logout(): Promise<string>;
 }
 

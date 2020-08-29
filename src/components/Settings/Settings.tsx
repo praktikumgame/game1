@@ -3,7 +3,14 @@ import { Form, InputWithMessage, withAuth } from '../';
 import { stateInputValuesChangePassword } from './types';
 import { validatePassword } from '../../services/validators';
 import { authApi, userApi } from '../../services/api';
-import { AVATAR_API, PASSWORD_ERROR_MISMATCH, AVATAR_ERROR } from '../../constants';
+import {
+  AVATAR_API,
+  PASSWORD_ERROR_MISMATCH,
+  AVATAR_ERROR,
+  INCORRECT_OLD_PASSWORD,
+  INITIAL_SERVER_ERROR,
+  UNKNOWN_ERROR,
+} from '../../constants';
 import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
 
@@ -55,12 +62,29 @@ const Settings = withAuth(
       return true;
     };
 
-    const changePasswordHandler = () => {
+    const errorPasswordHandler = (status: number) => {
+      switch (status) {
+        case 400: {
+          setPasswordError(INCORRECT_OLD_PASSWORD);
+          break;
+        }
+        case 500: {
+          setPasswordError(INITIAL_SERVER_ERROR);
+          break;
+        }
+        default: {
+          setPasswordError(UNKNOWN_ERROR);
+          return;
+        }
+      }
+    };
+
+    const changePasswordHandler = (event: React.MouseEvent): void => {
+      event.preventDefault();
       setPasswordIsLoad(true);
       userApi
         .changePassword(values)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .catch(({ status }) => errorPasswordHandler(status))
         .finally(() => setPasswordIsLoad(false));
     };
 

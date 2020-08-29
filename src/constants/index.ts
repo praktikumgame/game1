@@ -23,6 +23,7 @@ export const LOGIN_OR_EMAIL_ERROR = 'Не правильные логин или
 export const INITIAL_SERVER_ERROR = 'Ошибка сервера';
 export const EMAIL_IS_EXIST = 'Пользователь с таким email уже существует';
 export const LOGIN_IS_EXIST = 'Логин уже занят';
+export const INCORRECT_OLD_PASSWORD = 'Не правильно введен старый пароль';
 
 // Other
 

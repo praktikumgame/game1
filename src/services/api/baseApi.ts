@@ -1,14 +1,5 @@
 import { API_URL } from '../../constants';
 
-class ErrorFromServer extends Error {
-  status: number;
-  message: string;
-  constructor(status: number, message: string) {
-    super();
-    this.status = status;
-    this.message = message;
-  }
-}
 class BaseAPI {
   protected async getResponseText(response: Response): Promise<string> {
     if (response.status === 200) {
@@ -16,8 +7,7 @@ class BaseAPI {
       return text;
     }
 
-    const err = await response.json();
-    throw new ErrorFromServer(response.status, err.reason);
+    return Promise.reject(response);
   }
 
   protected async getResponseJSON(response: Response): Promise<{ [key: string]: string }> {
@@ -25,8 +15,8 @@ class BaseAPI {
       const json = await response.json();
       return json;
     }
-    const err = await response.json();
-    throw new ErrorFromServer(response.status, err.reason);
+
+    return Promise.reject(response);
   }
 
   protected getFullUrl(handle: string): string {

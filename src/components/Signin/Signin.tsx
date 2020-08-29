@@ -53,7 +53,9 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
       .signin(values)
       .then(() => authorize())
       .then(() => clearValues())
-      .catch((err) => errorHandler(err.status))
+      .catch(async (err) => {
+        errorHandler(err.status);
+      })
       .finally(() => setFormIsLoad(false));
   };
 
