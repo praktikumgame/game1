@@ -104,3 +104,24 @@ $avatar_side: 200px;
 .settings__password-wrapper {
   align-self: center;
 }
+
+@keyframes loader-animations {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.settings__loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 8px solid #000;
+  border-bottom-color: transparent;
+  animation: loader-animations 1s infinite;
+}
