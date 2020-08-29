@@ -1,7 +1,6 @@
 import React, { useState, ReactNode, useEffect } from 'react';
 import { authContext } from './types';
-import { AuthApi } from '../../api/';
-const authApi = new AuthApi();
+import { authApi } from '../../services/api';
 
 const { Provider, Consumer } = React.createContext<authContext>({
   isAuthorized: false,

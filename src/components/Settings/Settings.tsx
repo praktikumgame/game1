@@ -1,19 +1,13 @@
 import React, { useState, createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage, withAuth } from '../';
+import { stateInputValuesChangePassword } from './types';
 import { validatePassword } from '../../helpers/validators/validatePassword';
-import { UserApi, AuthApi } from '../../api/';
+import { authApi, userApi } from '../../services/api';
 import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
 
-interface stateInputValuesChangePassword {
-  [key: string]: string;
-}
-
 const Settings = withAuth(
   ({ logout }): JSX.Element => {
-    const userApi = new UserApi();
-    const authApi = new AuthApi();
-
     const [values, setValues] = useState<stateInputValuesChangePassword>({ oldPassword: '', newPassword: '' });
 
     const [userAvatar, setUserAvatar] = useState('');

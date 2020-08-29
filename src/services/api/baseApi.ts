@@ -1,4 +1,4 @@
-import { API_URL } from '../constants';
+import { API_URL } from '../../constants';
 
 class ErrorFromServer extends Error {
   status: number;
@@ -11,10 +11,9 @@ class ErrorFromServer extends Error {
 }
 class BaseAPI {
   protected async getResponseText(response: Response): Promise<string> {
-    console.log(response);
     if (response.status === 200) {
-      const json = await response.text();
-      return json;
+      const text = await response.text();
+      return text;
     }
 
     const err = await response.json();
@@ -27,7 +26,7 @@ class BaseAPI {
       return json;
     }
     const err = await response.json();
-    throw new Error(err.reason);
+    throw new ErrorFromServer(response.status, err.reason);
   }
 
   protected getFullUrl(handle: string): string {

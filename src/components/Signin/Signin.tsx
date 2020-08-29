@@ -4,7 +4,7 @@ import { stateInputValuesSigninType } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateLogin } from '../../helpers';
-import { AuthApi } from '../../api/';
+import { authApi } from '../../services/api';
 
 import './Signin.scss';
 
@@ -45,8 +45,6 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
 
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
-
-    const authApi = new AuthApi();
 
     setFormIsLoad(true);
 

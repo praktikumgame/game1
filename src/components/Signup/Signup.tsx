@@ -4,7 +4,7 @@ import { stateInputValuesSignupType } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../helpers';
-import { AuthApi } from '../../api/';
+import { authApi } from '../../services/api';
 
 import './Signup.scss';
 
@@ -51,8 +51,6 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
 
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
-
-    const authApi = new AuthApi();
 
     setFormIsLoad(true);
 
