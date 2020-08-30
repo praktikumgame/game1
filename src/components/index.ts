@@ -9,7 +9,7 @@ import { Header } from './Header';
 import { Landing } from './Landing';
 import { Settings } from './Settings';
 import { NotFound } from './NotFound';
-
+import { Leaderboard } from './Leaderboard';
 export {
   App,
   Header,
@@ -27,4 +27,5 @@ export {
   Landing,
   Settings,
   NotFound,
+  Leaderboard,
 };

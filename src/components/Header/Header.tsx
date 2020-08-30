@@ -27,6 +27,9 @@ const Header = withAuth(
               <NavLink className="link header__link" to="/settings">
                 Settings
               </NavLink>
+              <NavLink className="link header__link" to="/leaderboard">
+                Leaderboard
+              </NavLink>
               <button className="button header__logout-button" onClick={logoutHandler}>
                 Exit
               </button>

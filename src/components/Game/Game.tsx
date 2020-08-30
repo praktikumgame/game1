@@ -1,6 +1,16 @@
 import React from 'react';
 import './Game.scss';
+import { Error } from '../ErrorBoundary/ErrorBoundary';
 
-const Game = (): JSX.Element => <h1 className="game">Welcome to GAME</h1>;
+export const Game = (): JSX.Element => {
+  return <h1 className="game">Welcome to GAME</h1>;
+};
 
-export { Game };
+const WithErrorHandler = (): JSX.Element => {
+  return (
+    <Error>
+      <Game></Game>
+    </Error>
+  );
+};
+export { WithErrorHandler };

@@ -1,7 +1,17 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { AuthProvider, PrivateRoute, Signup, Signin, Game, Header, Landing, Settings, NotFound } from '../';
-
+import {
+  AuthProvider,
+  PrivateRoute,
+  Signup,
+  Signin,
+  Game,
+  Header,
+  Landing,
+  Settings,
+  NotFound,
+  Leaderboard,
+} from '../';
 import './App.scss';
 
 const App = (): JSX.Element => {
@@ -15,6 +25,7 @@ const App = (): JSX.Element => {
           <Route path="/signin" component={Signin} />
           <PrivateRoute path="/settings" component={Settings} />
           <PrivateRoute path="/game" component={Game} />
+          <PrivateRoute path="/leaderboard" component={Leaderboard} />
           <Route path="/notfound" component={NotFound} />
           <Redirect to="/notfound" />
         </Switch>
