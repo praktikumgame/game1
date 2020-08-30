@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  padding: 20px 40px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba($color: #000, $alpha: 0.2);
+}
+
+.header__logout-button {
+  background-color: #000;
+  color: #fff;
+  padding: 2px 16px;
+}
+
+.header__logo-link {
+  font-size: 32px;
+}
+
+.header__link {
+  font-size: 22px;
+  margin-right: 16px;
+}
+
+.header__link :last-child {
+  margin-right: 0;
+}
