@@ -1,19 +1,21 @@
 import React, { useState, createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage, withAuth } from '../';
-import { validatePassword } from '../../helpers/validators/validatePassword';
-import { UserApi, AuthApi } from '../../api/';
+import { stateInputValuesChangePassword } from './types';
+import { validatePassword } from '../../services/validators';
+import { authApi, userApi } from '../../services/api';
+import {
+  AVATAR_API,
+  PASSWORD_ERROR_MISMATCH,
+  AVATAR_ERROR,
+  INCORRECT_OLD_PASSWORD,
+  INITIAL_SERVER_ERROR,
+  UNKNOWN_ERROR,
+} from '../../constants';
 import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
 
-interface stateInputValuesChangePassword {
-  [key: string]: string;
-}
-
 const Settings = withAuth(
   ({ logout }): JSX.Element => {
-    const userApi = new UserApi();
-    const authApi = new AuthApi();
-
     const [values, setValues] = useState<stateInputValuesChangePassword>({ oldPassword: '', newPassword: '' });
 
     const [userAvatar, setUserAvatar] = useState('');
@@ -26,16 +28,26 @@ const Settings = withAuth(
     useEffect(() => {
       authApi
         .getUserInfo()
-        .then(({ avatar }) => {
-          setUserAvatar(`https://ya-praktikum.tech${avatar}`);
-        })
+        .then(checkAndSetAvatar)
         .catch(() => logout());
     }, []);
 
     const fileInput: RefObject<HTMLInputElement> = createRef();
 
+    const checkAndSetAvatar = ({ avatar }: { [key: string]: string }) => {
+      if (avatar) {
+        setUserAvatar(`${AVATAR_API}${avatar}`);
+      } else {
+        setUserAvatar(exampleAvatar);
+      }
+    };
+
     const clearPasswordError = () => {
       setPasswordError('');
+    };
+
+    const clearValues = () => {
+      setValues({ oldPassword: '', newPassword: '' });
     };
 
     const saveInputValue = (target: HTMLInputElement) => {
@@ -52,21 +64,40 @@ const Settings = withAuth(
     };
 
     const formValidator = (value: string): boolean => {
-      console.log(value);
       if (passwordIsMismatch(value)) {
-        setPasswordError('Старый и новый пароль должны отличатся');
+        setPasswordError(PASSWORD_ERROR_MISMATCH);
         return false;
       }
       return true;
     };
 
-    const changePasswordHandler = () => {
+    const errorPasswordHandler = (status: number) => {
+      switch (status) {
+        case 400: {
+          setPasswordError(INCORRECT_OLD_PASSWORD);
+          break;
+        }
+        case 500: {
+          setPasswordError(INITIAL_SERVER_ERROR);
+          break;
+        }
+        default: {
+          setPasswordError(UNKNOWN_ERROR);
+          return;
+        }
+      }
+    };
+
+    const changePasswordHandler = (event: React.MouseEvent): void => {
+      event.preventDefault();
       setPasswordIsLoad(true);
       userApi
         .changePassword(values)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
-        .finally(() => setPasswordIsLoad(false));
+        .catch(({ status }) => errorPasswordHandler(status))
+        .finally(() => {
+          clearValues();
+          setPasswordIsLoad(false);
+        });
     };
 
     const clearAvatarError = () => {
@@ -84,8 +115,8 @@ const Settings = withAuth(
         userApi.changeAvatar(formData).then(() => {
           authApi
             .getUserInfo()
-            .then(({ avatar }) => setUserAvatar(`https://ya-praktikum.tech${avatar}`))
-            .catch(() => setAvatarError('Не удалось загрузить автар'))
+            .then(checkAndSetAvatar)
+            .catch(() => setAvatarError(AVATAR_ERROR))
             .finally(() => setAvatarIsLoad(false));
         });
       }
@@ -106,7 +137,11 @@ const Settings = withAuth(
               <label className="settings__input_wrapper">
                 <input className="settings__input-file" type="file" ref={fileInput} />
                 <div className="setting__wrapper-avatar">
-                  <img src={userAvatar || exampleAvatar} alt="avatar" className="settings__avatar" />
+                  {!userAvatar ? (
+                    <div className="settings__loader"></div>
+                  ) : (
+                    <img src={userAvatar} alt="avatar" className="settings__avatar" />
+                  )}
                   <div className="setting__custom-input"></div>
                 </div>
               </label>

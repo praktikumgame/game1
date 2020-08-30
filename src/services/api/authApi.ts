@@ -11,7 +11,7 @@ class AuthApi extends BaseAPI implements IAuthApi {
   private uselessFields = { first_name: 'null', second_name: 'null', phone: '89999999999' };
 
   public async signup(body: stateInputValuesSignupType): Promise<string> {
-    return await fetch(this.getFullUrl(this.handles.SIGNUP), {
+    return fetch(this.getFullUrl(this.handles.SIGNUP), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ class AuthApi extends BaseAPI implements IAuthApi {
   }
 
   public async signin(body: stateInputValuesSigninType): Promise<string> {
-    return await fetch(this.getFullUrl(this.handles.SIGNIN), {
+    return fetch(this.getFullUrl(this.handles.SIGNIN), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,18 +33,18 @@ class AuthApi extends BaseAPI implements IAuthApi {
   }
 
   public async logout(): Promise<string> {
-    return await fetch(this.getFullUrl(this.handles.LOGOUT), {
+    return fetch(this.getFullUrl(this.handles.LOGOUT), {
       method: 'POST',
       credentials: 'include',
     }).then(this.getResponseText);
   }
 
   public async getUserInfo(): Promise<{ [key: string]: string }> {
-    return await fetch(this.getFullUrl(this.handles.GET_USER_INFO), {
+    return fetch(this.getFullUrl(this.handles.GET_USER_INFO), {
       method: 'GET',
       credentials: 'include',
     }).then(this.getResponseJSON);
   }
 }
 
-export { AuthApi };
+export const authApi = new AuthApi();

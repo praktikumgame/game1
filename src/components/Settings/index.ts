@@ -1,2 +1,4 @@
 import { Settings } from './Settings';
-export { Settings };
+import { stateInputValuesChangePassword } from './types';
+
+export { Settings, stateInputValuesChangePassword };

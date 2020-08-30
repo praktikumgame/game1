@@ -7,7 +7,7 @@ import { Game } from './Game/';
 import { InputWithMessage } from './InputWithMessage';
 import { Header } from './Header';
 import { Landing } from './Landing';
-import { Settings } from './Settings';
+import { Settings, stateInputValuesChangePassword } from './Settings';
 import { NotFound } from './NotFound';
 import { Leaderboard } from './Leaderboard';
 export {
@@ -23,6 +23,7 @@ export {
   Game,
   stateInputValuesSignupType,
   stateInputValuesSigninType,
+  stateInputValuesChangePassword,
   authContext,
   Landing,
   Settings,
