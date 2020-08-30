@@ -14,7 +14,7 @@ export const Leaderboard = (): JSX.Element => {
         <tbody>
           <tr>
             <th>Cтас</th>
-            <th>148</th>
+            <th>1482</th>
           </tr>
           <tr>
             <th>Валера</th>
