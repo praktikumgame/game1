@@ -2,7 +2,7 @@ type authContext = {
   isAuthorized: boolean;
   authorize(): void;
   logout(): void;
-  isLoad?: boolean;
+  isLoading?: boolean;
 };
 
 export { authContext };

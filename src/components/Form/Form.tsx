@@ -43,9 +43,6 @@ const Form = ({
       )}
       {serverError && <p className="form__server-error">{serverError}</p>}
       <Button onCLickHandler={onCLickHandler} formIsValid={!formIsValid} buttonText={buttonText} />
-      {/* <button className="button form__button" onClick={onCLickHandler} disabled={!formIsValid}>
-        {buttonText}
-      </button> */}
     </form>
   );
 };
