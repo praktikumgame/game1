@@ -33,7 +33,8 @@ const Settings = withAuth(({ logout }) => {
 
   const fileInput: RefObject<HTMLInputElement> = createRef();
 
-  const checkAndSetAvatar = ({ avatar }: { [key: string]: string }) => {
+  const checkAndSetAvatar = (response: string) => {
+    const avatar = JSON.parse(response).avatar;
     if (avatar) {
       setUserAvatar(`${AVATAR_API}${avatar}`);
     } else {

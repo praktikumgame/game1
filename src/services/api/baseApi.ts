@@ -10,17 +10,18 @@ class BaseAPI {
     return Promise.reject(response);
   }
 
-  protected async getResponseJSON(response: Response): Promise<{ [key: string]: string }> {
-    if (response.status === 200) {
-      const json = await response.json();
-      return json;
-    }
-
-    return Promise.reject(response);
-  }
-
   protected getFullUrl(handle: string): string {
     return `${API_URL}${handle}`;
+  }
+
+  protected fetch(handle: string, options: { [key: string]: string | FormData }) {
+    return fetch(this.getFullUrl(handle), {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      ...options,
+    }).then(this.getResponseText);
   }
 }
 

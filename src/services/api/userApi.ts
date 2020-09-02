@@ -9,14 +9,10 @@ class UserApi extends BaseAPI implements IUserApi {
   };
 
   public async changePassword(body: stateInputValuesChangePassword): Promise<string> {
-    return fetch(this.getFullUrl(this.handles.PASSWORD), {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
+    return this.fetch(this.handles.PASSWORD, {
       body: JSON.stringify(body),
-    }).then(this.getResponseText);
+      method: 'PUT',
+    });
   }
 
   public async changeAvatar(body: FormData): Promise<string> {
