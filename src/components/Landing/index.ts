@@ -1,2 +1,1 @@
-import { Landing } from './Landing';
-export { Landing };
+export { Landing } from './Landing';

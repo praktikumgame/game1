@@ -1,2 +1,1 @@
-import { NotFound } from './NotFound';
-export { NotFound };
+export { NotFound } from './NotFound';

@@ -1,2 +1,1 @@
-import { InputWithMessage } from './InputWithMessage';
-export { InputWithMessage };
+export { InputWithMessage } from './InputWithMessage';

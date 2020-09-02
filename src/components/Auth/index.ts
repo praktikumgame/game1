@@ -1,8 +1,4 @@
-import { AuthProvider } from './AuthProvider';
-import { PrivateRoute } from './PrivateRoute';
-
-import { authContext } from './types';
-
-import { withAuth } from './helpers/withAuthHOC';
-
-export { AuthProvider, PrivateRoute, authContext, withAuth };
+export { AuthProvider } from './AuthProvider';
+export { PrivateRoute } from './PrivateRoute';
+export { withAuth } from './helpers/withAuthHOC';
+export { authContext } from './types';

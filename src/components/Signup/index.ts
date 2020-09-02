@@ -1,3 +1,2 @@
-import { Signup } from './Signup';
-import { stateInputValuesSignupType } from './types';
-export { Signup, stateInputValuesSignupType };
+export { Signup } from './Signup';
+export { stateInputValuesSignupType } from './types';
