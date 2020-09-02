@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --mode production",
+    "node-production": "node app.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch",
     "deploy": "cross-env NODE_ENV=production gh-pages -d dist",
     "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
@@ -52,6 +53,7 @@
   },
   "dependencies": {
     "cross-env": "^7.0.2",
+    "express": "^4.17.1",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
