@@ -1,7 +1,7 @@
 import React from 'react';
 import './Leaderboard.css';
 
-export const Leaderboard = (): JSX.Element => {
+export const Leaderboard = () => {
   return (
     <div className="Leaderboard">
       <table className="table-bordered table-hover">

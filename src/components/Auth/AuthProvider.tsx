@@ -12,7 +12,7 @@ const { Provider, Consumer } = React.createContext<authContext>({
   },
 });
 
-const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [auth, setAuth] = useState({ isAuthorized: false });
   const [isLoad, seIsLoad] = useState(true);
 

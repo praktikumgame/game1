@@ -5,7 +5,7 @@ import './Landing.scss';
 //   throw new Error('I crashed!');
 // };
 
-const Landing = (): JSX.Element => {
+const Landing = () => {
   return <h1 className="landing">Lending</h1>;
 };
 

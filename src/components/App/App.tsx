@@ -14,7 +14,7 @@ import {
 } from '../';
 import './App.scss';
 
-const App = (): JSX.Element => {
+const App = () => {
   return (
     <div className="app">
       <AuthProvider>

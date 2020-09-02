@@ -16,7 +16,7 @@ const InputWithMessage = ({
   minLength,
   maxLength,
   required,
-}: IProps): JSX.Element => {
+}: IProps) => {
   const [message, setMessage] = useState<string>('');
 
   const setErrorMessage = (text: string) => {
