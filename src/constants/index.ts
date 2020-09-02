@@ -10,7 +10,7 @@ export const EMAIL_ERROR = 'Не верный формат почты должн
 export const LOGIN_ERROR = 'Длинна логин должна быть от 2 до 30 символов';
 
 export const PASSWORD_ERROR_LENGTH = 'Минимальная длинна пароля 8 символов';
-export const PASSWORD_ERROR_REGISTER = 'Должен быть хотя бы один символ другого регистра';
+export const PASSWORD_ERROR_CHARACTERS_DIFFERENT_REGISTERS = 'Должен быть хотя бы один символ другого регистра';
 export const PASSWORD_ERROR_LATIN = 'Пароль может содержать только латинские буквы';
 export const PASSWORD_ERROR_NUMBERS = 'Пароль должен содержать хотя бы одну цифру';
 export const PASSWORD_ERROR_MISMATCH = 'Новый пароль должен отличаться от старого пароля';

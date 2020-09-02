@@ -2,7 +2,7 @@ import {
   PASSWORD_ERROR_LENGTH,
   PASSWORD_ERROR_NUMBERS,
   PASSWORD_ERROR_LATIN,
-  PASSWORD_ERROR_REGISTER,
+  PASSWORD_ERROR_CHARACTERS_DIFFERENT_REGISTERS,
 } from '../../constants';
 
 export const validatePassword = (target: HTMLInputElement, callback: (text: string) => void): boolean => {
@@ -13,12 +13,12 @@ export const validatePassword = (target: HTMLInputElement, callback: (text: stri
 
   if (!target.validity.valid) {
     if (!/[A-Z]/g.test(target.value)) {
-      callback(PASSWORD_ERROR_REGISTER);
+      callback(PASSWORD_ERROR_CHARACTERS_DIFFERENT_REGISTERS);
       return false;
     }
 
     if (!/[a-z]/g.test(target.value)) {
-      callback(PASSWORD_ERROR_REGISTER);
+      callback(PASSWORD_ERROR_CHARACTERS_DIFFERENT_REGISTERS);
       return false;
     }
 
