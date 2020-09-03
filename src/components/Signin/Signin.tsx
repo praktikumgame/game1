@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { StateInputValuesSigninType } from './types';
+import { StateInputValuesSigninType, SignInStatusGlossary } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateLogin } from '../../services/validators';
@@ -27,21 +27,13 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     setServerError('');
   };
 
-  const errorHandler = (status: number) => {
-    switch (status) {
-      case 401: {
-        setServerError(LOGIN_OR_EMAIL_ERROR);
-        break;
-      }
-      case 500: {
-        setServerError(INITIAL_SERVER_ERROR);
-        break;
-      }
-      default: {
-        setServerError(UNKNOWN_ERROR);
-        return;
-      }
-    }
+  const errorHandler = (status: keyof SignInStatusGlossary) => {
+    const statusGlossary: SignInStatusGlossary = {
+      401: LOGIN_OR_EMAIL_ERROR,
+      500: INITIAL_SERVER_ERROR,
+    };
+    const result = statusGlossary[status];
+    setServerError(result || UNKNOWN_ERROR);
   };
 
   const sendFormHandler = (event: React.MouseEvent): void => {
@@ -52,7 +44,7 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     authApi
       .signin(values)
       .then(() => authorize())
-      .catch(async (err) => {
+      .catch((err) => {
         errorHandler(err.status);
       })
       .finally(() => {
@@ -61,9 +53,11 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
       });
   };
 
-  return isAuthorized && !formIsLoad ? (
-    <Redirect to="/game" />
-  ) : (
+  if (isAuthorized && !formIsLoad) {
+    return <Redirect to="/game" />;
+  }
+
+  return (
     <div className="signin">
       <h2 className="signin__title">Signin to play</h2>
       <Form

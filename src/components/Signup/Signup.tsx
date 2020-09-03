@@ -59,8 +59,8 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
       .signup(values)
       .then(() => authorize())
       .then(() => clearValues())
-      .catch(async (err) => {
-        const message = (await err.json()).reason;
+      .catch((err) => {
+        const message = err.json().reason;
         errorHandler(err.status, message);
       })
       .finally(() => {
@@ -69,9 +69,10 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
       });
   };
 
-  return isAuthorized && !formIsLoad ? (
-    <Redirect to="/game" />
-  ) : (
+  if (isAuthorized && !formIsLoad) {
+    return <Redirect to="/game" />;
+  }
+  return (
     <div className="signup">
       <h2 className="signup__title">Signup to play</h2>
       <Form
