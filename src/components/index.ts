@@ -1,5 +1,5 @@
 export { App } from './App';
-export { AuthProvider, PrivateRoute, withAuth, authContext } from '../services/Auth/';
+export { AuthProvider, PrivateRoute, withAuth, AuthContext } from '../services/Auth/';
 export { Form } from './Form/';
 export { Signup, stateInputValuesSignupType } from '../components/Signup';
 export { Signin, stateInputValuesSigninType } from '../components/Signin';
