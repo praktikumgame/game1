@@ -1,7 +1,7 @@
-interface stateInputValuesChangePassword {
+interface StateInputValuesChangePassword {
   [key: string]: string;
   oldPassword: string;
   newPassword: string;
 }
 
-export { stateInputValuesChangePassword };
+export { StateInputValuesChangePassword };

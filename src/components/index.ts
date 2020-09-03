@@ -1,13 +1,13 @@
 export { App } from './App';
 export { AuthProvider, PrivateRoute, withAuth, AuthContext } from '../services/Auth/';
 export { Form } from './Form/';
-export { Signup, stateInputValuesSignupType } from '../components/Signup';
-export { Signin, stateInputValuesSigninType } from '../components/Signin';
+export { Signup, StateInputValuesSignupType } from '../components/Signup';
+export { Signin, StateInputValuesSigninType } from '../components/Signin';
 export { Game } from './Game/';
 export { InputWithMessage } from './InputWithMessage';
 export { Header } from './Header';
 export { Landing } from './Landing';
-export { Settings, stateInputValuesChangePassword } from './Settings';
+export { Settings, StateInputValuesChangePassword } from './Settings';
 export { NotFound } from './NotFound';
 export { Leaderboard } from './Leaderboard';
 export { Button } from './Common';

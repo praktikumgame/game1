@@ -1,1 +1,1 @@
-export type stateInputValuesSigninType = { login: string; password: string };
+export type StateInputValuesSigninType = { login: string; password: string };
