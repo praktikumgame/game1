@@ -5,9 +5,5 @@ const postcssImport = require('postcss-import')({
 });
 
 module.exports = {
-  plugins: [
-    precss,
-    autoprefixer,
-    postcssImport,
-  ],
+  plugins: [precss, autoprefixer, postcssImport],
 };

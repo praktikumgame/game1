@@ -9,7 +9,7 @@ export const Game = () => {
 const WithErrorHandler = () => {
   return (
     <Error>
-      <Game></Game>
+      <Game />
     </Error>
   );
 };
