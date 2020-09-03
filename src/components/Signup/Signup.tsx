@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { stateInputValuesSignupType } from './types';
+import { StateInputValuesSignupType } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
@@ -11,7 +11,7 @@ import './Signup.scss';
 
 const Signup = withAuth(({ isAuthorized, authorize }) => {
   const [formIsLoad, setFormIsLoad] = useState(false);
-  const [values, setValues] = useState<stateInputValuesSignupType>({ email: '', login: '', password: '' });
+  const [values, setValues] = useState<StateInputValuesSignupType>({ email: '', login: '', password: '' });
   const [serverError, setServerError] = useState('');
 
   const clearValues = () => {
@@ -59,8 +59,8 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
       .signup(values)
       .then(() => authorize())
       .then(() => clearValues())
-      .catch(async (err) => {
-        const message = (await err.json()).reason;
+      .catch((err) => {
+        const message = err.json().reason;
         errorHandler(err.status, message);
       })
       .finally(() => {
@@ -69,9 +69,10 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
       });
   };
 
-  return isAuthorized && !formIsLoad ? (
-    <Redirect to="/game" />
-  ) : (
+  if (isAuthorized && !formIsLoad) {
+    return <Redirect to="/game" />;
+  }
+  return (
     <div className="signup">
       <h2 className="signup__title">Signup to play</h2>
       <Form

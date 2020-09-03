@@ -1,2 +1,2 @@
 export { Signup } from './Signup';
-export { stateInputValuesSignupType } from './types';
+export { StateInputValuesSignupType } from './types';
