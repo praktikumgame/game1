@@ -35,6 +35,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: isDev && 'source-map',
+  devServer: {
+    historyApiFallback: true,
+  },
   optimization: optimization(),
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -86,13 +89,6 @@ module.exports = {
         ],
       },
     ],
-  },
-
-  output: {
-    publicPath: '/',
-  },
-  devServer: {
-    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

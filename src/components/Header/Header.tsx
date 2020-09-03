@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { withAuth, authContext } from '../';
+import { withAuth, authContext, Button } from '../';
 import { authApi } from '../../services/api';
-
 import './Header.scss';
 
 const Header = withAuth(({ isAuthorized, logout }: authContext) => {
@@ -27,9 +26,7 @@ const Header = withAuth(({ isAuthorized, logout }: authContext) => {
             <NavLink className="link header__link" to="/leaderboard">
               Leaderboard
             </NavLink>
-            <button className="button header__logout-button" onClick={logoutHandler}>
-              Exit
-            </button>
+            <Button onCLickHandler={logoutHandler} buttonText={'Exit'} />
           </>
         ) : (
           <>

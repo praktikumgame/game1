@@ -1,0 +1,19 @@
+.button {
+  cursor: pointer;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  transition: transform 0.1s;
+  border-radius: 16px;
+  font-size: 18px;
+  padding: 16px 50px;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.button:active {
+  transform: scale(0.95);
+}

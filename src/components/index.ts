@@ -1,5 +1,5 @@
 export { App } from './App';
-export { AuthProvider, PrivateRoute, withAuth, authContext } from './Auth/';
+export { AuthProvider, PrivateRoute, withAuth, AuthContext } from '../services/Auth/';
 export { Form } from './Form/';
 export { Signup, stateInputValuesSignupType } from '../components/Signup';
 export { Signin, stateInputValuesSigninType } from '../components/Signin';
@@ -10,3 +10,4 @@ export { Landing } from './Landing';
 export { Settings, stateInputValuesChangePassword } from './Settings';
 export { NotFound } from './NotFound';
 export { Leaderboard } from './Leaderboard';
+export { Button } from './Common';

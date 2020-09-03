@@ -1,20 +1,16 @@
 import React, { ReactNode } from 'react';
-interface iState {
+interface ErrorBoundary {
   error: Error | null;
   children?: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<ReactNode, iState> {
-  constructor(props: ReactNode) {
-    super(props);
-    this.state = { error: null };
-  }
-
+class ErrorBoundary extends React.Component<ReactNode> {
+  state = { error: null };
   componentDidCatch(error: Error): void {
     this.setState({ error });
   }
 
-  render(): ReactNode {
+  render() {
     if (this.state.error) {
       return <h2>Something went wrong. We are already fixing it!</h2>;
     }

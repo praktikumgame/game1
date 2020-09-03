@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IProps } from './types';
-
+import { Button } from '../index';
 import './Form.scss';
 
 const Form = ({
@@ -37,9 +37,7 @@ const Form = ({
         </div>
       )}
       {serverError && <p className="form__server-error">{serverError}</p>}
-      <button className="button form__button" onClick={onClickHandler} disabled={!formIsValid}>
-        {buttonText}
-      </button>
+      <Button onCLickHandler={onCLickHandler} formIsValid={!formIsValid} buttonText={buttonText} />
     </form>
   );
 };
