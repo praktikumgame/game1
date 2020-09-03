@@ -13,7 +13,7 @@ const optimization = () => ({
   },
 });
 
-const cssLoaders = (scss) => {
+const cssLoaders = () => {
   const def = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -21,10 +21,6 @@ const cssLoaders = (scss) => {
     'css-loader',
     'postcss-loader',
   ];
-  if (scss) {
-    def.push('sass-loader');
-  }
-
   return def;
 };
 

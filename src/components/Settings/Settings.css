@@ -1,5 +1,3 @@
-$avatar_side: 200px;
-
 .settings {
   display: flex;
   flex-direction: column;
@@ -61,15 +59,15 @@ $avatar_side: 200px;
 
 .setting__wrapper-avatar {
   position: relative;
-  width: $avatar-side;
-  height: $avatar-side;
+  width: 200px;
+  height: 200px;
   cursor: pointer;
   margin-bottom: 32px;
 }
 
 .setting__custom-input {
   position: absolute;
-  background-color: rgba($color: #000000, $alpha: 0.5);
+  background-color: rgba(0, 0, 0, .5);
   width: 70px;
   height: 70px;
   left: calc((200px - 70px) / 2);

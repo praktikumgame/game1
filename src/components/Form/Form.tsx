@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IProps } from './types';
 import { Button } from '../index';
-import './Form.scss';
+import './Form.css';
 
 const Form = ({
   sendFormHandler,

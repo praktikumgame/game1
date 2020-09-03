@@ -11,3 +11,4 @@ export { Settings, stateInputValuesChangePassword } from './Settings';
 export { NotFound } from './NotFound';
 export { Leaderboard } from './Leaderboard';
 export { Button } from './Common';
+export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';

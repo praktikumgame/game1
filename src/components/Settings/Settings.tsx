@@ -11,7 +11,7 @@ import {
   INITIAL_SERVER_ERROR,
   UNKNOWN_ERROR,
 } from '../../constants';
-import './Settings.scss';
+import './Settings.css';
 import exampleAvatar from '../../images/example-avatar.jpg';
 
 const Settings = withAuth(({ logout }) => {
