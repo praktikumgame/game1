@@ -6,6 +6,7 @@ export interface ErrorBoundary {
 
 export class ErrorBoundary extends React.Component<ReactNode> {
   state = { error: null };
+
   componentDidCatch(error: Error): void {
     this.setState({ error });
   }

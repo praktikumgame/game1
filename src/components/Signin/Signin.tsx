@@ -14,17 +14,12 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
   const [values, setValues] = useState<StateInputValuesSigninType>({ login: '', password: '' });
   const [serverError, setServerError] = useState('');
 
-  const clearValues = () => {
-    setValues({ login: '', password: '' });
-  };
+  const clearValues = () => setValues({ login: '', password: '' });
+  const clearError = () => setServerError('');
 
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
     setValues({ ...values, ...{ [name]: value } });
-  };
-
-  const clearError = () => {
-    setServerError('');
   };
 
   const errorHandler = (status: keyof SignInStatusGlossary) => {
@@ -44,9 +39,7 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     authApi
       .signin(values)
       .then(() => authorize())
-      .catch((err) => {
-        errorHandler(err.status);
-      })
+      .catch((err) => errorHandler(err.status))
       .finally(() => {
         clearValues();
         setFormIsLoad(false);
