@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { IProps } from './types';
+import { REQUIRED_FIELD } from '../../constants';
 
 import './InputWithMessage.scss';
-
-import { REQUIRED_FIELD } from '../../constants';
 
 const InputWithMessage = ({
   saveInputValue,

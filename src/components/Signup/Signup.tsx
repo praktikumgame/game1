@@ -6,7 +6,6 @@ import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
 import { EMAIL_IS_EXIST, LOGIN_IS_EXIST, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../constants';
-
 import './Signup.scss';
 
 const Signup = withAuth(({ isAuthorized, authorize }) => {

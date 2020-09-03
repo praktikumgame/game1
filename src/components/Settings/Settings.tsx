@@ -11,8 +11,8 @@ import {
   INITIAL_SERVER_ERROR,
   UNKNOWN_ERROR,
 } from '../../constants';
-import './Settings.scss';
 import exampleAvatar from '../../images/example-avatar.jpg';
+import './Settings.scss';
 
 const Settings = withAuth(({ logout }) => {
   const [values, setValues] = useState<stateInputValuesChangePassword>({ oldPassword: '', newPassword: '' });

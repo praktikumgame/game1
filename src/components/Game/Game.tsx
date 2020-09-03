@@ -1,6 +1,7 @@
 import React from 'react';
-import './Game.scss';
 import { Error } from '../ErrorBoundary/ErrorBoundary';
+
+import './Game.scss';
 
 export const Game = () => {
   return <h1 className="game">Welcome to GAME</h1>;
