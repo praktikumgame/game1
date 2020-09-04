@@ -1,6 +1,7 @@
-import React, { useState, createRef, RefObject, useEffect } from 'react';
+import React, { createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage, withAuth } from '../';
-import { IStateValues, SettingsStatusGlossary } from './types';
+import { useSettings } from './useSettings';
+import { SettingsStatusGlossary } from './types';
 import { validatePassword } from '../../services/validators';
 import { authApi, userApi } from '../../services/api';
 import {
@@ -15,14 +16,20 @@ import exampleAvatar from '../../images/example-avatar.jpg';
 import './Settings.scss';
 
 const Settings = withAuth(({ logout }) => {
-  const [values, setValues] = useState<IStateValues>({ oldPassword: '', newPassword: '' });
-
-  const [userAvatar, setUserAvatar] = useState('');
-  const [avatarIsLoad, setAvatarIsLoad] = useState(false);
-  const [avatarError, setAvatarError] = useState('');
-
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordIsLoad, setPasswordIsLoad] = useState(false);
+  const {
+    values,
+    setValues,
+    userAvatar,
+    setUserAvatar,
+    avatarIsLoad,
+    setAvatarIsLoad,
+    avatarError,
+    setAvatarError,
+    passwordError,
+    setPasswordError,
+    passwordIsLoad,
+    setPasswordIsLoad,
+  } = useSettings();
 
   useEffect(() => {
     authApi
