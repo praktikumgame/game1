@@ -3,7 +3,12 @@
 }
 
 .input_with-message {
+  margin-bottom: 22px;
   position: relative;
+}
+
+.input__message {
+  color: red;
 }
 
 .input__error-icon {
