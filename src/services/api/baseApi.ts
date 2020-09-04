@@ -2,12 +2,14 @@ import { API_URL } from '../../constants';
 
 class BaseAPI {
   protected async getResponseText(response: Response): Promise<string> {
-    if (response.status === 200) {
+    const { status } = response;
+    if (status === 200) {
       const text = await response.text();
       return text;
     }
 
-    return Promise.reject(response);
+    const { reason } = await response.json();
+    return Promise.reject({ reason, status });
   }
 
   protected getFullUrl(handle: string): string {

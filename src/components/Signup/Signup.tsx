@@ -5,7 +5,7 @@ import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
-import { EMAIL_IS_EXIST, LOGIN_IS_EXIST, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../constants';
+import { getErrorMessageByStatusAndText as ErrorHandler } from './helpers/getErrorMessageByStatusAndText';
 import './Signup.scss';
 
 const Signup = withAuth(({ isAuthorized, authorize }) => {
@@ -26,29 +26,6 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
     setServerError('');
   };
 
-  const errorHandler = (status: number, message: string) => {
-    switch (status) {
-      case 409: {
-        if (message.startsWith('Email')) {
-          setServerError(EMAIL_IS_EXIST);
-          break;
-        }
-        if (message.startsWith('Login')) {
-          setServerError(LOGIN_IS_EXIST);
-          break;
-        }
-      }
-      case 500: {
-        setServerError(INITIAL_SERVER_ERROR);
-        break;
-      }
-      default: {
-        setServerError(UNKNOWN_ERROR);
-        return;
-      }
-    }
-  };
-
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
 
@@ -58,9 +35,8 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
       .signup(values)
       .then(() => authorize())
       .then(() => clearValues())
-      .catch((err) => {
-        const message = err.json().reason;
-        errorHandler(err.status, message);
+      .catch(({ reason, status }) => {
+        setServerError(ErrorHandler(reason, status));
       })
       .finally(() => {
         setFormIsLoad(false);

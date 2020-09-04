@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { IStateValues, SignInStatusGlossary } from './types';
+import { IStateValues } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
+import { getErrorMessageByStatus as errorHandler } from './helpers/getErrorMessageByStatus';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
-import { LOGIN_OR_EMAIL_ERROR, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../constants';
 
 import './Signin.scss';
 
@@ -22,15 +22,6 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     setValues({ ...values, ...{ [name]: value } });
   };
 
-  const errorHandler = (status: keyof SignInStatusGlossary) => {
-    const statusGlossary: SignInStatusGlossary = {
-      401: LOGIN_OR_EMAIL_ERROR,
-      500: INITIAL_SERVER_ERROR,
-    };
-    const result = statusGlossary[status];
-    setServerError(result || UNKNOWN_ERROR);
-  };
-
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
 
@@ -39,7 +30,7 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
     authApi
       .signin(values)
       .then(() => authorize())
-      .catch((err) => errorHandler(err.status))
+      .catch(({ status }) => setServerError(errorHandler(status)))
       .finally(() => {
         clearValues();
         setFormIsLoad(false);
