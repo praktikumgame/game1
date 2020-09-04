@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { StateInputValuesSigninType, SignInStatusGlossary } from './types';
+import { IStateValues, SignInStatusGlossary } from './types';
 import { withAuth } from '../';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateLogin } from '../../services/validators';
@@ -11,7 +11,7 @@ import './Signin.scss';
 
 const Signin = withAuth(({ isAuthorized, authorize }) => {
   const [formIsLoad, setFormIsLoad] = useState(false);
-  const [values, setValues] = useState<StateInputValuesSigninType>({ login: '', password: '' });
+  const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
   const [serverError, setServerError] = useState('');
 
   const clearValues = () => setValues({ login: '', password: '' });

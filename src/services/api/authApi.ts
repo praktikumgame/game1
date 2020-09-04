@@ -1,5 +1,5 @@
 import { BaseAPI } from './baseApi';
-import { IAuthApi, StateInputValuesSignupType, StateInputValuesSigninType } from './types';
+import { IAuthApi, SignupValuesType, SignInValuesType } from './types';
 
 class AuthApi extends BaseAPI implements IAuthApi {
   private handles = {
@@ -10,14 +10,14 @@ class AuthApi extends BaseAPI implements IAuthApi {
   };
   private uselessFields = { first_name: 'null', second_name: 'null', phone: '89999999999' };
 
-  public async signup(body: StateInputValuesSignupType): Promise<string> {
+  public async signup(body: SignupValuesType): Promise<string> {
     return this.fetch(this.handles.SIGNUP, {
       method: 'POST',
       body: JSON.stringify({ ...body, ...this.uselessFields }),
     });
   }
 
-  public async signin(body: StateInputValuesSigninType): Promise<string> {
+  public async signin(body: SignInValuesType): Promise<string> {
     return this.fetch(this.handles.SIGNIN, {
       method: 'POST',
       body: JSON.stringify(body),

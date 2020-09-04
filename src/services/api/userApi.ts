@@ -1,5 +1,5 @@
 import { BaseAPI } from './baseApi';
-import { StateInputValuesChangePassword, IUserApi } from './types';
+import { PasswordValuesType, IUserApi } from './types';
 
 class UserApi extends BaseAPI implements IUserApi {
   private handles = {
@@ -8,7 +8,7 @@ class UserApi extends BaseAPI implements IUserApi {
     PASSWORD: '/user/password',
   };
 
-  public async changePassword(body: StateInputValuesChangePassword): Promise<string> {
+  public async changePassword(body: PasswordValuesType): Promise<string> {
     return this.fetch(this.handles.PASSWORD, {
       body: JSON.stringify(body),
       method: 'PUT',

@@ -3,7 +3,7 @@ interface IProps {
   children: React.ReactNode;
   formIsLoad: boolean;
   buttonText: string;
-  formValidator?: any;
+  formValidator?: (value: string) => boolean;
   serverError: string;
   clearError: () => void;
 }

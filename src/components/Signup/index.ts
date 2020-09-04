@@ -1,2 +1,2 @@
 export { Signup } from './Signup';
-export { StateInputValuesSignupType } from './types';
+export { IStateFields as SignupValuesType } from './types';

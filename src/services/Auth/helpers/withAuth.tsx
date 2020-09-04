@@ -1,11 +1,14 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { Consumer } from '../AuthProvider';
-import { AuthContext } from '../types';
+import { authProps } from '../types';
 
-const withAuth = (WrappedComponent: ComponentType<AuthContext>) => {
-  return function AuthHOC(props: AuthContext) {
-    return <Consumer>{(value) => <WrappedComponent {...value} {...props} />}</Consumer>;
+function withAuth<P extends authProps>(WrappedComponent: React.ComponentType<P>) {
+  return class extends React.Component<Omit<P, keyof authProps>> {
+    static displayName = `withAuth(${WrappedComponent.displayName || WrappedComponent.name})`;
+    render() {
+      return <Consumer>{(value) => <WrappedComponent {...value} {...(this.props as P)} />}</Consumer>;
+    }
   };
-};
+}
 
 export { withAuth };

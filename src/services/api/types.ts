@@ -1,19 +1,15 @@
-import {
-  StateInputValuesSignupType,
-  StateInputValuesSigninType,
-  StateInputValuesChangePassword,
-} from '../../components';
+import { SignupValuesType, SignInValuesType, PasswordValuesType } from '../../components';
 
 interface IAuthApi {
-  signup(body: StateInputValuesSignupType): Promise<string>;
-  signin(body: StateInputValuesSigninType): Promise<string>;
+  signup(body: SignupValuesType): Promise<string>;
+  signin(body: SignInValuesType): Promise<string>;
   getUserInfo(): Promise<string>;
   logout(): Promise<string>;
 }
 
 interface IUserApi {
-  changePassword(body: StateInputValuesChangePassword): Promise<string>;
+  changePassword(body: PasswordValuesType): Promise<string>;
   changeAvatar(body: FormData): Promise<string>;
 }
 
-export { IAuthApi, IUserApi, StateInputValuesSignupType, StateInputValuesSigninType, StateInputValuesChangePassword };
+export { IAuthApi, IUserApi, SignupValuesType, SignInValuesType, PasswordValuesType };

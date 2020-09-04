@@ -1,8 +1,8 @@
-type AuthContext = {
+type authProps = {
   isAuthorized: boolean;
   authorize(): void;
   logout(): void;
-  isLoading?: boolean;
+  isLoad: boolean;
 };
 
-export { AuthContext };
+export { authProps };

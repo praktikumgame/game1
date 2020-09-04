@@ -1,8 +1,8 @@
 import React, { useState, ReactNode, useEffect } from 'react';
-import { AuthContext } from './types';
+import { authProps } from './types';
 import { authApi } from '../../services/api';
 
-const { Provider, Consumer } = React.createContext<AuthContext>({
+const { Provider, Consumer } = React.createContext<authProps>({
   isAuthorized: false,
   authorize: () => {
     return;
@@ -10,11 +10,12 @@ const { Provider, Consumer } = React.createContext<AuthContext>({
   logout: () => {
     return;
   },
+  isLoad: false,
 });
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [auth, setAuth] = useState({ isAuthorized: false });
-  const [isLoading, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(true);
 
   useEffect(() => {
     authApi
@@ -33,7 +34,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAuth({ isAuthorized: false });
     localStorage.removeItem('isAuthorized');
   };
-  return <Provider value={{ ...auth, authorize, logout, isLoading }}>{children}</Provider>;
+  return <Provider value={{ ...auth, authorize, logout, isLoad }}>{children}</Provider>;
 };
 
 export { AuthProvider, Consumer };
