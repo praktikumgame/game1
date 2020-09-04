@@ -1,2 +1,2 @@
 export { Settings } from './Settings';
-export { stateInputValuesChangePassword } from './types';
+export { StateInputValuesChangePassword } from './types';

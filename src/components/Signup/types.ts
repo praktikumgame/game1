@@ -1,1 +1,1 @@
-export type stateInputValuesSignupType = { email: string; login: string; password: string };
+export type StateInputValuesSignupType = { email: string; login: string; password: string };

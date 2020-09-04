@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
-interface ErrorBoundary {
+export interface ErrorBoundary {
   error: Error | null;
   children?: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<ReactNode> {
+export class ErrorBoundary extends React.Component<ReactNode> {
   state = { error: null };
+
   componentDidCatch(error: Error): void {
     this.setState({ error });
   }
@@ -17,4 +18,3 @@ class ErrorBoundary extends React.Component<ReactNode> {
     return this.props.children;
   }
 }
-export const Error = ErrorBoundary;

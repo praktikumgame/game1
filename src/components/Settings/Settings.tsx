@@ -1,6 +1,6 @@
 import React, { useState, createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage, withAuth } from '../';
-import { stateInputValuesChangePassword } from './types';
+import { StateInputValuesChangePassword, SettingsStatusGlossary } from './types';
 import { validatePassword } from '../../services/validators';
 import { authApi, userApi } from '../../services/api';
 import {
@@ -15,7 +15,7 @@ import exampleAvatar from '../../images/example-avatar.jpg';
 import './Settings.scss';
 
 const Settings = withAuth(({ logout }) => {
-  const [values, setValues] = useState<stateInputValuesChangePassword>({ oldPassword: '', newPassword: '' });
+  const [values, setValues] = useState<StateInputValuesChangePassword>({ oldPassword: '', newPassword: '' });
 
   const [userAvatar, setUserAvatar] = useState('');
   const [avatarIsLoad, setAvatarIsLoad] = useState(false);
@@ -35,16 +35,10 @@ const Settings = withAuth(({ logout }) => {
 
   const checkAndSetAvatar = (response: string) => {
     const avatar = JSON.parse(response).avatar;
-    if (avatar) {
-      setUserAvatar(`${AVATAR_API}${avatar}`);
-    } else {
-      setUserAvatar(exampleAvatar);
-    }
+    setUserAvatar(avatar ? `${AVATAR_API}${avatar}` : exampleAvatar);
   };
 
-  const clearPasswordError = () => {
-    setPasswordError('');
-  };
+  const clearPasswordError = () => setPasswordError('');
 
   const clearValues = () => {
     setValues({ oldPassword: '', newPassword: '' });
@@ -55,37 +49,24 @@ const Settings = withAuth(({ logout }) => {
     setValues({ ...values, ...{ [name]: value } });
   };
 
-  const passwordIsMismatch = (newValue: string) => {
-    for (const key in values) {
-      if (values[key] === newValue) {
-        return true;
-      }
-    }
-  };
+  const passwordIsMatch = (newValue: string) => Object.keys(values).some((key) => values[key] === newValue);
 
   const formValidator = (value: string): boolean => {
-    if (passwordIsMismatch(value)) {
-      setPasswordError(PASSWORD_ERROR_MISMATCH);
-      return false;
+    if (passwordIsMatch(value)) {
+      return true;
     }
-    return true;
+
+    setPasswordError(PASSWORD_ERROR_MISMATCH);
+    return false;
   };
 
-  const errorPasswordHandler = (status: number) => {
-    switch (status) {
-      case 400: {
-        setPasswordError(INCORRECT_OLD_PASSWORD);
-        break;
-      }
-      case 500: {
-        setPasswordError(INITIAL_SERVER_ERROR);
-        break;
-      }
-      default: {
-        setPasswordError(UNKNOWN_ERROR);
-        return;
-      }
-    }
+  const errorPasswordHandler = (status: keyof SettingsStatusGlossary) => {
+    const statusGlossary = {
+      400: INCORRECT_OLD_PASSWORD,
+      500: INITIAL_SERVER_ERROR,
+    };
+    const result = statusGlossary[status];
+    setPasswordError(result || UNKNOWN_ERROR);
   };
 
   const changePasswordHandler = (event: React.MouseEvent): void => {
