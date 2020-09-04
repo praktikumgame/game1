@@ -11,5 +11,5 @@ export { Landing } from './Landing';
 export { Settings, PasswordValuesType } from './Settings';
 export { NotFound } from './NotFound';
 export { Leaderboard } from './Leaderboard';
-export { Button } from './Common';
+export { Button, Input, CommonInputProps } from './Common';
 export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';

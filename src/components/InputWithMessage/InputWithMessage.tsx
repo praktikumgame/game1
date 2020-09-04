@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IProps } from './types';
 import { REQUIRED_FIELD } from '../../constants';
+import { Input } from '../';
 
 import './InputWithMessage.scss';
 
@@ -48,10 +49,10 @@ const InputWithMessage = ({
   };
 
   return (
-    <div className="input-with-message">
-      <input
-        onChange={handleOnChange}
-        className={`input-with-message_item ${message && 'input-with-message_item_error'}`}
+    <div className="input_with-message">
+      <Input
+        handleOnChange={handleOnChange}
+        isError={!message}
         type={type}
         placeholder={placeholder}
         name={name}
@@ -61,8 +62,12 @@ const InputWithMessage = ({
         maxLength={maxLength}
         required={required}
       />
-      <p className="input-with-message__message">{message}</p>
-      {message && <div className="input-with-message__error-icon"></div>}
+      {message && (
+        <>
+          <p className="input__message">{message}</p>
+          <div className="input__error-icon"></div>
+        </>
+      )}
     </div>
   );
 };
