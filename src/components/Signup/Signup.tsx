@@ -33,14 +33,14 @@ const Signup = withAuth(({ isAuthorized, authorize }) => {
 
     authApi
       .signup(values)
-      .then(() => authorize())
       .then(() => clearValues())
+      .then(() => authorize())
       .catch(({ reason, status }) => {
         setServerError(ErrorHandler(reason, status));
       })
       .finally(() => {
-        setFormIsLoad(false);
         clearValues();
+        setFormIsLoad(false);
       });
   };
 

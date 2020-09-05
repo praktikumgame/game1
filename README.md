@@ -18,12 +18,12 @@ Version: v.1.0.0
 
 ## Что сделано
 
-- Настроен WebPack:
+- Настроен Webpack:
   - html: `HtmlWebpackPlugin`;
   - обработка css: `css-loader`, `style-loader`, `sass-loader`, `autoprefixer`, `cssnano`, `mini-css-extract-plugin`;
   - сборка TS/JS: `babel`, `ts-loader`;
 - Приложение написано на `React, TypeScript`:
-  - Реализованны: Лендинг, Страницы авторизации, Настройки пользователя, Рейтинг, Страница самой игры;
+  - Реализованы: Лендинг, Страницы авторизации, Настройки пользователя, Рейтинг, Страница самой игры;
 - Код стайлинг: `prettier`, `eslint`;
 - Концепция игры.
 
