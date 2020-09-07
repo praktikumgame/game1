@@ -14,7 +14,8 @@ import {
   UNKNOWN_ERROR,
 } from '../../constants';
 import exampleAvatar from '../../images/example-avatar.jpg';
-import './Settings.scss';
+
+import './Settings.css';
 
 const Settings = withAuth(({ logout }) => {
   const {

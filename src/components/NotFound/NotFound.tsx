@@ -1,5 +1,6 @@
 import React from 'react';
-import './NotFound.scss';
+
+import './NotFound.css';
 
 const NotFound = () => <h1 className="not-found">404 NotFound</h1>;
 

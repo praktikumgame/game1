@@ -1,7 +1,7 @@
 import React from 'react';
 import { IProps } from './types';
 
-import './Input.scss';
+import './Input.css';
 
 const Input = ({
   handleOnChange,

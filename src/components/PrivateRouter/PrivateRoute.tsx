@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { withAuth, AuthProps } from '../../services/auth/';
-import './PrivateRoute.scss';
+
+import './PrivateRoute.css';
 
 type Props = AuthProps & RouteProps;
 

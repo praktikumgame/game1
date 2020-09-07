@@ -6,7 +6,8 @@ import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
 import { getErrorMessageByStatusAndText as ErrorHandler } from './helpers/getErrorMessageByStatusAndText';
-import './Signup.scss';
+
+import './Signup.css';
 
 const Signup = withAuth(({ isAuthorized, authorize }) => {
   const [formIsLoad, setFormIsLoad] = useState(false);

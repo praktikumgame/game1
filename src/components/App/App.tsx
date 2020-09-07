@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { PrivateRoute, Signup, Signin, Game, Header, Landing, Settings, NotFound, Leaderboard } from '../';
 import { AuthProvider } from '../../services/auth';
-import './App.scss';
+import './App.css';
 
 const App = () => {
   return (

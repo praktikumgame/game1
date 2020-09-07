@@ -7,7 +7,7 @@ import { getErrorMessageByStatus as errorHandler } from './helpers/getErrorMessa
 import { validatePassword, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
 
-import './Signin.scss';
+import './Signin.css';
 
 const Signin = withAuth(({ isAuthorized, authorize }) => {
   const [formIsLoad, setFormIsLoad] = useState(false);

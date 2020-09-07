@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.scss';
+import './Button.css';
 interface Button {
   onCLickHandler: (event: React.MouseEvent) => void;
   formIsValid?: boolean;

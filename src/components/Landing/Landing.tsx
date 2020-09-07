@@ -1,5 +1,6 @@
 import React from 'react';
-import './Landing.scss';
+
+import './Landing.css';
 
 const Landing = () => {
   return <h1 className="landing">Lending</h1>;

@@ -3,7 +3,7 @@ import { IProps } from './types';
 import { REQUIRED_FIELD } from '../../constants';
 import { Input } from '../';
 
-import './InputWithMessage.scss';
+import './InputWithMessage.css';
 
 const InputWithMessage = ({
   saveInputValue,
