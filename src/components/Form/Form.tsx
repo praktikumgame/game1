@@ -37,7 +37,7 @@ const Form = ({
         </div>
       )}
       {serverError && <p className="form__server-error">{serverError}</p>}
-      <Button onClick={onClick} formIsValid={!formIsValid} buttonText={buttonText} />
+      <Button className="form__button" onClick={onClick} formIsValid={!formIsValid} buttonText={buttonText} />
     </form>
   );
 };
