@@ -8,7 +8,7 @@ type Props = AuthProps & RouteProps;
 
 const PrivateRoute = withAuth(({ isLoad, isAuthorized, component: Component, ...rest }: Props) => {
   if (!Component) {
-    throw new Error('Я не знаю )) как ещё');
+    throw new Error('Component is required in PrivateRoute');
   }
 
   if (isLoad) {
