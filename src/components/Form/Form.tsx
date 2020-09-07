@@ -23,7 +23,7 @@ const Form = ({
     setFormIsValid(form.checkValidity() && formValidator(event.target.value));
   };
 
-  const onClickHandler = (event: React.MouseEvent): void => {
+  const onClick = (event: React.MouseEvent): void => {
     sendFormHandler(event);
     setFormIsValid(false);
   };
@@ -37,7 +37,7 @@ const Form = ({
         </div>
       )}
       {serverError && <p className="form__server-error">{serverError}</p>}
-      <Button onCLickHandler={onClickHandler} formIsValid={!formIsValid} buttonText={buttonText} />
+      <Button onClick={onClick} formIsValid={!formIsValid} buttonText={buttonText} />
     </form>
   );
 };

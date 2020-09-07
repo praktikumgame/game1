@@ -35,7 +35,7 @@ const InputWithMessage = ({
     return true;
   };
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const validateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     saveInputValue(target);
 
@@ -51,7 +51,7 @@ const InputWithMessage = ({
   return (
     <div className="input_with-message">
       <Input
-        handleOnChange={handleOnChange}
+        onChange={validateInput}
         isError={!message}
         type={type}
         placeholder={placeholder}

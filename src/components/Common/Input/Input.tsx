@@ -4,7 +4,7 @@ import { IProps } from './types';
 import './Input.css';
 
 const Input = ({
-  handleOnChange,
+  onChange,
   isError = false,
   type,
   placeholder,
@@ -17,7 +17,7 @@ const Input = ({
 }: IProps) => {
   return (
     <input
-      onChange={handleOnChange}
+      onChange={onChange}
       className={`input ${!isError && 'input_error'}`}
       type={type}
       placeholder={placeholder}

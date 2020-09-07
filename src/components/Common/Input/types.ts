@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 interface IProps {
-  handleOnChange(event: ChangeEvent): void;
+  onChange(event: ChangeEvent): void;
   isError?: boolean;
   type: string;
   placeholder: string;

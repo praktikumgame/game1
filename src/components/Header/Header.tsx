@@ -27,7 +27,7 @@ const Header = withAuth(({ isAuthorized, logout }: AuthProps) => {
             <NavLink className="link header__link" to="/leaderboard">
               Leaderboard
             </NavLink>
-            <Button onCLickHandler={logoutHandler} buttonText={'Exit'} />
+            <Button onClick={logoutHandler} buttonText={'Exit'} />
           </>
         ) : (
           <>
