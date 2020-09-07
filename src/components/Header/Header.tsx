@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { withAuth, authProps, Button } from '../';
+import { Button } from '../';
+import { withAuth, AuthProps } from '../../services/auth';
 import { authApi } from '../../services/api';
 import './Header.css';
 
-const Header = withAuth(({ isAuthorized, logout }: authProps) => {
+const Header = withAuth(({ isAuthorized, logout }: AuthProps) => {
   const logoutHandler = () => {
     authApi.logout().finally(() => logout());
   };

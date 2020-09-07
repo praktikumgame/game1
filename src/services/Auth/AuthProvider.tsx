@@ -1,8 +1,8 @@
 import React, { useState, ReactNode, useEffect } from 'react';
-import { authProps } from './types';
+import { AuthProps } from './types';
 import { authApi } from '../../services/api';
 
-const { Provider, Consumer } = React.createContext<authProps>({
+const { Provider, Consumer } = React.createContext<AuthProps>({
   isAuthorized: false,
   authorize: () => {
     return;

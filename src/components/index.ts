@@ -1,5 +1,4 @@
 export { App } from './App';
-export { AuthProvider, withAuth, authProps } from '../services/auth/';
 export { PrivateRoute } from './PrivateRouter';
 export { Form } from './Form/';
 export { Signup, SignupValuesType } from './Signup';
