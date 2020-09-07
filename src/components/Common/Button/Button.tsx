@@ -1,11 +1,9 @@
 import React from 'react';
+import { IProps } from './types';
+
 import './Button.css';
-interface Button {
-  onClick: (event: React.MouseEvent) => void;
-  formIsValid?: boolean;
-  buttonText: string;
-}
-export const Button = ({ onClick, formIsValid, buttonText }: Button) => {
+
+export const Button = ({ onClick, formIsValid, buttonText }: IProps) => {
   return (
     <button className="button form__button" onClick={onClick} disabled={formIsValid}>
       {buttonText}
