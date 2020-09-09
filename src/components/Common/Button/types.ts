@@ -1,6 +1,6 @@
 export interface IProps {
   onClick: (event: React.MouseEvent) => void;
-  formIsValid?: boolean;
+  disabled?: boolean;
   buttonText: string;
   className?: string;
 }
