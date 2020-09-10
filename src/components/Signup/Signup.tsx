@@ -5,7 +5,7 @@ import { withAuth } from '../../services/auth';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
-import { getErrorMessageByStatusAndText as ErrorHandler } from './helpers/getErrorMessageByStatusAndText';
+import { getErrorMessageByStatusAndText as ErrorHandler } from '../../services/api/helpers/signUpStatus';
 
 import './Signup.css';
 

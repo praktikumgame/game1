@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { IStateValues } from './types';
 import { withAuth } from '../../services/auth';
 import { InputWithMessage, Form } from '../';
-import { getErrorMessageByStatus as errorHandler } from './helpers/getErrorMessageByStatus';
+import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
 

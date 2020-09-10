@@ -1,5 +1,6 @@
-import { SignInStatusGlossary } from '../types';
 import { LOGIN_OR_EMAIL_ERROR, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../../constants';
+
+export type SignInStatusGlossary = { 401: string; 500: string };
 
 export const getErrorMessageByStatus = (status: keyof SignInStatusGlossary) => {
   const statusGlossary: SignInStatusGlossary = {
