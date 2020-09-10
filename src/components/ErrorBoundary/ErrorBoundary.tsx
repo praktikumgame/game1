@@ -4,6 +4,14 @@ export interface ErrorBoundary {
   children?: ReactNode;
 }
 
+export const withErrorBoundary = (Component: () => JSX.Element) => {
+  return (
+    <ErrorBoundary>
+      <Component />
+    </ErrorBoundary>
+  );
+};
+
 export class ErrorBoundary extends React.Component<ReactNode> {
   state = { error: null };
 

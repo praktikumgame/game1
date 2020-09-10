@@ -1,1 +1,1 @@
-export { Game } from './Game';
+export { GameWithErrorHandler } from './Game';
