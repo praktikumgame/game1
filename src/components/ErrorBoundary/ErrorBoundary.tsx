@@ -1,15 +1,19 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ComponentType } from 'react';
 export interface ErrorBoundary {
   error: Error | null;
   children?: ReactNode;
 }
 
-export const withErrorBoundary = (Component: () => JSX.Element) => {
-  return (
-    <ErrorBoundary>
-      <Component />
-    </ErrorBoundary>
-  );
+export const withErrorBoundary = <T,>(Component: ComponentType<T>) => {
+  const withErrorBoundaryComponent = (props: T) => {
+    return (
+      <ErrorBoundary>
+        <Component {...(props as T)} />
+      </ErrorBoundary>
+    );
+  };
+
+  return withErrorBoundaryComponent;
 };
 
 export class ErrorBoundary extends React.Component<ReactNode> {

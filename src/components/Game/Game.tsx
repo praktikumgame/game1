@@ -7,6 +7,6 @@ export const Game = () => {
   return <h1 className="game">Welcome to GAME</h1>;
 };
 
-const GameWithErrorHandler = () => withErrorBoundary(Game);
+const GameWithErrorHandler = withErrorBoundary(Game);
 
 export { GameWithErrorHandler };
