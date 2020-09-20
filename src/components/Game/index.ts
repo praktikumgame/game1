@@ -1,0 +1,1 @@
+export { GameWithErrorHandler } from './Game';

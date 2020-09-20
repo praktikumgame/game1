@@ -1,0 +1,9 @@
+.link {
+  text-decoration: none;
+  color: #000;
+}
+
+.app {
+  max-width: 1440px;
+  margin: 0 auto;
+}
