@@ -4,18 +4,6 @@ export interface ErrorBoundary {
   children?: ReactNode;
 }
 
-export const withErrorBoundary = <T,>(Component: ComponentType<T>) => {
-  const withErrorBoundaryComponent = (props: T) => {
-    return (
-      <ErrorBoundary>
-        <Component {...(props as T)} />
-      </ErrorBoundary>
-    );
-  };
-
-  return withErrorBoundaryComponent;
-};
-
 export class ErrorBoundary extends React.Component<ReactNode> {
   state = { error: null };
 
@@ -30,3 +18,15 @@ export class ErrorBoundary extends React.Component<ReactNode> {
     return this.props.children;
   }
 }
+
+export const withErrorBoundary = <T,>(Component: ComponentType<T>) => {
+  const withErrorBoundaryComponent = (props: T) => {
+    return (
+      <ErrorBoundary>
+        <Component {...(props as T)} />
+      </ErrorBoundary>
+    );
+  };
+
+  return withErrorBoundaryComponent;
+};
