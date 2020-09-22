@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { IStateFields } from './types';
-import { withAuth } from '../../services/auth';
+import { withAuth } from '../../services/Auth';
 import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { authApi } from '../../services/api';
