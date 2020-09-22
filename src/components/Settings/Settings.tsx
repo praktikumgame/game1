@@ -1,6 +1,6 @@
 import React, { createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage } from '../';
-import { withAuth } from '../../services/auth';
+import { withAuth } from '../../services/Auth';
 import { useSettings } from './useSettings';
 import { SettingsStatusGlossary } from './types';
 import { validatePassword } from '../../services/validators';
