@@ -1,10 +1,15 @@
 import React from 'react';
-import { Consumer } from '../AuthProvider';
-import { AuthProps } from '../types';
+import { useSelector } from 'react-redux';
+import { IAuthState } from '../../../redux/authReducer';
+import { withAuthProps } from '../types';
 
-const withAuth = <P extends AuthProps>(WrappedComponent: React.ComponentType<P>) => {
-  const withAuthComponent = (props: Omit<P, keyof AuthProps>) => {
-    return <Consumer>{(value) => <WrappedComponent {...value} {...(props as P)} />}</Consumer>;
+const withAuth = <T extends withAuthProps>(WrappedComponent: React.ComponentType<T>) => {
+  const withAuthComponent = (props: Omit<T, keyof withAuthProps>) => {
+    const isAuthorized = useSelector((state: { auth: IAuthState }) => state.auth.isAuthorized);
+
+    const newProps = { ...{ isAuthorized: isAuthorized }, ...(props as T) };
+
+    return <WrappedComponent {...newProps} />;
   };
 
   return withAuthComponent;
