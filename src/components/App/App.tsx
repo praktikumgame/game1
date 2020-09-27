@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { withPreload } from '../../services/auth/helpers/withPreload';
 import {
   PrivateRoute,
   Signup,
@@ -31,4 +32,6 @@ const App = () => {
   );
 };
 
-export { App };
+const withPreloadApp = withPreload(App);
+
+export { withPreloadApp as App };
