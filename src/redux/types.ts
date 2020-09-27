@@ -1,0 +1,9 @@
+export const AUTHORIZE = 'AUTH/AUTHORIZE';
+export const LOGOUT = 'AUTH/LOGOUT';
+
+export const SIGNIN_PENDING = 'AUTH/SIGNIN_PENDING';
+export const SIGNIN_SUCCESS = 'AUTH/SIGNIN_SUCCESS';
+export const SIGNIN_FATAL = 'AUTH/SIGNIN_FATAL';
+export const SIGNIN_CLEAR_ERROR = 'AUTH/SIGNIN_CLEAR_ERROR';
+
+export const INIT_APP = 'APP/INIT_APP';

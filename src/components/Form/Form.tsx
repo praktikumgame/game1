@@ -10,16 +10,10 @@ const Form = ({
   formValidator = () => true,
   formIsLoad,
   serverError,
-  clearError,
 }: IProps) => {
   const [formIsValid, setFormIsValid] = useState(false);
-
   const validator = (event: React.ChangeEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    if (serverError) {
-      clearError();
-    }
-
     setFormIsValid(form.checkValidity() && formValidator(event.target.value));
   };
 

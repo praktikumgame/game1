@@ -5,7 +5,6 @@ interface IProps {
   buttonText: string;
   formValidator?: (value: string) => boolean;
   serverError: string;
-  clearError: () => void;
 }
 
 export { IProps };
