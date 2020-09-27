@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../../redux/actions';
+import { clearCookie } from '../../redux/auth/actions';
 import { Button } from '../';
 import { withAuth, withAuthProps } from '../../services/auth';
 
@@ -27,7 +27,7 @@ const Header = withAuth(({ isAuthorized }: withAuthProps) => {
             <NavLink className="link header__link" to="/leaderboard">
               Leaderboard
             </NavLink>
-            <Button onClick={() => dispatch(logout())} buttonText={'Exit'} />
+            <Button onClick={() => dispatch(clearCookie())} buttonText={'Exit'} />
           </>
         ) : (
           <>

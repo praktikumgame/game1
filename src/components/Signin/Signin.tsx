@@ -6,8 +6,8 @@ import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser } from '../../redux/actions';
-import { ISigninState } from '../../redux/signinReducer';
+import { signinUser } from '../../redux/signin/actions';
+import { ISigninState } from '../../redux/signin/reducer';
 
 import './Signin.css';
 
