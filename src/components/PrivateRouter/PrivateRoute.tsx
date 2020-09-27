@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { withAuth, withAuthProps } from '../../services/Auth/';
-
-import './PrivateRoute.css';
+import { withAuth, withAuthProps } from '../../services/auth/';
 
 const PrivateRoute = withAuth(({ isAuthorized, component: Component, ...rest }: withAuthProps & RouteProps) => {
   if (!Component) {
