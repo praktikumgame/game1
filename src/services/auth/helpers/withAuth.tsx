@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { IAuthState } from '../../../redux/authReducer';
+import { IAuthState } from '../../../redux/auth/reducer';
 import { withAuthProps } from '../types';
 
 const withAuth = <T extends withAuthProps>(WrappedComponent: React.ComponentType<T>) => {

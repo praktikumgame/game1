@@ -21,7 +21,7 @@ function logout() {
 async function getUserInfo(): Promise<userInfoStateType> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
-  return { login, avatar: `${AVATAR_API}${avatar}` };
+  return { login, avatar: `${avatar ? AVATAR_API + avatar : null}` };
 }
 
 function checkAuthorize() {

@@ -26,7 +26,7 @@ const authReducer = (state: IAuthState = initialState, action: actionType) => {
       return { ...state, ...{ isAuthorized: true, initApp: true }, ...action.payload };
     }
     case LOGOUT: {
-      return { ...state, ...{ isAuthorized: false } };
+      return { ...state, ...initialState };
     }
   }
   return state;
