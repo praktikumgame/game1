@@ -8,7 +8,7 @@ interface IAuthApi {
 }
 
 interface IUserApi {
-  changePassword(body: PasswordValuesType): Promise<string>;
+  changePassword(body: PasswordValuesType): Promise<unknown>;
   changeAvatar(body: FormData): Promise<string>;
 }
 

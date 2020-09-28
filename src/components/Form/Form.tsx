@@ -14,7 +14,7 @@ const Form = ({
   const [formIsValid, setFormIsValid] = useState(false);
   const validator = (event: React.ChangeEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    setFormIsValid(form.checkValidity() && formValidator(event.target.value));
+    setFormIsValid(form.checkValidity() && formValidator());
   };
 
   const onClick = (event: React.MouseEvent): void => {

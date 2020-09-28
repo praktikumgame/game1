@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import { authApi } from '../../services/api';
 import { userInfoStateType } from './reducer';
-import { AVATAR_API } from '../../constants';
-import { AUTHORIZE, LOGOUT } from './types';
+import { AUTHORIZE, CHANGE_AVATAR, LOGOUT } from './types';
 import { initApp } from '../app/actions';
+import { parseAvatar } from './helpers';
 
 function authorize(userInfo: userInfoStateType) {
   return {
@@ -18,10 +18,17 @@ function logout() {
   };
 }
 
+function changeAvatar(avatar: string) {
+  return {
+    type: CHANGE_AVATAR,
+    payload: { avatar: parseAvatar(avatar) },
+  };
+}
+
 async function getUserInfo(): Promise<userInfoStateType> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
-  return { login, avatar: `${avatar ? AVATAR_API + avatar : null}` };
+  return { login, avatar: parseAvatar(avatar) };
 }
 
 function checkAuthorize() {
@@ -43,4 +50,4 @@ function clearCookie() {
   };
 }
 
-export { getUserInfo, authorize, checkAuthorize, clearCookie };
+export { getUserInfo, authorize, checkAuthorize, clearCookie, changeAvatar };

@@ -1,4 +1,4 @@
-import { AUTHORIZE, LOGOUT } from './types';
+import { AUTHORIZE, CHANGE_AVATAR, LOGOUT } from './types';
 
 interface userInfoStateType {
   login: string;
@@ -27,6 +27,9 @@ const authReducer = (state: IAuthState = initialState, action: actionType) => {
     }
     case LOGOUT: {
       return { ...state, ...initialState };
+    }
+    case CHANGE_AVATAR: {
+      return { ...state, ...action.payload };
     }
   }
   return state;

@@ -1,2 +1,3 @@
 export const AUTHORIZE = 'AUTH/AUTHORIZE';
 export const LOGOUT = 'AUTH/LOGOUT';
+export const CHANGE_AVATAR = 'AUTH/CHANGE_AVATAR';
