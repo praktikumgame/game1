@@ -15,7 +15,7 @@ export const PASSWORD_ERROR_LATIN = 'Пароль может содержать 
 export const PASSWORD_ERROR_NUMBERS = 'Пароль должен содержать хотя бы одну цифру';
 export const PASSWORD_ERROR_MISMATCH = 'Новый пароль должен отличаться от старого пароля';
 
-export const AVATAR_ERROR = 'Не удалось загрузить автар';
+export const AVATAR_ERROR_MESSAGE = 'Не удалось загрузить автар';
 
 // Validation form
 

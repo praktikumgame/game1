@@ -26,8 +26,8 @@ const Settings = () => {
   const fileInput: RefObject<HTMLInputElement> = createRef();
 
   useEffect(() => {
-    const isMismatch: boolean = values.oldPassword === values.newPassword && !!values.oldPassword;
-    if (isMismatch) {
+    const isMatch: boolean = values.oldPassword === values.newPassword && !!values.oldPassword;
+    if (isMatch) {
       dispatch(mismatchPasswords());
     }
 
@@ -36,10 +36,6 @@ const Settings = () => {
     }
   }, [values]);
 
-  const clearValues = () => {
-    setValues({ oldPassword: '', newPassword: '' });
-  };
-
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
     setValues({ ...values, ...{ [name]: value } });
@@ -47,15 +43,14 @@ const Settings = () => {
 
   const formValidator = (): boolean => {
     if (passwordIsMismatch) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   };
 
   const changePasswordHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(changePassword(values));
-    clearValues();
   };
 
   const changeAvatarHandler = (event: React.MouseEvent): void => {
@@ -77,7 +72,7 @@ const Settings = () => {
           <Form
             sendFormHandler={changeAvatarHandler}
             buttonText="Сохранить"
-            formIsLoad={false}
+            formIsLoad={pendingAvatar}
             serverError={avatarError}
           >
             <label className="settings__input_wrapper">

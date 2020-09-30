@@ -20,7 +20,6 @@ class UserApi extends BaseAPI implements IUserApi {
       const { status } = response;
       const text = response.text();
       if (status === 200) {
-        const text = response.text();
         return text;
       }
 

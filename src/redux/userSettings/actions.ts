@@ -2,17 +2,17 @@ import { Dispatch } from 'redux';
 import { PasswordValuesType, userApi, errorPasswordHandler } from '../../services/api';
 import {
   AVATAR_CLEAR_ERROR,
-  AVATAR_FATAL,
+  AVATAR_ERROR,
   AVATAR_PENDING,
-  AVATAR_SUCCESS,
+  AVATAR_STOP_PENDING,
   CHANGE_PASSWORD_CLEAR_ERROR,
-  CHANGE_PASSWORD_FATAL,
+  CHANGE_PASSWORD_ERROR,
   CHANGE_PASSWORD_IS_MISMATCH,
   CHANGE_PASSWORD_PENDING,
-  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_STOP_PENDING,
 } from './types';
 import { changeAvatar } from '../auth/actions';
-import { AVATAR_ERROR } from '../../constants';
+import { AVATAR_ERROR_MESSAGE } from '../../constants';
 
 function avatarPending() {
   return {
@@ -22,13 +22,13 @@ function avatarPending() {
 
 function avatarSuccess() {
   return {
-    type: AVATAR_SUCCESS,
+    type: AVATAR_STOP_PENDING,
   };
 }
 
 function avatarError(text: string) {
   return {
-    type: AVATAR_FATAL,
+    type: AVATAR_ERROR,
     payload: { avatarError: text },
   };
 }
@@ -48,7 +48,7 @@ function loadAvatar(formData: FormData) {
       dispatch(changeAvatar(avatar));
       dispatch(avatarSuccess());
     } catch {
-      dispatch(avatarError(AVATAR_ERROR));
+      dispatch(avatarError(AVATAR_ERROR_MESSAGE));
     }
   };
 }
@@ -59,15 +59,15 @@ function changePasswordPending() {
   };
 }
 
-function changePasswordSuccess() {
+function changePasswordStopPending() {
   return {
-    type: CHANGE_PASSWORD_SUCCESS,
+    type: CHANGE_PASSWORD_STOP_PENDING,
   };
 }
 
 function changePasswordError(text: string) {
   return {
-    type: CHANGE_PASSWORD_FATAL,
+    type: CHANGE_PASSWORD_ERROR,
     payload: { changePasswordError: text },
   };
 }
@@ -90,9 +90,10 @@ function changePassword(values: PasswordValuesType) {
       dispatch(changePasswordClearError());
       dispatch(changePasswordPending());
       await userApi.changePassword(values);
-      dispatch(changePasswordSuccess());
     } catch ({ status }) {
       dispatch(changePasswordError(errorPasswordHandler(status)));
+    } finally {
+      dispatch(changePasswordStopPending());
     }
   };
 }
