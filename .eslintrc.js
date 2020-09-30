@@ -18,5 +18,9 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
-  rules: { '@typescript-eslint/no-var-requires': 'off', '@typescript-eslint/explicit-module-boundary-types': 'off' },
+  rules: {
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+  },
 };

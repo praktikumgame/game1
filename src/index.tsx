@@ -12,7 +12,6 @@ import './index.css';
 const store = createStore(
   rootReducer,
   // dev tools
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
 );
