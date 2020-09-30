@@ -1,14 +1,26 @@
 import { Dispatch } from 'redux';
 import { authApi } from '../../services/api';
 import { userInfoStateType } from './reducer';
-import { AUTHORIZE, CHANGE_AVATAR, LOGOUT } from './types';
+import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
 import { initApp } from '../app/actions';
 import { parseAvatar } from './helpers';
 
-function authorize(userInfo: userInfoStateType) {
+function authorize(userInfo: Omit<userInfoStateType, 'checkingAuthorize'>) {
   return {
     type: AUTHORIZE,
     payload: userInfo,
+  };
+}
+
+function authorizeCheckPending() {
+  return {
+    type: PENDING_AUTHORIZE_CHECK,
+  };
+}
+
+function authorizeCheckComplete() {
+  return {
+    type: AUTHORIZE_CHECK_COMPLETED,
   };
 }
 
@@ -25,7 +37,7 @@ function changeAvatar(avatar: string) {
   };
 }
 
-async function getUserInfo(): Promise<userInfoStateType> {
+async function getUserInfo(): Promise<Omit<userInfoStateType, 'checkingAuthorize'>> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
   return { login, avatar: parseAvatar(avatar) };
@@ -34,12 +46,15 @@ async function getUserInfo(): Promise<userInfoStateType> {
 function checkAuthorize() {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch(authorizeCheckPending());
       const userInfo = await getUserInfo();
       dispatch(authorize(userInfo));
     } catch {
       clearCookie();
+    } finally {
+      dispatch(authorizeCheckComplete());
+      dispatch(initApp());
     }
-    dispatch(initApp());
   };
 }
 
