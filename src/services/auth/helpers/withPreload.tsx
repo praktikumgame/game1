@@ -14,7 +14,6 @@ function withPreload<T>(WrappedComponent: React.ComponentType<T>) {
     useEffect(() => {
       dispatch(checkAuthorize());
     }, []);
-
     if (checkingAuthorize && !appIsInit) {
       return <Preloader />;
     }

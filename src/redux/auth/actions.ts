@@ -52,8 +52,10 @@ function checkAuthorize() {
     } catch {
       clearCookie();
     } finally {
-      dispatch(authorizeCheckComplete());
-      dispatch(initApp());
+      setTimeout(() => {
+        dispatch(authorizeCheckComplete());
+        dispatch(initApp());
+      }, 1000);
     }
   };
 }
