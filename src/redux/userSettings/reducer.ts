@@ -27,12 +27,12 @@ const initialState: IUserSettingState = {
   passwordIsMismatch: false,
 };
 
-interface IAction {
+type ActionType = {
   type: string;
   payload: IUserSettingState;
-}
+};
 
-const userSettingReducer = (state: IUserSettingState = initialState, action: IAction) => {
+const userSettingReducer = (state: IUserSettingState = initialState, action: ActionType) => {
   switch (action.type) {
     // LOAD AVATAR
     case AVATAR_PENDING: {

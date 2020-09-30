@@ -1,5 +1,7 @@
 import { Dispatch } from 'redux';
 import { PasswordValuesType, userApi, errorPasswordHandler } from '../../services/api';
+import { AVATAR_ERROR_MESSAGE } from '../../constants';
+import { changeAvatar } from '../auth/actions';
 import {
   AVATAR_CLEAR_ERROR,
   AVATAR_ERROR,
@@ -11,8 +13,6 @@ import {
   CHANGE_PASSWORD_PENDING,
   CHANGE_PASSWORD_STOP_PENDING,
 } from './types';
-import { changeAvatar } from '../auth/actions';
-import { AVATAR_ERROR_MESSAGE } from '../../constants';
 
 function avatarPending() {
   return {

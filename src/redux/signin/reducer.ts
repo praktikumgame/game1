@@ -10,12 +10,12 @@ const initialState: ISigninState = {
   error: '',
 };
 
-interface IAction {
+type ActionType = {
   type: string;
   payload: ISigninState;
-}
+};
 
-const signinReducer = (state: ISigninState = initialState, action: IAction) => {
+const signinReducer = (state: ISigninState = initialState, action: ActionType) => {
   switch (action.type) {
     case SIGNIN_PENDING: {
       return { ...state, ...{ pending: true } };

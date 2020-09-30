@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux';
 import { authApi, SignupValuesType } from '../../services/api';
-import { SIGNUP_PENDING, SIGNUP_PENDING_STOP, SIGNUP_ERROR, SIGNUP_CLEAR_ERROR } from './types';
 import { getErrorMessageByStatusAndText as errorHandler } from '../../services/api/helpers/signUpStatus';
 import { authorize, getUserInfo } from '../auth/actions';
+import { SIGNUP_PENDING, SIGNUP_PENDING_STOP, SIGNUP_ERROR, SIGNUP_CLEAR_ERROR } from './types';
 
 function signinPending() {
   return {

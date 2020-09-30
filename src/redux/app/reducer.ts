@@ -4,7 +4,7 @@ interface IAppState {
   initApp: boolean;
 }
 
-type actionType = {
+type ActionType = {
   type: string;
   payload: IAppState;
 };
@@ -13,7 +13,7 @@ const initialState: IAppState = {
   initApp: false,
 };
 
-const appReducer = (state: IAppState = initialState, action: actionType) => {
+const appReducer = (state: IAppState = initialState, action: ActionType) => {
   switch (action.type) {
     case INIT_APP: {
       return { ...state, ...{ initApp: true } };

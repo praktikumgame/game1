@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import { authApi } from '../../services/api';
-import { SIGNIN_PENDING, SIGNIN_SUCCESS, SIGNIN_FATAL, SIGNIN_CLEAR_ERROR } from './types';
 import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
 import { SignInValuesType } from '../../services/api';
 import { authorize, getUserInfo } from '../auth/actions';
+import { SIGNIN_PENDING, SIGNIN_SUCCESS, SIGNIN_FATAL, SIGNIN_CLEAR_ERROR } from './types';
 
 function signinPending() {
   return {

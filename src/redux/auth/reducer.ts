@@ -1,16 +1,16 @@
 import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
 
-interface userInfoStateType {
+interface IUserInfoStateType {
   login: string;
   avatar: string;
   checkingAuthorize: boolean;
 }
 
-interface IAuthState extends userInfoStateType {
+interface IAuthState extends IUserInfoStateType {
   isAuthorized: boolean;
 }
 
-type actionType = {
+type ActionType = {
   type: string;
   payload: IAuthState;
 };
@@ -22,7 +22,7 @@ const initialState: IAuthState = {
   checkingAuthorize: false,
 };
 
-const authReducer = (state: IAuthState = initialState, action: actionType) => {
+const authReducer = (state: IAuthState = initialState, action: ActionType) => {
   switch (action.type) {
     case AUTHORIZE: {
       return { ...state, ...{ isAuthorized: true, initApp: true }, ...action.payload };
@@ -43,4 +43,4 @@ const authReducer = (state: IAuthState = initialState, action: actionType) => {
   return state;
 };
 
-export { authReducer, IAuthState, userInfoStateType };
+export { authReducer, IAuthState, IUserInfoStateType };
