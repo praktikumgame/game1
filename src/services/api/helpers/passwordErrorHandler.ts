@@ -1,16 +1,12 @@
 import { INITIAL_SERVER_ERROR, INCORRECT_OLD_PASSWORD, UNKNOWN_ERROR } from '../../../constants';
 
-export type SettingsStatusGlossary = {
-  400: string;
-  500: string;
+const statusToMessageMap = {
+  [HTTPCodeStatuses.BadRequest]: INCORRECT_OLD_PASSWORD,
+  [HTTPCodeStatuses.InternalError]: INITIAL_SERVER_ERROR,
 };
 
-const errorPasswordHandler = (status: keyof SettingsStatusGlossary) => {
-  const statusGlossary = {
-    400: INCORRECT_OLD_PASSWORD,
-    500: INITIAL_SERVER_ERROR,
-  };
-  const result = statusGlossary[status];
+const errorPasswordHandler = (status: keyof typeof statusToMessageMap) => {
+  const result = statusToMessageMap[status];
   return result || UNKNOWN_ERROR;
 };
 
