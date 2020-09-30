@@ -1,4 +1,4 @@
-import { SIGNIN_PENDING, SIGNIN_SUCCESS, SIGNIN_FATAL, SIGNIN_CLEAR_ERROR } from './types';
+import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR } from './types';
 
 interface ISigninState {
   pending: boolean;
@@ -18,16 +18,16 @@ type ActionType = {
 const signinReducer = (state: ISigninState = initialState, action: ActionType) => {
   switch (action.type) {
     case SIGNIN_PENDING: {
-      return { ...state, ...{ pending: true } };
+      return { ...state, pending: true };
     }
-    case SIGNIN_SUCCESS: {
-      return { ...state, ...{ pending: false } };
+    case SIGNIN_STOP_PENDING: {
+      return { ...state, pending: false };
     }
-    case SIGNIN_FATAL: {
-      return { ...state, ...action.payload, ...{ pending: false } };
+    case SIGNIN_ERROR: {
+      return { ...state, ...action.payload, pending: false };
     }
     case SIGNIN_CLEAR_ERROR: {
-      return { ...state, ...{ error: '' } };
+      return { ...state, error: '' };
     }
   }
   return state;

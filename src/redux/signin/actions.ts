@@ -3,7 +3,7 @@ import { authApi } from '../../services/api';
 import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
 import { SignInValuesType } from '../../services/api';
 import { authorize, getUserInfo } from '../auth/actions';
-import { SIGNIN_PENDING, SIGNIN_SUCCESS, SIGNIN_FATAL, SIGNIN_CLEAR_ERROR } from './types';
+import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR } from './types';
 
 function signinPending() {
   return {
@@ -11,15 +11,15 @@ function signinPending() {
   };
 }
 
-function signinSuccess() {
+function signinStopPending() {
   return {
-    type: SIGNIN_SUCCESS,
+    type: SIGNIN_STOP_PENDING,
   };
 }
 
 function signinError(text: string) {
   return {
-    type: SIGNIN_FATAL,
+    type: SIGNIN_ERROR,
     payload: { error: text },
   };
 }
@@ -41,10 +41,10 @@ function signinUser(inputValues: SignInValuesType) {
         const userInfo = await getUserInfo();
         dispatch(authorize(userInfo));
       }
-
-      dispatch(signinSuccess());
     } catch ({ status }) {
       dispatch(signinError(errorHandler(status)));
+    } finally {
+      dispatch(signinStopPending());
     }
   };
 }
