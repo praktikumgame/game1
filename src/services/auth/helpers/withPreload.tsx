@@ -6,7 +6,7 @@ import { withAuth } from './withAuth';
 import { withAuthProps } from '../types';
 import { IAppState } from '../../../redux/app/reducer';
 
-const withPreload = <T,>(WrappedComponent: React.ComponentType<T>) => {
+function withPreload<T>(WrappedComponent: React.ComponentType<T>) {
   const withPreloadComponent = withAuth((props: T & withAuthProps) => {
     const dispatch = useDispatch();
     const appIsInit = useSelector((state: { app: IAppState }) => state.app.initApp);
@@ -22,6 +22,6 @@ const withPreload = <T,>(WrappedComponent: React.ComponentType<T>) => {
   });
 
   return withPreloadComponent;
-};
+}
 
 export { withPreload };
