@@ -15,19 +15,14 @@ const Signup = withAuth(({ isAuthorized }) => {
   const { pending, error } = useSelector((state: { signup: ISignupState }) => state.signup);
   const [values, setValues] = useState<IStateFields>({ email: '', login: '', password: '' });
 
-  const clearValues = () => {
-    setValues({ email: '', login: '', password: '' });
-  };
-
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
-    setValues({ ...values, ...{ [name]: value } });
+    setValues({ ...values, [name]: value });
   };
 
-  const sendFormHandler = (event: React.MouseEvent): void => {
+  const sendFormHandler = (event: React.MouseEvent) => {
     event.preventDefault();
     dispatch(signupUser(values));
-    clearValues();
   };
 
   if (isAuthorized) {

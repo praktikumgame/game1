@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { authApi, SignupValuesType } from '../../services/api';
-import { SIGNUP_PENDING, SIGNUP_SUCCESS, SIGNUP_FATAL, SIGNUP_CLEAR_ERROR } from './types';
+import { SIGNUP_PENDING, SIGNUP_PENDING_STOP, SIGNUP_ERROR, SIGNUP_CLEAR_ERROR } from './types';
 import { getErrorMessageByStatusAndText as errorHandler } from '../../services/api/helpers/signUpStatus';
 import { authorize, getUserInfo } from '../auth/actions';
 
@@ -10,15 +10,15 @@ function signinPending() {
   };
 }
 
-function signinSuccess() {
+function signupStopPending() {
   return {
-    type: SIGNUP_SUCCESS,
+    type: SIGNUP_PENDING_STOP,
   };
 }
 
 function signinError(text: string) {
   return {
-    type: SIGNUP_FATAL,
+    type: SIGNUP_ERROR,
     payload: { error: text },
   };
 }
@@ -34,16 +34,17 @@ function signupUser(inputValues: SignupValuesType) {
     try {
       dispatch(clearError());
       dispatch(signinPending());
+
       const statusMessage = await authApi.signup(inputValues);
 
       if (statusMessage === 'OK') {
         const userInfo = await getUserInfo();
         dispatch(authorize(userInfo));
       }
-
-      dispatch(signinSuccess());
     } catch ({ reason, status }) {
       dispatch(signinError(errorHandler(reason, status)));
+    } finally {
+      dispatch(signupStopPending());
     }
   };
 }
