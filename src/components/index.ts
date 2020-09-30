@@ -12,4 +12,4 @@ export { NotFound } from './NotFound';
 export { Leaderboard } from './LeaderBoard';
 export { Button, Input, CommonInputProps } from './Common';
 export { ErrorBoundary, withErrorBoundary } from './ErrorBoundary/ErrorBoundary';
-export { Preloader } from './PreLoader';
+export { Preloader } from './Preloader';
