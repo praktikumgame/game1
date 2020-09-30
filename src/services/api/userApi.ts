@@ -18,13 +18,13 @@ class UserApi extends BaseAPI implements IUserApi {
       credentials: 'include',
     }).then((response) => {
       const { status } = response;
+      const text = response.text();
       if (status === 200) {
         const text = response.text();
         return text;
       }
 
-      const reason = response.text();
-      return Promise.reject({ reason, status });
+      return Promise.reject({ text, status });
     });
   }
 
