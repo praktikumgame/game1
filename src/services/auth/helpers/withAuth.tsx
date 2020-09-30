@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux';
 import { IAuthState } from '../../../redux/auth/reducer';
 import { withAuthProps } from '../types';
 
-const withAuth = <T extends withAuthProps>(WrappedComponent: React.ComponentType<T>) => {
+function withAuth<T extends withAuthProps>(WrappedComponent: React.ComponentType<T>) {
   const withAuthComponent = (props: Omit<T, keyof withAuthProps>) => {
-    const isAuthorized = useSelector((state: { auth: IAuthState }) => state.auth.isAuthorized);
+    const authProps = useSelector((state: { auth: IAuthState }) => ({
+      isAuthorized: state.auth.isAuthorized,
+    }));
 
-    const newProps = { ...{ isAuthorized: isAuthorized }, ...(props as T) };
-
-    return <WrappedComponent {...newProps} />;
+    return <WrappedComponent {...(props as T)} {...authProps} />;
   };
 
   return withAuthComponent;
-};
+}
 
 export { withAuth };

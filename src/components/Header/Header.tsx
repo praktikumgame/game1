@@ -9,7 +9,6 @@ import './Header.css';
 
 const Header = withAuth(({ isAuthorized }: withAuthProps) => {
   const dispatch = useDispatch();
-
   return (
     <header className="header">
       <NavLink className="link header__logo-link" to="/">
