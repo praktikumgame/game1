@@ -33,7 +33,7 @@ const Settings = () => {
       return;
     }
 
-    if (!isMatch) {
+    if (!isMatch && changePasswordError) {
       dispatch(changePasswordClearError());
     }
   }, [values]);
