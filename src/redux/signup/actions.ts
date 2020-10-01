@@ -35,12 +35,10 @@ function signupUser(inputValues: SignupValuesType) {
       dispatch(clearError());
       dispatch(signinPending());
 
-      const statusMessage = await authApi.signup(inputValues);
+      await authApi.signup(inputValues);
 
-      if (statusMessage === 'OK') {
-        const userInfo = await getUserInfo();
-        dispatch(authorize(userInfo));
-      }
+      const userInfo = await getUserInfo();
+      dispatch(authorize(userInfo));
     } catch ({ reason, status }) {
       dispatch(signinError(errorHandler(reason, status)));
     } finally {
