@@ -1,14 +1,14 @@
 import React, { createRef, RefObject, useEffect } from 'react';
-import { Form, InputWithMessage } from '../';
 import exampleAvatar from '../../images/example-avatar.png';
-import { useSettings } from './useSettings';
 import { validatePassword } from '../../services/validators';
 import {
   loadAvatar,
   changePassword,
-  mismatchPasswords,
+  passwordMatched,
   changePasswordClearError,
 } from '../../redux/userSettings/actions';
+import { useSettings } from './useSettings';
+import { Form, InputWithMessage } from '../';
 
 import './Settings.css';
 
@@ -22,17 +22,18 @@ const Settings = () => {
     avatarError,
     pendingChangePassword,
     changePasswordError,
-    passwordIsMismatch,
+    passwordIsMatch,
   } = useSettings();
   const fileInput: RefObject<HTMLInputElement> = createRef();
 
   useEffect(() => {
     const isMatch: boolean = values.oldPassword === values.newPassword && !!values.oldPassword;
     if (isMatch) {
-      dispatch(mismatchPasswords());
+      dispatch(passwordMatched());
+      return;
     }
 
-    if (changePasswordError) {
+    if (!isMatch) {
       dispatch(changePasswordClearError());
     }
   }, [values]);
@@ -40,13 +41,6 @@ const Settings = () => {
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
     setValues({ ...values, ...{ [name]: value } });
-  };
-
-  const formValidator = (): boolean => {
-    if (passwordIsMismatch) {
-      return false;
-    }
-    return true;
   };
 
   const changePasswordHandler = (event: React.MouseEvent): void => {
@@ -93,7 +87,7 @@ const Settings = () => {
       <div className="settings__password-wrapper">
         <h2 className="settings__subtitles">Изменение пароля:</h2>
         <Form
-          formValidator={formValidator}
+          formValidator={passwordIsMatch}
           sendFormHandler={changePasswordHandler}
           buttonText="Изменить"
           formIsLoad={pendingChangePassword}

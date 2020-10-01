@@ -6,7 +6,7 @@ import {
   AVATAR_STOP_PENDING,
   CHANGE_PASSWORD_CLEAR_ERROR,
   CHANGE_PASSWORD_ERROR,
-  CHANGE_PASSWORD_IS_MISMATCH,
+  CHANGE_PASSWORD_IS_MATCHED,
   CHANGE_PASSWORD_PENDING,
   CHANGE_PASSWORD_STOP_PENDING,
 } from './types';
@@ -16,7 +16,7 @@ interface IUserSettingState {
   avatarError: string;
   pendingChangePassword: boolean;
   changePasswordError: string;
-  passwordIsMismatch: boolean;
+  passwordIsMatch: boolean;
 }
 
 const initialState: IUserSettingState = {
@@ -24,7 +24,7 @@ const initialState: IUserSettingState = {
   avatarError: '',
   pendingChangePassword: false,
   changePasswordError: '',
-  passwordIsMismatch: false,
+  passwordIsMatch: false,
 };
 
 type ActionType = {
@@ -58,10 +58,10 @@ const userSettingReducer = (state: IUserSettingState = initialState, action: Act
       return { ...state, ...action.payload, pendingChangePassword: false };
     }
     case CHANGE_PASSWORD_CLEAR_ERROR: {
-      return { ...state, changePasswordError: '', passwordIsMismatch: false };
+      return { ...state, changePasswordError: '', passwordIsMatch: false };
     }
-    case CHANGE_PASSWORD_IS_MISMATCH: {
-      return { ...state, passwordIsMismatch: true, changePasswordError: PASSWORD_ERROR_MISMATCH };
+    case CHANGE_PASSWORD_IS_MATCHED: {
+      return { ...state, passwordIsMatch: true, changePasswordError: PASSWORD_ERROR_MISMATCH };
     }
   }
   return state;

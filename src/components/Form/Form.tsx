@@ -3,18 +3,11 @@ import { IProps } from './types';
 import { Button } from '../index';
 import './Form.css';
 
-const Form = ({
-  sendFormHandler,
-  children,
-  buttonText,
-  formValidator = () => true,
-  formIsLoad,
-  serverError,
-}: IProps) => {
+const Form = ({ sendFormHandler, children, buttonText, formValidator = false, formIsLoad, serverError }: IProps) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const validator = (event: React.ChangeEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    setFormIsValid(form.checkValidity() && formValidator());
+    setFormIsValid(form.checkValidity());
   };
 
   const onClick = (event: React.MouseEvent): void => {
@@ -31,7 +24,12 @@ const Form = ({
         </div>
       )}
       {serverError && <p className="form__server-error">{serverError}</p>}
-      <Button className="form__button" onClick={onClick} disabled={!formIsValid} buttonText={buttonText} />
+      <Button
+        className="form__button"
+        onClick={onClick}
+        disabled={!formIsValid || formValidator}
+        buttonText={buttonText}
+      />
     </form>
   );
 };

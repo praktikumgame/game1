@@ -9,7 +9,7 @@ import {
   AVATAR_STOP_PENDING,
   CHANGE_PASSWORD_CLEAR_ERROR,
   CHANGE_PASSWORD_ERROR,
-  CHANGE_PASSWORD_IS_MISMATCH,
+  CHANGE_PASSWORD_IS_MATCHED,
   CHANGE_PASSWORD_PENDING,
   CHANGE_PASSWORD_STOP_PENDING,
 } from './types';
@@ -78,9 +78,9 @@ function changePasswordClearError() {
   };
 }
 
-function mismatchPasswords() {
+function passwordMatched() {
   return {
-    type: CHANGE_PASSWORD_IS_MISMATCH,
+    type: CHANGE_PASSWORD_IS_MATCHED,
   };
 }
 
@@ -98,4 +98,4 @@ function changePassword(values: PasswordValuesType) {
   };
 }
 
-export { loadAvatar, changePassword, mismatchPasswords, changePasswordClearError };
+export { loadAvatar, changePassword, passwordMatched, changePasswordClearError };

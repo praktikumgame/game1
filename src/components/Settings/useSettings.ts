@@ -8,7 +8,7 @@ export const useSettings = () => {
   const [values, setValues] = useState<IStateValues>({ oldPassword: '', newPassword: '' });
   const dispatch = useDispatch();
   const userAvatar = useSelector((state: { auth: IAuthState }) => state.auth.avatar);
-  const { pendingAvatar, avatarError, pendingChangePassword, changePasswordError, passwordIsMismatch } = useSelector(
+  const { pendingAvatar, avatarError, pendingChangePassword, changePasswordError, passwordIsMatch } = useSelector(
     (state: { userSettings: IUserSettingState }) => state.userSettings,
   );
   return {
@@ -20,6 +20,6 @@ export const useSettings = () => {
     avatarError,
     pendingChangePassword,
     changePasswordError,
-    passwordIsMismatch,
+    passwordIsMatch,
   };
 };
