@@ -1,18 +1,10 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { withAuth, AuthProps } from '../../services/Auth/';
+import { withAuth, withAuthProps } from '../../services/auth/';
 
-import './PrivateRoute.css';
-
-type Props = AuthProps & RouteProps;
-
-const PrivateRoute = withAuth(({ isLoad, isAuthorized, component: Component, ...rest }: Props) => {
+const PrivateRoute = withAuth(({ isAuthorized, component: Component, ...rest }: withAuthProps & RouteProps) => {
   if (!Component) {
     throw new Error('Component is required in PrivateRoute');
-  }
-
-  if (isLoad) {
-    return <div className="pre-loader">Loading...</div>;
   }
 
   return (

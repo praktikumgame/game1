@@ -1,63 +1,37 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { IStateFields } from './types';
-import { withAuth } from '../../services/Auth';
-import { InputWithMessage, Form } from '../';
+import { useDispatch, useSelector } from 'react-redux';
+import { signupUser } from '../../redux/signup/actions';
+import { withAuth } from '../../services/auth';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
-import { authApi } from '../../services/api';
-import { getErrorMessageByStatusAndText as ErrorHandler } from '../../services/api/helpers/signUpStatus';
+import { ISignupState } from '../../redux/signup/reducer';
+import { InputWithMessage, Form } from '../';
+import { IStateFields } from './types';
 
 import './Signup.css';
 
-const Signup = withAuth(({ isAuthorized, authorize }) => {
-  const [formIsLoad, setFormIsLoad] = useState(false);
+const Signup = withAuth(({ isAuthorized }) => {
+  const dispatch = useDispatch();
+  const { pending, error } = useSelector((state: { signup: ISignupState }) => state.signup);
   const [values, setValues] = useState<IStateFields>({ email: '', login: '', password: '' });
-  const [serverError, setServerError] = useState('');
-
-  const clearValues = () => {
-    setValues({ email: '', login: '', password: '' });
-  };
 
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
-    setValues({ ...values, ...{ [name]: value } });
+    setValues({ ...values, [name]: value });
   };
 
-  const clearError = () => {
-    setServerError('');
-  };
-
-  const sendFormHandler = (event: React.MouseEvent): void => {
+  const sendFormHandler = (event: React.MouseEvent) => {
     event.preventDefault();
-
-    setFormIsLoad(true);
-
-    authApi
-      .signup(values)
-      .then(() => clearValues())
-      .then(() => authorize())
-      .catch(({ reason, status }) => {
-        setServerError(ErrorHandler(reason, status));
-      })
-      .finally(() => {
-        clearValues();
-        setFormIsLoad(false);
-      });
+    dispatch(signupUser(values));
   };
 
-  if (isAuthorized && !formIsLoad) {
+  if (isAuthorized) {
     return <Redirect to="/game" />;
   }
   return (
     <div className="signup">
       <h2 className="signup__title">Signup to play</h2>
-      <Form
-        sendFormHandler={sendFormHandler}
-        buttonText="Signup"
-        formIsLoad={formIsLoad}
-        serverError={serverError}
-        clearError={clearError}
-      >
+      <Form sendFormHandler={sendFormHandler} buttonText="Signup" formIsLoad={pending} serverError={error}>
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateEmail}

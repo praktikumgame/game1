@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { IStateValues } from './types';
-import { withAuth } from '../../services/Auth';
-import { InputWithMessage, Form } from '../';
-import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
+import { useDispatch, useSelector } from 'react-redux';
 import { validatePassword, validateLogin } from '../../services/validators';
-import { authApi } from '../../services/api';
+import { withAuth } from '../../services/auth';
+import { signinUser } from '../../redux/signin/actions';
+import { ISigninState } from '../../redux/signin/reducer';
+import { InputWithMessage, Form } from '../';
+import { IStateValues } from './types';
 
 import './Signin.css';
 
-const Signin = withAuth(({ isAuthorized, authorize }) => {
-  const [formIsLoad, setFormIsLoad] = useState(false);
+const Signin = withAuth(({ isAuthorized }) => {
+  const dispatch = useDispatch();
+  const { pending, error } = useSelector((state: { signin: ISigninState }) => state.signin);
   const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
-  const [serverError, setServerError] = useState('');
-
-  const clearValues = () => setValues({ login: '', password: '' });
-  const clearError = () => setServerError('');
 
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
@@ -24,33 +22,17 @@ const Signin = withAuth(({ isAuthorized, authorize }) => {
 
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
-
-    setFormIsLoad(true);
-
-    authApi
-      .signin(values)
-      .then(() => authorize())
-      .catch(({ status }) => setServerError(errorHandler(status)))
-      .finally(() => {
-        clearValues();
-        setFormIsLoad(false);
-      });
+    dispatch(signinUser(values));
   };
 
-  if (isAuthorized && !formIsLoad) {
+  if (isAuthorized) {
     return <Redirect to="/game" />;
   }
 
   return (
     <div className="signin">
       <h2 className="signin__title">Signin to play</h2>
-      <Form
-        sendFormHandler={sendFormHandler}
-        buttonText="Signin"
-        formIsLoad={formIsLoad}
-        serverError={serverError}
-        clearError={clearError}
-      >
+      <Form sendFormHandler={sendFormHandler} buttonText="Signin" formIsLoad={pending} serverError={error}>
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateLogin}

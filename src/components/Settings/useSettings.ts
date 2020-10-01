@@ -1,25 +1,25 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IAuthState } from '../../redux/auth/reducer';
+import { IUserSettingState } from '../../redux/userSettings/reducer';
 import { IStateValues } from './types';
 
 export const useSettings = () => {
   const [values, setValues] = useState<IStateValues>({ oldPassword: '', newPassword: '' });
-  const [userAvatar, setUserAvatar] = useState('');
-  const [avatarIsLoad, setAvatarIsLoad] = useState(false);
-  const [avatarError, setAvatarError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordIsLoad, setPasswordIsLoad] = useState(false);
+  const dispatch = useDispatch();
+  const userAvatar = useSelector((state: { auth: IAuthState }) => state.auth.avatar);
+  const { pendingAvatar, avatarError, pendingChangePassword, changePasswordError, passwordIsMatch } = useSelector(
+    (state: { userSettings: IUserSettingState }) => state.userSettings,
+  );
   return {
     values,
     setValues,
+    dispatch,
     userAvatar,
-    setUserAvatar,
-    avatarIsLoad,
-    setAvatarIsLoad,
+    pendingAvatar,
     avatarError,
-    setAvatarError,
-    passwordError,
-    setPasswordError,
-    passwordIsLoad,
-    setPasswordIsLoad,
+    pendingChangePassword,
+    changePasswordError,
+    passwordIsMatch,
   };
 };

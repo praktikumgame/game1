@@ -1,12 +1,11 @@
 import { LOGIN_OR_EMAIL_ERROR, INITIAL_SERVER_ERROR, UNKNOWN_ERROR } from '../../../constants';
 
-export type SignInStatusGlossary = { 401: string; 500: string };
+const statusToMessageMap = {
+  [HTTPCodeStatuses.Unauthorized]: LOGIN_OR_EMAIL_ERROR,
+  [HTTPCodeStatuses.InternalError]: INITIAL_SERVER_ERROR,
+};
 
-export const getErrorMessageByStatus = (status: keyof SignInStatusGlossary) => {
-  const statusGlossary: SignInStatusGlossary = {
-    401: LOGIN_OR_EMAIL_ERROR,
-    500: INITIAL_SERVER_ERROR,
-  };
-  const result = statusGlossary[status];
+export const getErrorMessageByStatus = (status: keyof typeof statusToMessageMap) => {
+  const result = statusToMessageMap[status];
   return result || UNKNOWN_ERROR;
 };
