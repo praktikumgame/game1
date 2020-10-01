@@ -40,7 +40,7 @@ function changeAvatar(avatar: string) {
 async function getUserInfo(): Promise<Omit<IUserInfoStateType, 'checkingAuthorize'>> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
-  return { login, avatar };
+  return { login, avatar: `${AVATAR_API}${avatar}` };
 }
 
 function checkAuthorize() {
