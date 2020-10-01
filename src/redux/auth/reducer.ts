@@ -1,4 +1,11 @@
-import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
+import {
+  AUTHORIZE,
+  AUTHORIZE_CHECK_COMPLETED,
+  CHANGE_AVATAR,
+  LOGOUT,
+  PENDING_AUTHORIZE_CHECK,
+  BACKDOOR,
+} from './types';
 
 interface IUserInfoStateType {
   login: string;
@@ -8,6 +15,7 @@ interface IUserInfoStateType {
 
 interface IAuthState extends IUserInfoStateType {
   isAuthorized: boolean;
+  backdoor: boolean;
 }
 
 type ActionType = {
@@ -20,6 +28,7 @@ const initialState: IAuthState = {
   login: 'Гость',
   avatar: '',
   checkingAuthorize: false,
+  backdoor: false,
 };
 
 const authReducer = (state: IAuthState = initialState, action: ActionType) => {
@@ -38,6 +47,9 @@ const authReducer = (state: IAuthState = initialState, action: ActionType) => {
     }
     case CHANGE_AVATAR: {
       return { ...state, ...action.payload };
+    }
+    case BACKDOOR: {
+      return { ...state, backdoor: !state.backdoor };
     }
   }
   return state;

@@ -3,16 +3,18 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
-import { SET_BACKDOOR, signinUser } from '../../redux/signin/actions';
+import { signinUser } from '../../redux/signin/actions';
+import { SET_BACKDOOR } from '../../redux/auth/actions';
 import { ISigninState } from '../../redux/signin/reducer';
 import { InputWithMessage, Form } from '../';
 import { IStateValues } from './types';
 
 import './Signin.css';
+import { IAuthState } from 'redux/auth/reducer';
 
 const Signin = withAuth(({ isAuthorized }) => {
   const dispatch = useDispatch();
-  const backdoor = useSelector((state: { signin: ISigninState }) => state.signin.backdoor);
+  const backdoor = useSelector((state: { auth: IAuthState }) => state.auth.backdoor);
   const { pending, error } = useSelector((state: { signin: ISigninState }) => state.signin);
   const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
 

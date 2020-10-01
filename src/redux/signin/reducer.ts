@@ -1,15 +1,13 @@
-import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR, SIGNIN_BACKDOOR } from './types';
+import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR } from './types';
 
 interface ISigninState {
   pending: boolean;
   error: string;
-  backdoor: boolean;
 }
 
 const initialState: ISigninState = {
   pending: false,
   error: '',
-  backdoor: false,
 };
 
 type ActionType = {
@@ -30,9 +28,6 @@ const signinReducer = (state: ISigninState = initialState, action: ActionType) =
     }
     case SIGNIN_CLEAR_ERROR: {
       return { ...state, error: '' };
-    }
-    case SIGNIN_BACKDOOR: {
-      return { ...state, backdoor: !state.backdoor };
     }
   }
   return state;

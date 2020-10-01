@@ -3,7 +3,14 @@ import { authApi } from '../../services/api';
 import { initApp } from '../app/actions';
 import { AVATAR_API } from '../../constants';
 import { IUserInfoStateType } from './reducer';
-import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
+import {
+  AUTHORIZE,
+  AUTHORIZE_CHECK_COMPLETED,
+  BACKDOOR,
+  CHANGE_AVATAR,
+  LOGOUT,
+  PENDING_AUTHORIZE_CHECK,
+} from './types';
 
 function authorize(userInfo: Omit<IUserInfoStateType, 'checkingAuthorize'>) {
   return {
@@ -29,7 +36,11 @@ function logout() {
     type: LOGOUT,
   };
 }
-
+export function SET_BACKDOOR() {
+  return {
+    type: BACKDOOR,
+  };
+}
 function changeAvatar(avatar: string) {
   return {
     type: CHANGE_AVATAR,

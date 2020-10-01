@@ -6,11 +6,11 @@ import { Button } from '../';
 import { withAuth, withAuthProps } from '../../services/auth';
 
 import './Header.css';
-import { ISigninState } from 'redux/signin/reducer';
+import { IAuthState } from 'redux/auth/reducer';
 
 const Header = withAuth(({ isAuthorized }: withAuthProps) => {
   const dispatch = useDispatch();
-  const backdoor = useSelector((state: { signin: ISigninState }) => state.signin.backdoor);
+  const backdoor = useSelector((state: { auth: IAuthState }) => state.auth.backdoor);
   return (
     <header className="header">
       <NavLink className="link header__logo-link" to="/">

@@ -3,7 +3,7 @@ import { authApi } from '../../services/api';
 import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
 import { SignInValuesType } from '../../services/api';
 import { authorize, getUserInfo } from '../auth/actions';
-import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR, SIGNIN_BACKDOOR } from './types';
+import { SIGNIN_PENDING, SIGNIN_ERROR, SIGNIN_STOP_PENDING, SIGNIN_CLEAR_ERROR } from './types';
 
 function signinPending() {
   return {
@@ -27,12 +27,6 @@ function signinError(text: string) {
 function clearError() {
   return {
     type: SIGNIN_CLEAR_ERROR,
-  };
-}
-
-export function SET_BACKDOOR() {
-  return {
-    type: SIGNIN_BACKDOOR,
   };
 }
 
