@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { IStateValues } from './types';
-import { InputWithMessage, Form } from '../';
+import { useDispatch, useSelector } from 'react-redux';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
-
-import { useDispatch, useSelector } from 'react-redux';
 import { signinUser } from '../../redux/signin/actions';
 import { ISigninState } from '../../redux/signin/reducer';
+import { InputWithMessage, Form } from '../';
+import { IStateValues } from './types';
 
 import './Signin.css';
 
@@ -15,8 +14,6 @@ const Signin = withAuth(({ isAuthorized }) => {
   const dispatch = useDispatch();
   const { pending, error } = useSelector((state: { signin: ISigninState }) => state.signin);
   const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
-
-  const clearValues = () => setValues({ login: '', password: '' });
 
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
@@ -26,7 +23,6 @@ const Signin = withAuth(({ isAuthorized }) => {
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(signinUser(values));
-    clearValues();
   };
 
   if (isAuthorized) {

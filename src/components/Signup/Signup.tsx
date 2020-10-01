@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../../redux/signup/actions';
-import { IStateFields } from './types';
 import { withAuth } from '../../services/auth';
-import { InputWithMessage, Form } from '../';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
 import { ISignupState } from '../../redux/signup/reducer';
+import { InputWithMessage, Form } from '../';
+import { IStateFields } from './types';
 
 import './Signup.css';
 
