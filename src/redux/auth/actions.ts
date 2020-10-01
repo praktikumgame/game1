@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import { authApi } from '../../services/api';
 import { initApp } from '../app/actions';
+import { AVATAR_API } from '../../constants';
 import { IUserInfoStateType } from './reducer';
 import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
-import { parseAvatar } from './helpers';
 
 function authorize(userInfo: Omit<IUserInfoStateType, 'checkingAuthorize'>) {
   return {
@@ -33,14 +33,14 @@ function logout() {
 function changeAvatar(avatar: string) {
   return {
     type: CHANGE_AVATAR,
-    payload: { avatar: parseAvatar(avatar) },
+    payload: { avatar: avatar ? `${AVATAR_API}${avatar}` : '' },
   };
 }
 
 async function getUserInfo(): Promise<Omit<IUserInfoStateType, 'checkingAuthorize'>> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
-  return { login, avatar: parseAvatar(avatar) };
+  return { login, avatar };
 }
 
 function checkAuthorize() {

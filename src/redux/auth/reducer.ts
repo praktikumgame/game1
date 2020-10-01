@@ -25,7 +25,7 @@ const initialState: IAuthState = {
 const authReducer = (state: IAuthState = initialState, action: ActionType) => {
   switch (action.type) {
     case AUTHORIZE: {
-      return { ...state, ...{ isAuthorized: true, initApp: true }, ...action.payload };
+      return { ...state, ...action.payload, isAuthorized: true };
     }
     case PENDING_AUTHORIZE_CHECK: {
       return { ...state, checkingAuthorize: true };

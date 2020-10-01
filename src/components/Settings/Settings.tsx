@@ -1,5 +1,6 @@
 import React, { createRef, RefObject, useEffect } from 'react';
 import { Form, InputWithMessage } from '../';
+import exampleAvatar from '../../images/example-avatar.png';
 import { useSettings } from './useSettings';
 import { validatePassword } from '../../services/validators';
 import {
@@ -81,7 +82,7 @@ const Settings = () => {
                 {pendingAvatar ? (
                   <div className="settings__loader"></div>
                 ) : (
-                  <img src={userAvatar} alt="avatar" className="settings__avatar" />
+                  <img src={userAvatar || exampleAvatar} alt="avatar" className="settings__avatar" />
                 )}
                 <div className="setting__custom-input"></div>
               </div>
