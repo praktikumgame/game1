@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { IAuthState } from 'redux/auth/reducer';
+import { getBackdoor } from '../../redux/auth/selectors';
 import { withAuth, withAuthProps } from '../../services/auth/';
 
 const PrivateRoute = withAuth(({ isAuthorized, component: Component, ...rest }: withAuthProps & RouteProps) => {
-  const backdoor = useSelector((state: { auth: IAuthState }) => state.auth.backdoor);
+  const backdoor = useSelector(getBackdoor);
   if (!Component) {
     throw new Error('Component is required in PrivateRoute');
   }

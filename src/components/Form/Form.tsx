@@ -5,6 +5,7 @@ import './Form.css';
 
 const Form = ({ sendFormHandler, children, buttonText, formValidator = false, formIsLoad, serverError }: IProps) => {
   const [formIsValid, setFormIsValid] = useState(false);
+
   const validator = (event: React.ChangeEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     setFormIsValid(form.checkValidity());

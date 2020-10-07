@@ -5,28 +5,31 @@ import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
 import { signinUser } from '../../redux/signin/actions';
 import { SET_BACKDOOR } from '../../redux/auth/actions';
-import { ISigninState } from '../../redux/signin/reducer';
 import { InputWithMessage, Form } from '../';
 import { IStateValues } from './types';
-
 import './Signin.css';
-import { IAuthState } from 'redux/auth/reducer';
+import { getBackdoor } from '../../redux/auth/selectors';
+import { getErrorAndPending } from '../../redux/signin/selectors';
 
 const Signin = withAuth(({ isAuthorized }) => {
   const dispatch = useDispatch();
-  const backdoor = useSelector((state: { auth: IAuthState }) => state.auth.backdoor);
-  const { pending, error } = useSelector((state: { signin: ISigninState }) => state.signin);
+
+  const backdoor = useSelector(getBackdoor);
+  const { pending, error } = useSelector(getErrorAndPending);
+
   const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
 
   const saveInputValue = (target: HTMLInputElement) => {
     const { name, value } = target;
     setValues({ ...values, ...{ [name]: value } });
   };
-  const setBackdoor = (value: ChangeEvent<HTMLInputElement>) => {
-    if (value.target.value === 'hacked') {
+
+  const setBackdoor = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === 'hacked') {
       dispatch(SET_BACKDOOR());
     }
   };
+
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(signinUser(values));

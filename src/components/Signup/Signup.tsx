@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../../redux/signup/actions';
 import { withAuth } from '../../services/auth';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
-import { ISignupState } from '../../redux/signup/reducer';
 import { InputWithMessage, Form } from '../';
 import { IStateFields } from './types';
 
 import './Signup.css';
+import { getSignUp } from '../../redux/signup/selectors';
 
 const Signup = withAuth(({ isAuthorized }) => {
   const dispatch = useDispatch();
-  const { pending, error } = useSelector((state: { signup: ISignupState }) => state.signup);
+
+  const { pending, error } = useSelector(getSignUp);
+
   const [values, setValues] = useState<IStateFields>({ email: '', login: '', password: '' });
 
   const saveInputValue = (target: HTMLInputElement) => {
