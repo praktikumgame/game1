@@ -73,8 +73,12 @@ function checkAuthorize() {
 
 function clearCookie() {
   return async (dispatch: Dispatch) => {
-    await authApi.logout();
-    dispatch(logout());
+    try {
+      await authApi.logout();
+      dispatch(logout());
+    } catch {
+      dispatch(SET_BACKDOOR());
+    }
   };
 }
 
