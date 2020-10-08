@@ -1,20 +1,17 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
 import { signinUser } from '../../redux/signin/actions';
-import { SET_BACKDOOR } from '../../redux/auth/actions';
 import { InputWithMessage, Form } from '../';
 import { IStateValues } from './types';
 import './Signin.css';
-import { getBackdoor } from '../../redux/auth/selectors';
 import { getErrorAndPending } from '../../redux/signin/selectors';
 
 const Signin = withAuth(({ isAuthorized }) => {
   const dispatch = useDispatch();
 
-  const backdoor = useSelector(getBackdoor);
   const { pending, error } = useSelector(getErrorAndPending);
 
   const [values, setValues] = useState<IStateValues>({ login: '', password: '' });
@@ -24,18 +21,12 @@ const Signin = withAuth(({ isAuthorized }) => {
     setValues({ ...values, ...{ [name]: value } });
   };
 
-  const setBackdoor = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === 'hacked') {
-      dispatch(SET_BACKDOOR());
-    }
-  };
-
   const sendFormHandler = (event: React.MouseEvent): void => {
     event.preventDefault();
     dispatch(signinUser(values));
   };
 
-  if (isAuthorized || backdoor) {
+  if (isAuthorized) {
     return <Redirect to="/game" />;
   }
 
@@ -66,7 +57,6 @@ const Signin = withAuth(({ isAuthorized }) => {
           required={true}
         />
       </Form>
-      <input type="text" className="hidder" onChange={setBackdoor}></input>
     </div>
   );
 });

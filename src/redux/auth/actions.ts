@@ -3,14 +3,7 @@ import { authApi } from '../../services/api';
 import { initApp } from '../app/actions';
 import { AVATAR_API } from '../../constants';
 import { IUserInfoStateType } from './reducer';
-import {
-  AUTHORIZE,
-  AUTHORIZE_CHECK_COMPLETED,
-  BACKDOOR,
-  CHANGE_AVATAR,
-  LOGOUT,
-  PENDING_AUTHORIZE_CHECK,
-} from './types';
+import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
 
 function authorize(userInfo: Omit<IUserInfoStateType, 'checkingAuthorize'>) {
   return {
@@ -34,11 +27,6 @@ function authorizeCheckComplete() {
 function logout() {
   return {
     type: LOGOUT,
-  };
-}
-export function SET_BACKDOOR() {
-  return {
-    type: BACKDOOR,
   };
 }
 function changeAvatar(avatar: string) {
@@ -73,12 +61,8 @@ function checkAuthorize() {
 
 function clearCookie() {
   return async (dispatch: Dispatch) => {
-    try {
-      await authApi.logout();
-      dispatch(logout());
-    } catch {
-      dispatch(SET_BACKDOOR());
-    }
+    await authApi.logout();
+    dispatch(logout());
   };
 }
 

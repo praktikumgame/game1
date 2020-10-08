@@ -1,5 +1,5 @@
 import React, { createRef, RefObject, useEffect } from 'react';
-import exampleAvatar from '../../images/example-avatar.png';
+import exampleAvatar from '../../static/images/example-avatar.png';
 import { validatePassword } from '../../services/validators';
 import {
   loadAvatar,

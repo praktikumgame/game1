@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 
 const optimization = () => ({
   minimizer: isDev ? [] : [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
@@ -12,17 +13,6 @@ const optimization = () => ({
     chunks: 'all',
   },
 });
-
-const cssLoaders = () => {
-  const def = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-    },
-    'css-loader',
-    'postcss-loader',
-  ];
-  return def;
-};
 
 module.exports = {
   entry: './src/index.tsx',
@@ -41,17 +31,23 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader?name=/static/fonts/[name].[ext]'],
+      },
+      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: cssLoaders(),
-      },
-      {
-        test: /\.s[ac]ss$/,
-        use: cssLoaders(true),
+        test: /\.(css|s[ac]ss)$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(png|jpg|gif|ico|svg)$/,
@@ -87,6 +83,9 @@ module.exports = {
     ],
   },
   plugins: [
+    // new CopyPlugin({
+    //   patterns: [{ from: './static', to: './dist/static' }],
+    // }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       minify: {

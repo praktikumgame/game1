@@ -6,4 +6,6 @@
 .app {
   max-width: 1440px;
   margin: 0 auto;
+  font-family: 'Font Of Kindness 2.0';
+  font-weight: normal;
 }

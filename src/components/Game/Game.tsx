@@ -3,7 +3,12 @@ import { withErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 
 import './Game.css';
 
-const Game = () => <h1 className="game">Welcome to GAME</h1>;
+const Game = () => (
+  <div className="game">
+    <h1>Welcome to GAME</h1>
+    <canvas className="canvas"></canvas>
+  </div>
+);
 
 const GameWithErrorHandler = withErrorBoundary(Game);
 

@@ -8,13 +8,17 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import './index.css';
+import './static/stylesheet.css';
 
-const store = createStore(
-  rootReducer,
-  // dev tools
-  // @ts-ignore
-  compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
-);
+const middleware = () => {
+  const members = [applyMiddleware(thunk)];
+  if (process.env.NODE_ENV === 'development' && (window as any).__REDUX_DEVTOOLS_EXTENSION__) {
+    members.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
+  }
+  return members;
+};
+
+const store = createStore(rootReducer, compose(...middleware()));
 
 ReactDOM.render(
   <React.StrictMode>

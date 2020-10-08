@@ -5,8 +5,7 @@ import { withAuthProps } from '../types';
 
 function withAuth<T extends withAuthProps>(WrappedComponent: React.ComponentType<T>) {
   const withAuthComponent = (props: Omit<T, keyof withAuthProps>) => {
-    const authProps = useSelector(getAuthorize);
-
+    const authProps = { isAuthorized: useSelector(getAuthorize) };
     return <WrappedComponent {...(props as T)} {...authProps} />;
   };
 
