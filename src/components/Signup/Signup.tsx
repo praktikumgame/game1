@@ -32,8 +32,8 @@ const Signup = withAuth(({ isAuthorized }) => {
   }
   return (
     <div className="signup">
-      <h2 className="signup__title">Signup to play</h2>
-      <Form sendFormHandler={sendFormHandler} buttonText="Signup" formIsLoad={pending} serverError={error}>
+      <h1 className="signup__title">Sign Up</h1>
+      <Form sendFormHandler={sendFormHandler} buttonText="Sign Up" formIsLoad={pending} serverError={error}>
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateEmail}

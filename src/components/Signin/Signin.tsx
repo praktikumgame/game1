@@ -32,8 +32,8 @@ const Signin = withAuth(({ isAuthorized }) => {
 
   return (
     <div className="signin">
-      <h2 className="signin__title">Signin to play</h2>
-      <Form sendFormHandler={sendFormHandler} buttonText="Signin" formIsLoad={pending} serverError={error}>
+      <h1 className="signin__title">Sign In</h1>
+      <Form sendFormHandler={sendFormHandler} buttonText="Sign In" formIsLoad={pending} serverError={error}>
         <InputWithMessage
           saveInputValue={saveInputValue}
           validator={validateLogin}

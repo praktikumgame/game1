@@ -1,22 +1,22 @@
 @font-face {
-    font-family: 'Font Of Kindness 2.0';
-    src: url('./fonts/FontOfKindness20-Regular.eot');
-    src: url('./fonts/FontOfKindness20-Regular.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/FontOfKindness20-Regular.woff2') format('woff2'),
-        url('./fonts/FontOfKindness20-Regular.woff') format('woff'),
-        url('./fonts/FontOfKindness20-Regular.ttf') format('truetype');
+    font-family: 'Caveat';
+    src: url('./fonts/Caveat-Regular.eot');
+    src: url('./fonts/Caveat-Regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/Caveat-Regular.woff2') format('woff2'),
+        url('./fonts/Caveat-Regular.woff') format('woff'),
+        url('./fonts/Caveat-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Font Of Kindness 2.0';
-    src: url('./fonts/FontOfKindness20-Bold.eot');
-    src: url('./fonts/FontOfKindness20-Bold.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/FontOfKindness20-Bold.woff2') format('woff2'),
-        url('./fonts/FontOfKindness20-Bold.woff') format('woff'),
-        url('./fonts/FontOfKindness20-Bold.ttf') format('truetype');
+    font-family: 'Caveat';
+    src: url('./fonts/Caveat-Bold.eot');
+    src: url('./fonts/Caveat-Bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/Caveat-Bold.woff2') format('woff2'),
+        url('./fonts/Caveat-Bold.woff') format('woff'),
+        url('./fonts/Caveat-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;

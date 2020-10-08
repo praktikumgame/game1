@@ -5,7 +5,6 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const CopyPlugin = require('copy-webpack-plugin');
 
 const optimization = () => ({
   minimizer: isDev ? [] : [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
@@ -13,6 +12,24 @@ const optimization = () => ({
     chunks: 'all',
   },
 });
+
+const plugins = () => {
+  const plugins = [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      minify: {
+        collapseWhitespace: !isDev,
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'static/[name].[contentHash].css',
+    }),
+  ];
+  if (!isDev) {
+    plugins.push(new CleanWebpackPlugin());
+  }
+  return plugins;
+};
 
 module.exports = {
   entry: './src/index.tsx',
@@ -31,8 +48,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader?name=/static/fonts/[name].[ext]'],
+        test: /\.(woff|woff2|ttf|otf|eot)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: '../',
+              name: 'fonts/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.tsx?$/,
@@ -52,7 +77,13 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|ico|svg)$/,
         use: [
-          'file-loader?name=./images/[name].[ext]',
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: '../',
+              name: 'images/[name].[ext]',
+            },
+          },
           {
             loader: 'image-webpack-loader',
             options: {
@@ -82,19 +113,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    // new CopyPlugin({
-    //   patterns: [{ from: './static', to: './dist/static' }],
-    // }),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      minify: {
-        collapseWhitespace: !isDev,
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'static/[name].[contentHash].css',
-    }),
-    new CleanWebpackPlugin(),
-  ],
+  plugins: plugins(),
 };
