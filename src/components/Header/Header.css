@@ -30,14 +30,33 @@
   color: gray;
   border-bottom: 1px solid transparent;
 }
-.header__link:hover {
-  border-bottom: 1px solid gray;
-}
+/* .header__link:hover {
+ border-bottom: 1px solid gray;
+} */
 .active {
   color: black;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
 }
 
 .header__link:last-child {
   margin: 0 0;
+}
+/* https://habr.com/ru/post/434574/ */
+.header__link { 
+  color: black;
+  padding: 10px 10px;
+  text-decoration: none;
+  display: inline;
+  background-image: linear-gradient(-45deg, white 10%, black 95%, white 10%);
+  
+  background-position: 0em 2em;
+  background-repeat: no-repeat;
+  background-size: 0% 10px;
+}
+
+.header__link:hover,
+.header__link:focus {
+  transition: background-size .6s ease-in-out 0.1s;
+  background-size: 100% 10px;
+  transition-delay: 0s;
 }

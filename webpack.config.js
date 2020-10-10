@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const optimization = () => ({
   minimizer: isDev ? [] : [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
@@ -23,6 +24,12 @@ const plugins = () => {
     }),
     new MiniCssExtractPlugin({
       filename: 'static/[name].[contentHash].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/static/images/chelLeft.png', to: './images' },
+        { from: './src/static/images/chelRight.png', to: './images' },
+      ],
     }),
   ];
   if (!isDev) {
