@@ -29,6 +29,7 @@ const plugins = () => {
       patterns: [
         { from: './src/static/images/chelLeft.png', to: './images' },
         { from: './src/static/images/chelRight.png', to: './images' },
+        { from: './src/static/images/platfom.png', to: './images' },
       ],
     }),
   ];

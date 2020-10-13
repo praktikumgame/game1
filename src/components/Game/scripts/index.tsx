@@ -23,8 +23,7 @@ export const Init = () => {
   engine.initialize();
 
   setTimeout(() => {
-    console.log(engine);
     engine.start();
-  }, 2000);
+  }, 1000);
   // return engine.stop();
 };

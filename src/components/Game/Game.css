@@ -7,8 +7,8 @@ h1 {
 }
 .canvas {
   display: block;
-  width: 50vw;
-  height: 70vh;
+  width: 760px;
+  height: 380px;
   outline: 1px solid black;
   margin: 0 auto;
 }
