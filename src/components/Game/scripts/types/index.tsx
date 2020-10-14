@@ -1,6 +1,5 @@
-// import { Chel } from '../personas/personas';
 import { Hero } from '../hero/hero';
-import { Platform } from '../platforms/platformV2';
+import { Platform } from '../platforms/platform';
 
 export interface InitParametrs {
   /**

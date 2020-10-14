@@ -1,4 +1,4 @@
-import Engine from './engine2';
+import Engine from './engine';
 
 export const Init = async () => {
   const ctx = (document.querySelector('.canvas') as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D;

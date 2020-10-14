@@ -13,7 +13,7 @@ export const heroConfig: HeroBody = {
   image: 'default',
   images: {
     default: {
-      link: './images/chelLeft.png',
+      link: './images/chelRight.png',
       width: 0,
       height: 0,
       background: null,
