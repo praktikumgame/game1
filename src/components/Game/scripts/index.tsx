@@ -1,29 +1,15 @@
-import Engine from './engine';
-function setParameters(ctx: CanvasRenderingContext2D) {
-  return {
+import Engine from './engine2';
+
+export const Init = async () => {
+  const ctx = (document.querySelector('.canvas') as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D;
+
+  const engine = new Engine({
     width: ctx.canvas.clientWidth,
     height: ctx.canvas.clientHeight,
     ctx,
-  };
-}
-
-export const Init = () => {
-  const ctx = (document.querySelector('.canvas') as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D;
-  if (!ctx) {
-    throw new Error('asd');
-  }
-
-  let parametrs = setParameters(ctx);
-  window.addEventListener('resize', () => {
-    parametrs = setParameters(ctx);
   });
 
-  const engine = new Engine(parametrs);
+  await engine.initialize();
 
-  engine.initialize();
-
-  setTimeout(() => {
-    engine.start();
-  }, 1000);
-  // return engine.stop();
+  // setTimeout(() => engine.start(), 1000);
 };

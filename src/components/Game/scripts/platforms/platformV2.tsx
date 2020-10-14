@@ -1,69 +1,58 @@
-import { InitParametrs } from '../types';
-import { StaticBody } from '../types/personas';
-
-export class Plarform {
+import { Hero } from '../hero/hero';
+import { RenderBody } from '../types';
+import { PlatformProps } from './types';
+export class Platform {
   width: number;
   height: number;
   ctx: CanvasRenderingContext2D;
+  body: RenderBody;
+  currentImage = 'default';
 
-  constructor({ ctx, width, height }: InitParametrs) {
+  constructor({ width, height, ctx, body }: PlatformProps) {
     this.width = width;
     this.height = height;
     this.ctx = ctx;
+    this.body = body;
   }
 
-  body: StaticBody = {
-    name: 'platform',
-    coords: {
-      x: 200,
-      y: 30,
-      view: {
-        lX: 0,
-        lY: 0,
-        rX: 0,
-        rY: 0,
-      },
-    },
-    image: {
-      width: 0,
-      height: 0,
-      frameWidth: 64,
-      frameHeight: 64,
-      background: null,
-      frame: 0,
-      frameCount: 9,
-      frames: 0,
-    },
-  };
   async initialize() {
-    await new Promise((res) => {
-      const use = new Image();
-      use.src = './images/platfom.png';
-      use.onload = () => {
-        this.body.image.background = use;
-        this.body.image.width = 64;
-        this.body.image.height = 64;
-        res();
-      };
-    });
+    const keys = Object.keys(this.body.images);
+    for (const imageType of keys) {
+      await new Promise(async (res) => {
+        const image = new Image();
+        const stateImage = this.body.images[imageType];
+        image.src = stateImage.link;
+        image.onload = () => res((stateImage.background = image));
+      });
+    }
     this.recalc();
     return this;
   }
-  render = () => {
-    this.draw();
-  };
-  recalc = () => {
+  recalc() {
     this.body.coords.view.lX = this.body.coords.x;
-    this.body.coords.view.lY = this.body.coords.y + this.body.image.frameHeight;
-    this.body.coords.view.rX = this.body.coords.view.lX + this.body.image.frameWidth;
-    this.body.coords.view.rY = this.body.coords.y + this.body.image.frameHeight;
+    this.body.coords.view.lY = this.body.coords.y + this.body.images[this.currentImage].frameHeight;
+    this.body.coords.view.rX = this.body.coords.view.lX + this.body.images[this.currentImage].frameWidth;
+    this.body.coords.view.rY = this.body.coords.y + this.body.images[this.currentImage].frameHeight;
+  }
+  render(hero: Hero) {
+    this.draw();
+    return this.accessory(hero.body.coords.view, this.body.coords.view);
+  }
+  accessory = (
+    a: { lX: number; lY: number; rX: number; rY: number },
+    b: { lX: number; lY: number; rX: number; rY: number },
+  ) => {
+    return (
+      (b.lX <= a.lX && a.lX <= b.rX && b.lY <= a.lY && a.lY <= b.rY) ||
+      (b.lX <= a.rX && a.rX <= b.rX && b.lY <= a.rY && a.rY <= b.rY)
+    );
   };
 
   draw = () => {
     this.ctx.drawImage(
-      this.body.image.background as CanvasImageSource,
+      this.body.images[this.currentImage].background as CanvasImageSource,
       this.body.coords.view.lX,
-      this.height - this.body.coords.y - this.body.image.frameHeight,
+      this.height - this.body.coords.y - this.body.images[this.currentImage].frameHeight,
     );
   };
 }
