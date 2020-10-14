@@ -6,38 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-
-const optimization = () => ({
-  minimizer: isDev ? [] : [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
-  splitChunks: {
-    chunks: 'all',
-  },
-});
-
-const plugins = () => {
-  const plugins = [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      minify: {
-        collapseWhitespace: !isDev,
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'static/[name].[contentHash].css',
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: './src/static/images/chelLeft.png', to: './images' },
-        { from: './src/static/images/chelRight.png', to: './images' },
-        { from: './src/static/images/platfom.png', to: './images' },
-      ],
-    }),
-  ];
-  if (!isDev) {
-    plugins.push(new CleanWebpackPlugin());
-  }
-  return plugins;
-};
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -49,9 +18,17 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
-  optimization: optimization(),
+  optimization: {
+    minimizer: [!isDev && new OptimizeCssAssetsPlugin(), !isDev && new TerserPlugin()].filter(
+      (el) => typeof el !== 'boolean',
+    ),
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
@@ -121,5 +98,23 @@ module.exports = {
       },
     ],
   },
-  plugins: plugins(),
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      minify: {
+        collapseWhitespace: !isDev,
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'static/[name].[contentHash].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/static/images/chelLeft.png', to: './images' },
+        { from: './src/static/images/chelRight.png', to: './images' },
+        { from: './src/static/images/platfom.png', to: './images' },
+      ],
+    }),
+    !isDev && new CleanWebpackPlugin(),
+  ].filter((el) => typeof el !== 'boolean'),
 };

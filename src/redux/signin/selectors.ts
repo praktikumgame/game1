@@ -1,9 +1,8 @@
-import { ISigninState } from './reducer';
 import { createSelector } from 'reselect';
-
+import { IState } from 'redux/rootReducer';
 export const getErrorAndPending = createSelector(
-  (state: { signin: ISigninState }) => state.signin.error,
-  (state: { signin: ISigninState }) => state.signin.pending,
+  (state: IState) => state.signin.error,
+  (state: IState) => state.signin.pending,
   (error, pending) => ({
     error,
     pending,

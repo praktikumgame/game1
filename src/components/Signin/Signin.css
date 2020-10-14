@@ -6,11 +6,3 @@
 .signin__title {
   margin-bottom: 32px;
 }
-
-.hidder {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  border: none;
-  outline: none;
-}

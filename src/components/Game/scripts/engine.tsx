@@ -1,9 +1,9 @@
-import { InitParametrs, RenderBody, globalRender } from './types';
+import { InitParametrs, RenderBody, GlobalGameState } from './types';
 
 import { levels } from './levels';
 import { Level, Levels } from './levels/types';
 
-import { sprites } from './sources';
+import { Sprites, sprites } from './sources';
 
 import { Platform } from './platforms/platform';
 import { Hero } from './hero/hero';
@@ -14,7 +14,7 @@ export default class Engine {
   initParametrs: InitParametrs;
   animationId = 0;
 
-  globalRender: globalRender = {
+  globalRender: GlobalGameState = {
     hero: [],
     platforms: [],
     enemies: [],
@@ -26,15 +26,18 @@ export default class Engine {
 
   async initialize() {
     // Здесь должна быть рендер-функция пока загружаются спрайты
-    for (const sprite of sprites) {
-      try {
-        await new Promise((res) => {
-          const use = new Image();
-          use.src = sprite;
-          use.onload = () => res();
-        });
-      } catch (err) {
-        console.log(err);
+    const keys = Object.keys(sprites);
+    for (const key of keys) {
+      for (const sprite of sprites[key as keyof Sprites]) {
+        try {
+          await new Promise((res) => {
+            const use = new Image();
+            use.src = sprite;
+            use.onload = () => res();
+          });
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
     // здесь рендер-функция выбора уровня
@@ -76,7 +79,8 @@ export default class Engine {
   }
   render = () => {
     this.initParametrs.ctx.clearRect(0, 0, this.initParametrs.width, this.initParametrs.height);
-    const hero = this.globalRender.hero[0];
+
+    const [hero] = this.globalRender.hero;
 
     hero.render();
 
@@ -86,10 +90,10 @@ export default class Engine {
 
     this.animationId = requestAnimationFrame(this.render);
   };
-  controller(bool: boolean) {
-    const hero = this.globalRender.hero[0];
+  controller(stayOnPlatform: boolean) {
+    const [hero] = this.globalRender.hero;
 
-    if (bool) {
+    if (stayOnPlatform) {
       hero.body.jump.down = false;
       if (hero.body.jump.current) {
         hero.body.jump.fly = false;
@@ -102,6 +106,8 @@ export default class Engine {
   }
   stop() {
     // Сюда передаем ид из стейта
+    const [hero] = this.globalRender.hero;
+    hero.destroy();
     window.cancelAnimationFrame(this.animationId);
     // Рендер функция с очками
   }

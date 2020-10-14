@@ -29,10 +29,11 @@ export class Platform {
     return this;
   }
   recalc() {
-    this.body.coords.view.lX = this.body.coords.x;
-    this.body.coords.view.lY = this.body.coords.y + this.body.images[this.currentImage].frameHeight;
-    this.body.coords.view.rX = this.body.coords.view.lX + this.body.images[this.currentImage].frameWidth;
-    this.body.coords.view.rY = this.body.coords.y + this.body.images[this.currentImage].frameHeight;
+    const { coords, images } = this.body;
+    coords.view.lX = coords.x;
+    coords.view.lY = coords.y + images[this.currentImage].frameHeight;
+    coords.view.rX = coords.view.lX + images[this.currentImage].frameWidth;
+    coords.view.rY = coords.y + images[this.currentImage].frameHeight;
   }
   render(hero: Hero) {
     this.draw();

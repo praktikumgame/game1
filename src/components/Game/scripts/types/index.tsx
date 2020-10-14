@@ -73,7 +73,7 @@ export type ImageParameters = {
    */
   frameHeight: number;
   /**
-   * Ссылка на скачанное в кеш/оперативную память (я просто хз) изображение
+   * Ссылка на скачанное в память изображение
    */
   background: HTMLImageElement | null | CanvasImageSource;
   /**
@@ -94,7 +94,7 @@ export type ImageParameters = {
   speed: number;
 };
 
-export type globalRender = {
+export type GlobalGameState = {
   hero: Hero[];
   platforms: Platform[];
   enemies: [];

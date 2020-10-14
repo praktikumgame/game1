@@ -1,7 +1,6 @@
-import { IAuthState } from './reducer';
+import { IState } from 'redux/rootReducer';
 import { createSelector } from 'reselect';
-
 export const getAuthorize = createSelector(
-  (state: { auth: IAuthState }) => state.auth.isAuthorized,
+  (state: IState) => state.auth.isAuthorized,
   (isAuthorized) => isAuthorized,
 );

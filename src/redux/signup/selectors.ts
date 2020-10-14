@@ -1,9 +1,8 @@
-import { ISignupState } from './reducer';
+import { IState } from 'redux/rootReducer';
 import { createSelector } from 'reselect';
-
 export const getSignUp = createSelector(
-  (state: { signup: ISignupState }) => state.signup.pending,
-  (state: { signup: ISignupState }) => state.signup.error,
+  (state: IState) => state.signup.pending,
+  (state: IState) => state.signup.error,
   (pending, error) => ({
     error,
     pending,

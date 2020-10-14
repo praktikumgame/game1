@@ -28,17 +28,25 @@ export class Hero {
     const trueMove = this.move.bind(this, true);
     const falseMove = this.move.bind(this, false);
 
-    window.addEventListener('keydown', trueMove);
-    window.addEventListener('keyup', falseMove);
+    window.onkeydown = trueMove;
+    window.onkeyup = falseMove;
     document.onkeydown = (e) => e.preventDefault();
     return this;
   }
+
+  destroy = () => {
+    window.onkeydown = () => null;
+    window.onkeyup = () => null;
+    document.onkeydown = () => null;
+  };
+
   recalc = () => {
+    const { coords, images } = this.body;
     // Левые и правые координаты хит-линии в декартовой системе
-    this.body.coords.view.lX = this.body.coords.x;
-    this.body.coords.view.lY = this.body.coords.y;
-    this.body.coords.view.rX = this.body.coords.x + this.body.images[this.currentImage].frameWidth;
-    this.body.coords.view.rY = this.body.coords.y;
+    coords.view.lX = coords.x;
+    coords.view.lY = coords.y;
+    coords.view.rX = coords.x + images[this.currentImage].frameWidth;
+    coords.view.rY = coords.y;
   };
   render = () => {
     const current = this.body.images[this.currentImage];
@@ -108,6 +116,7 @@ export class Hero {
   };
   move = (bool: boolean, e: KeyboardEvent) => {
     if (e.code === 'ArrowUp' && bool && !this.body.jump.fly) {
+      debugger;
       this.body.jump.current = 0;
       this.body.jump.fly = true;
       return;

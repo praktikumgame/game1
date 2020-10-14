@@ -1,6 +1,6 @@
 import Engine from './engine';
 
-export const Init = async () => {
+export const init = async () => {
   const ctx = (document.querySelector('.canvas') as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D;
 
   const engine = new Engine({
@@ -10,6 +10,5 @@ export const Init = async () => {
   });
 
   await engine.initialize();
-
-  // setTimeout(() => engine.start(), 1000);
+  return engine;
 };

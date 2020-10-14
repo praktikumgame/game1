@@ -1,7 +1,6 @@
-import { IAppState } from './reducer';
 import { createSelector } from 'reselect';
-
+import { IState } from 'redux/rootReducer';
 export const getInitApp = createSelector(
-  (state: { app: IAppState }) => state.app.initApp,
+  (state: IState) => state.app.initApp,
   (initApp) => initApp,
 );
