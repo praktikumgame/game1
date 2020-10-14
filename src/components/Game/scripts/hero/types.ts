@@ -1,3 +1,4 @@
+import { Camera } from '../assets';
 import { InitParametrs, RenderBody } from '../types';
 
 export interface HeroBody extends RenderBody {
@@ -18,4 +19,5 @@ export interface HeroBody extends RenderBody {
 
 export interface HeroProps extends InitParametrs {
   body: HeroBody;
+  camera: Camera;
 }

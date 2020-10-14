@@ -1,5 +1,5 @@
 import { InitParametrs, RenderBody, GlobalGameState } from './types';
-
+import { Camera } from './assets';
 import { levels } from './levels';
 import { Level, Levels } from './levels/types';
 
@@ -13,13 +13,13 @@ import { HeroBody } from './hero/types';
 export default class Engine {
   initParametrs: InitParametrs;
   animationId = 0;
+  camera = new Camera();
 
   globalRender: GlobalGameState = {
     hero: [],
     platforms: [],
     enemies: [],
   };
-
   constructor(initParametrs: InitParametrs) {
     this.initParametrs = initParametrs;
   }
@@ -61,13 +61,13 @@ export default class Engine {
   async creator(key: string, value: RenderBody | HeroBody) {
     switch (key) {
       case 'platforms': {
-        const merge = Object.assign({ body: value }, this.initParametrs);
+        const merge = Object.assign({ body: value }, this.initParametrs, { camera: this.camera });
         const platform = await new Platform(merge).initialize();
         this.globalRender.platforms.push(platform);
         break;
       }
       case 'hero': {
-        const merge = Object.assign({ body: value as HeroBody }, this.initParametrs);
+        const merge = Object.assign({ body: value as HeroBody }, this.initParametrs, { camera: this.camera });
         const hero = await new Hero(merge).initialize();
         this.globalRender.hero.push(hero);
         break;
@@ -81,11 +81,16 @@ export default class Engine {
     this.initParametrs.ctx.clearRect(0, 0, this.initParametrs.width, this.initParametrs.height);
 
     const [hero] = this.globalRender.hero;
+    // В будущем перепишем
+    if (hero.body.coords.view.lY < 0) {
+      alert(`Вы проиграли. Ваши очки: ${Math.round(Math.abs(hero.body.coords.view.lX - hero.body.coords.x))}`);
+      this.stop();
+      return;
+    }
 
     hero.render();
 
     const stayOnPlatform = this.globalRender.platforms.map((el) => el.render(hero)).some((el) => el);
-
     this.controller(stayOnPlatform);
 
     this.animationId = requestAnimationFrame(this.render);

@@ -1,3 +1,4 @@
+import { Camera } from '../assets';
 import { HeroBody, HeroProps } from './types';
 
 export class Hero {
@@ -6,12 +7,14 @@ export class Hero {
   ctx: CanvasRenderingContext2D;
   body: HeroBody;
   currentImage = 'default';
+  camera: Camera;
 
-  constructor({ width, height, ctx, body }: HeroProps) {
+  constructor({ width, height, ctx, body, camera }: HeroProps) {
     this.width = width;
     this.height = height;
     this.ctx = ctx;
     this.body = body;
+    this.camera = camera;
   }
 
   async initialize() {
@@ -42,11 +45,25 @@ export class Hero {
 
   recalc = () => {
     const { coords, images } = this.body;
+
+    if (coords.view.rX < 150) {
+      this.camera.incX();
+    }
+    if (coords.view.lX > 610) {
+      this.camera.decX();
+    }
+    if (coords.view.lY > 280) {
+      debugger;
+      this.camera.decY();
+    }
+    if (coords.view.lY < 100) {
+      this.camera.incY();
+    }
     // Левые и правые координаты хит-линии в декартовой системе
-    coords.view.lX = coords.x;
-    coords.view.lY = coords.y;
-    coords.view.rX = coords.x + images[this.currentImage].frameWidth;
-    coords.view.rY = coords.y;
+    coords.view.lX = coords.x + this.camera.x;
+    coords.view.lY = coords.y + this.camera.y;
+    coords.view.rX = coords.x + images[this.currentImage].frameWidth + this.camera.x;
+    coords.view.rY = coords.y + this.camera.y;
   };
   render = () => {
     const current = this.body.images[this.currentImage];
@@ -75,8 +92,8 @@ export class Hero {
       0,
       current.frameWidth,
       current.frameHeight,
-      this.body.coords.x,
-      this.height - current.frameHeight - this.body.coords.y,
+      this.body.coords.view.lX,
+      this.height - current.frameHeight - this.body.coords.view.lY,
       current.frameWidth,
       current.frameHeight,
     );

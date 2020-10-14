@@ -1,3 +1,4 @@
+import { Camera } from '../assets';
 import { Hero } from '../hero/hero';
 import { RenderBody } from '../types';
 import { PlatformProps } from './types';
@@ -6,13 +7,15 @@ export class Platform {
   height: number;
   ctx: CanvasRenderingContext2D;
   body: RenderBody;
+  camera: Camera;
   currentImage = 'default';
 
-  constructor({ width, height, ctx, body }: PlatformProps) {
+  constructor({ width, height, ctx, body, camera }: PlatformProps) {
     this.width = width;
     this.height = height;
     this.ctx = ctx;
     this.body = body;
+    this.camera = camera;
   }
 
   async initialize() {
@@ -30,12 +33,14 @@ export class Platform {
   }
   recalc() {
     const { coords, images } = this.body;
-    coords.view.lX = coords.x;
-    coords.view.lY = coords.y + images[this.currentImage].frameHeight;
-    coords.view.rX = coords.view.lX + images[this.currentImage].frameWidth;
-    coords.view.rY = coords.y + images[this.currentImage].frameHeight;
+    coords.view.lX = coords.x + this.camera.x;
+    coords.view.lY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
+    coords.view.rX = coords.x + images[this.currentImage].frameWidth + this.camera.x;
+    coords.view.rY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
+    // console.log(this.body.coords.view.lX);
   }
   render(hero: Hero) {
+    this.recalc();
     this.draw();
     // Проверяет пересечение хит-линий между моделькой персонажа и конкретным препятсвием
     return this.accessory(hero.body.coords.view, this.body.coords.view);
@@ -54,7 +59,7 @@ export class Platform {
     this.ctx.drawImage(
       this.body.images[this.currentImage].background as CanvasImageSource,
       this.body.coords.view.lX,
-      this.height - this.body.coords.y - this.body.images[this.currentImage].frameHeight,
+      this.height - this.body.coords.view.lY,
     );
   };
 }

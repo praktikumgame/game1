@@ -2,7 +2,7 @@ import { HeroBody } from './types';
 export const heroConfig: HeroBody = {
   coords: {
     x: 120,
-    y: 120,
+    y: 200,
     view: {
       lX: 0,
       lY: 0,
