@@ -96,27 +96,18 @@ export class Hero {
       return;
     }
     if (this.body.jump.fly) {
-      if (this.body.jump.type === 'up') {
-        if (this.body.jump.current < this.body.jump.extra) {
-          this.body.coords.y += 1;
-          this.body.jump.current += 1;
-        } else {
-          this.body.jump.type = 'down';
-        }
+      if (this.body.jump.current < this.body.jump.extra) {
+        this.body.coords.y += 1;
+        this.body.jump.current += 1;
       } else {
-        if (this.body.jump.current > 0) {
-          this.body.coords.y -= 1;
-          this.body.jump.current -= 1;
-        } else {
-          this.body.jump.type = 'up';
-          this.body.jump.fly = false;
-        }
+        this.body.jump.current = 0;
+        this.body.jump.down = true;
+        this.body.jump.fly = false;
       }
     }
   };
   move = (bool: boolean, e: KeyboardEvent) => {
-    if (e.code === 'ArrowUp' && bool && !this.body.jump.fly) {
-      debugger;
+    if (e.code === 'ArrowUp' && bool && !this.body.jump.fly && !this.body.jump.down) {
       this.body.jump.current = 0;
       this.body.jump.fly = true;
       return;

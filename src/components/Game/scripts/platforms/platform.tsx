@@ -37,6 +37,7 @@ export class Platform {
   }
   render(hero: Hero) {
     this.draw();
+    // Проверяет пересечение хит-линий между моделькой персонажа и конкретным препятсвием
     return this.accessory(hero.body.coords.view, this.body.coords.view);
   }
   accessory = (
