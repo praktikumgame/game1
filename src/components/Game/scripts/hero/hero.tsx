@@ -53,7 +53,6 @@ export class Hero {
       this.camera.decX();
     }
     if (coords.view.lY > 280) {
-      debugger;
       this.camera.decY();
     }
     if (coords.view.lY < 100) {

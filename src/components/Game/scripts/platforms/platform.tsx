@@ -37,7 +37,6 @@ export class Platform {
     coords.view.lY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
     coords.view.rX = coords.x + images[this.currentImage].frameWidth + this.camera.x;
     coords.view.rY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
-    // console.log(this.body.coords.view.lX);
   }
   render(hero: Hero) {
     this.recalc();
