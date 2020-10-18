@@ -4,6 +4,9 @@ import { App } from './components';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
+import { ensureServiceWorkerInstalled } from './service-worker-check';
+
+ensureServiceWorkerInstalled();
 
 ReactDOM.render(
   <React.StrictMode>

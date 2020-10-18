@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 
 const optimization = () => ({
   minimizer: isDev ? [] : [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
@@ -97,5 +98,10 @@ module.exports = {
       filename: 'static/[name].[contentHash].css',
     }),
     new CleanWebpackPlugin(),
+    new workboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ],
 };
