@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { IStateValues } from './types';
-import { withAuth } from '../../services/auth';
+import { withAuth } from '../../services/Auth';
 import { InputWithMessage, Form } from '../';
 import { getErrorMessageByStatus as errorHandler } from '../../services/api/helpers/signInStatus';
 import { validatePassword, validateLogin } from '../../services/validators';

@@ -9,6 +9,6 @@ export { Header } from './Header';
 export { Landing } from './Landing';
 export { Settings, PasswordValuesType } from './Settings';
 export { NotFound } from './NotFound';
-export { Leaderboard } from './Leaderboard';
+export { Leaderboard } from './LeaderBoard';
 export { Button, Input, CommonInputProps } from './Common';
 export { ErrorBoundary, withErrorBoundary } from './ErrorBoundary/ErrorBoundary';

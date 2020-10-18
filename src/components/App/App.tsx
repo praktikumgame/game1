@@ -11,7 +11,7 @@ import {
   NotFound,
   Leaderboard,
 } from '../';
-import { AuthProvider } from '../../services/auth';
+import { AuthProvider } from '../../services/Auth';
 import './App.css';
 
 const App = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { withAuth, AuthProps } from '../../services/auth/';
+import { withAuth, AuthProps } from '../../services/Auth/';
 
 import './PrivateRoute.css';
 
