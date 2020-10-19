@@ -1,19 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { clearCookie } from '../../redux/auth/actions';
 import { Button } from '../';
 import { withAuth, withAuthProps } from '../../services/auth';
-
 import './Header.css';
 
 const Header = withAuth(({ isAuthorized }: withAuthProps) => {
   const dispatch = useDispatch();
   return (
     <header className="header">
-      <NavLink className="link header__logo-link" to="/">
+      <Link className="link header__logo-link" to="/">
         Game logo
-      </NavLink>
+      </Link>
       <nav className="header__nav">
         {isAuthorized ? (
           <>
@@ -31,10 +30,10 @@ const Header = withAuth(({ isAuthorized }: withAuthProps) => {
         ) : (
           <>
             <NavLink className="link header__link" to="/signup">
-              Signup
+              Sign Up
             </NavLink>
             <NavLink className="link header__link" to="/signin">
-              Signin
+              Sign In
             </NavLink>
           </>
         )}

@@ -29,7 +29,6 @@ function logout() {
     type: LOGOUT,
   };
 }
-
 function changeAvatar(avatar: string) {
   return {
     type: CHANGE_AVATAR,

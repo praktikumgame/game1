@@ -1,1 +1,14 @@
 @import url('../node_modules/normalize.css/normalize.css');
+#root {
+  width: 100%;
+  min-height: 100vh;
+  height: max-content;
+  font-family: 'Caveat', Arial, Helvetica, sans-serif;;
+  font-weight: normal;
+  background-image: url('./static/images/fon.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+:root {
+  font-size: 20px;
+}
