@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -114,6 +115,11 @@ module.exports = {
         { from: './src/static/images/chelRight.png', to: './images' },
         { from: './src/static/images/platfom.png', to: './images' },
       ],
+    }),
+    new WorkboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
     }),
     !isDev && new CleanWebpackPlugin(),
   ].filter((el) => typeof el !== 'boolean'),

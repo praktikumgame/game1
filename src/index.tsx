@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 
 import './index.css';
 import './static/stylesheet.css';
+import { ensureServiceWorkerInstalled } from './service-worker-check';
 
 interface DevTools {
   __REDUX_DEVTOOLS_EXTENSION__: () => StoreEnhancer<{ dispatch: unknown }, Record<string, unknown>>;
@@ -24,6 +25,8 @@ const middleware = () => {
 };
 
 const store = createStore(rootReducer, compose(...middleware()));
+
+ensureServiceWorkerInstalled();
 
 ReactDOM.render(
   <React.StrictMode>
