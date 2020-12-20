@@ -1,24 +1,29 @@
 import { Dispatch } from 'redux';
-import { START_PENDING_LEADERS, STOP_PENDING_LEADERS, PUSH_LEADERS_LIST, SET_ERROR_MESSAGE } from 'redux/leaders/types';
+import {
+  LOAD_LEADERBOARD_REQUEST,
+  LOAD_LEADERBOARD_SUCCESS,
+  PUSH_LEADERS_LIST,
+  LOAD_LEADERBOARD_ERROR,
+} from 'redux/leaders/types';
 import { IUserScore } from 'redux/leaders/reducer';
 import { LEADERBOARD_ERROR } from '../../constants';
 import { leaderBoardApi } from 'services/api/leaderBoardApi';
 
-export function startPendingLeaders() {
+export function leaderBoardRequest() {
   return {
-    type: START_PENDING_LEADERS,
+    type: LOAD_LEADERBOARD_REQUEST,
   };
 }
 
-export function stopPendingLeaders() {
+export function leaderBoardSuccess() {
   return {
-    type: STOP_PENDING_LEADERS,
+    type: LOAD_LEADERBOARD_SUCCESS,
   };
 }
 
-export function setError(payload: string) {
+export function leaderBoardError(payload: string) {
   return {
-    type: SET_ERROR_MESSAGE,
+    type: LOAD_LEADERBOARD_ERROR,
     payload,
   };
 }
@@ -32,14 +37,14 @@ export function pushLeadersList(payload: IUserScore[]) {
 
 export const loadLeaderListFromServer = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(startPendingLeaders());
+    dispatch(leaderBoardRequest());
     const list = await leaderBoardApi.getAllResults();
     dispatch(pushLeadersList(JSON.parse(list)));
   } catch {
-    setError(LEADERBOARD_ERROR);
+    leaderBoardError(LEADERBOARD_ERROR);
   } finally {
     setTimeout(() => {
-      dispatch(stopPendingLeaders());
+      dispatch(leaderBoardSuccess());
     }, 2000);
   }
 };

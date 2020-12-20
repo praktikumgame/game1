@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { START_PENDING_LEADERS, STOP_PENDING_LEADERS, PUSH_LEADERS_LIST, SET_ERROR_MESSAGE } from './types';
+import { LOAD_LEADERBOARD_REQUEST, LOAD_LEADERBOARD_SUCCESS, PUSH_LEADERS_LIST, LOAD_LEADERBOARD_ERROR } from './types';
 
 export interface IUserScore {
   data: {
@@ -22,16 +22,16 @@ const initialState: ILeadersState = {
 
 export const leadersReducer = (state: ILeadersState = initialState, action: AnyAction) => {
   switch (action.type) {
-    case START_PENDING_LEADERS: {
+    case LOAD_LEADERBOARD_REQUEST: {
       return { ...state, pending: true };
     }
-    case STOP_PENDING_LEADERS: {
+    case LOAD_LEADERBOARD_SUCCESS: {
       return { ...state, pending: false };
     }
     case PUSH_LEADERS_LIST: {
       return { ...state, list: action.payload };
     }
-    case SET_ERROR_MESSAGE: {
+    case LOAD_LEADERBOARD_ERROR: {
       return { ...state, error: action.payload };
     }
     default: {
