@@ -6,8 +6,10 @@
     left: 130%;
   }
 }
+
 .form {
-  display: inline
+  max-width: 220px;
+  display: inline;
 }
 
 .loader {
