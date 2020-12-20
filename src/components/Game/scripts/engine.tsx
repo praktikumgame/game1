@@ -13,12 +13,20 @@ import { HeroBody } from './hero/types';
 import { store } from 'index';
 import { leaderBoardApi } from 'services/api/leaderBoardApi';
 
+enum StatusGame {
+  inGame = 'IN_GAME',
+  stopped = 'STOPPED',
+  pause = 'PAUSE',
+  gameOver = 'GAME_OVER',
+}
+
 export default class Engine {
   initParametrs: InitParametrs;
   gameOverScreen: ScoreScreen;
   animationId = 0;
   camera = new Camera();
-  status: 'stopped' | 'inGame' | 'pause' | 'gameOver' = 'stopped';
+
+  status: StatusGame = StatusGame.stopped;
   score = 0;
 
   globalRender: GlobalGameState = {
@@ -86,13 +94,13 @@ export default class Engine {
   }
 
   start() {
-    this.status = 'inGame';
+    this.status = StatusGame.inGame;
     this.render();
   }
 
   render = () => {
     this.initParametrs.ctx.clearRect(0, 0, this.initParametrs.width, this.initParametrs.height);
-    if (this.status === 'gameOver') {
+    if (this.status === StatusGame.gameOver) {
       this.gameOverScreen.draw(this.score);
       return;
     }
@@ -101,7 +109,7 @@ export default class Engine {
     // В будущем перепишем или нет:)
     if (hero.body.coords.view.lY < 0) {
       this.score = 100 * Math.round(Math.abs(hero.body.coords.view.lX - hero.body.coords.x));
-      this.status = 'gameOver';
+      this.status = StatusGame.gameOver;
       leaderBoardApi
         .newResult({
           data: {
@@ -141,7 +149,7 @@ export default class Engine {
     const [hero] = this.globalRender.hero;
     hero.destroy();
     window.cancelAnimationFrame(this.animationId);
-    this.status = 'stopped';
+    this.status = StatusGame.stopped;
     // Рендер функция с очками
   }
 }
