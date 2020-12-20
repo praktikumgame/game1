@@ -23,7 +23,7 @@ const middleware = () => {
   return members;
 };
 
-const store = createStore(rootReducer, compose(...middleware()));
+export const store = createStore(rootReducer, compose(...middleware()));
 
 ReactDOM.render(
   <React.StrictMode>
