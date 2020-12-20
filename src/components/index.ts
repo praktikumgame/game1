@@ -13,3 +13,4 @@ export { Leaderboard } from './LeaderBoard';
 export { Button, Input, CommonInputProps } from './Common';
 export { ErrorBoundary, withErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 export { Preloader } from './Preloader';
+export { OAuthButton } from './OAuthButton';

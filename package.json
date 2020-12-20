@@ -7,6 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "node-production": "node app.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch",
+    "devWithPort5000": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch --port 5000",
     "deploy": "cross-env NODE_ENV=production gh-pages -d dist",
     "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
   },

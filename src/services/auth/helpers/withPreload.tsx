@@ -12,7 +12,7 @@ function withPreload<T>(WrappedComponent: React.ComponentType<T>) {
     const appIsInit = useSelector(getInitApp);
     const checkingAuthorize = useSelector(getAuthorize);
 
-    useEffect(() => {
+    useEffect( () => {
       dispatch(checkAuthorize());
     }, []);
 
