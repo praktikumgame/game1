@@ -17,6 +17,7 @@ module.exports = {
   devtool: isDev && 'source-map',
   devServer: {
     historyApiFallback: true,
+    port: 5000,
   },
   optimization: {
     minimizer: [!isDev && new OptimizeCssAssetsPlugin(), !isDev && new TerserPlugin()].filter(
