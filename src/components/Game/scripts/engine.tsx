@@ -7,21 +7,29 @@ import { Sprites, sprites } from './sources';
 
 import { Platform } from './platforms/platform';
 import { Hero } from './hero/hero';
+import { ScoreScreen } from 'components/Game/scripts/scoreScreen/scoreScreen';
 import { heroConfig } from './hero/sourse';
 import { HeroBody } from './hero/types';
+import { store } from 'index';
+import { leaderBoardApi } from 'services/api/leaderBoardApi';
 
 export default class Engine {
   initParametrs: InitParametrs;
+  gameOverScreen: ScoreScreen;
   animationId = 0;
   camera = new Camera();
+  status: 'stopped' | 'inGame' | 'pause' | 'gameOver' = 'stopped';
+  score = 0;
 
   globalRender: GlobalGameState = {
     hero: [],
     platforms: [],
     enemies: [],
   };
+
   constructor(initParametrs: InitParametrs) {
     this.initParametrs = initParametrs;
+    this.gameOverScreen = new ScoreScreen(this.initParametrs.ctx, this.initParametrs.width, this.initParametrs.height);
   }
 
   async initialize() {
@@ -49,6 +57,7 @@ export default class Engine {
     await this.creator('hero', heroConfig);
     this.create(currentLvl);
   }
+
   async create(lvl: Level) {
     const keys = Object.keys(lvl);
     for (const key of keys) {
@@ -58,6 +67,7 @@ export default class Engine {
     }
     this.start();
   }
+
   async creator(key: string, value: RenderBody | HeroBody) {
     switch (key) {
       case 'platforms': {
@@ -74,18 +84,33 @@ export default class Engine {
       }
     }
   }
+
   start() {
+    this.status = 'inGame';
     this.render();
   }
+
   render = () => {
     this.initParametrs.ctx.clearRect(0, 0, this.initParametrs.width, this.initParametrs.height);
+    if (this.status === 'gameOver') {
+      this.gameOverScreen.draw(this.score);
+      return;
+    }
 
     const [hero] = this.globalRender.hero;
-    // В будущем перепишем
+    // В будущем перепишем или нет:)
     if (hero.body.coords.view.lY < 0) {
-      alert(`Вы проиграли. Ваши очки: ${Math.round(Math.abs(hero.body.coords.view.lX - hero.body.coords.x))}`);
-      this.stop();
-      return;
+      this.score = 100 * Math.round(Math.abs(hero.body.coords.view.lX - hero.body.coords.x));
+      this.status = 'gameOver';
+      leaderBoardApi
+        .newResult({
+          data: {
+            name: store.getState().auth.login,
+            score: this.score,
+          },
+          ratingFieldName: 'score',
+        })
+        .catch(console.error);
     }
 
     hero.render();
@@ -95,6 +120,7 @@ export default class Engine {
 
     this.animationId = requestAnimationFrame(this.render);
   };
+
   controller(stayOnPlatform: boolean) {
     const [hero] = this.globalRender.hero;
 
@@ -109,11 +135,13 @@ export default class Engine {
       hero.body.jump.down = true;
     }
   }
+
   stop() {
     // Сюда передаем ид из стейта
     const [hero] = this.globalRender.hero;
     hero.destroy();
     window.cancelAnimationFrame(this.animationId);
+    this.status = 'stopped';
     // Рендер функция с очками
   }
 }

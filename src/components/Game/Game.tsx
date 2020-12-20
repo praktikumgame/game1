@@ -29,7 +29,7 @@ const Game = () => {
   return (
     <div className="game">
       <h1>Welcome to GAME</h1>
-      <canvas ref={measuredRef} id="canvas" width={wh.width} height={wh.height} className="canvas"></canvas>
+      <canvas ref={measuredRef} id="canvas" width={wh.width} height={wh.height} className="canvas" />
     </div>
   );
 };

@@ -4,8 +4,7 @@ class BaseAPI {
   protected async getResponseText(response: Response): Promise<string> {
     const { status } = response;
     if (status === 200) {
-      const text = await response.text();
-      return text;
+      return response.text();
     }
 
     const { reason } = await response.json();

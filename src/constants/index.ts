@@ -16,7 +16,7 @@ export const PASSWORD_ERROR_NUMBERS = 'Пароль должен содержа�
 export const PASSWORD_ERROR_MISMATCH = 'Новый пароль должен отличаться от старого пароля';
 
 export const AVATAR_ERROR_MESSAGE = 'Не удалось загрузить автар';
-
+export const LEADERBOARD_ERROR = 'Ошибка загрузки списка лидеров';
 // Validation form
 
 export const LOGIN_OR_EMAIL_ERROR = 'Не правильные логин или пароль';
