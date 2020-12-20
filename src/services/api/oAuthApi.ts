@@ -15,13 +15,13 @@ class OAuthApi extends BaseAPI {
     document.location.href = `${this.YANDEX_O_AUTH_URL}?response_type=code&client_id=${service_id}&redirect_uri=${redirectUri}/`;
   }
 
-  public async startOauthYandex() {
+  public async startOAuthYandex() {
     const res = await this.fetch(this.handles.REQUEST_O_AUTH);
     const data = JSON.parse(res);
     this.redirect(data);
   }
 
-  public chekLocationOnOAuth() {
+  public authorizeIfCodePassed() {
     const { code } = parseQueriesToObject(window.location.href);
 
     if (code) {

@@ -48,7 +48,7 @@ function checkAuthorize() {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(authorizeCheckPending());
-      await oAuthApi.chekLocationOnOAuth();
+      await oAuthApi.authorizeIfCodePassed();
       const userInfo = await getUserInfo();
       dispatch(authorize(userInfo));
     } catch {
