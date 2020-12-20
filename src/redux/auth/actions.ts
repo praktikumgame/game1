@@ -4,6 +4,7 @@ import { initApp } from '../app/actions';
 import { AVATAR_API } from '../../constants';
 import { IUserInfoStateType } from './reducer';
 import { AUTHORIZE, AUTHORIZE_CHECK_COMPLETED, CHANGE_AVATAR, LOGOUT, PENDING_AUTHORIZE_CHECK } from './types';
+import { oAuthApi } from 'services/api/oAuthApi';
 
 function authorize(userInfo: Omit<IUserInfoStateType, 'checkingAuthorize'>) {
   return {
@@ -29,6 +30,7 @@ function logout() {
     type: LOGOUT,
   };
 }
+
 function changeAvatar(avatar: string) {
   return {
     type: CHANGE_AVATAR,
@@ -39,13 +41,14 @@ function changeAvatar(avatar: string) {
 async function getUserInfo(): Promise<Omit<IUserInfoStateType, 'checkingAuthorize'>> {
   const userData = await authApi.getUserInfo();
   const { login, avatar } = JSON.parse(userData);
-  return { login, avatar: `${AVATAR_API}${avatar}` };
+  return { login, avatar: avatar ? `${AVATAR_API}${avatar}` : '' };
 }
 
 function checkAuthorize() {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(authorizeCheckPending());
+      await oAuthApi.authorizeIfCodePassed();
       const userInfo = await getUserInfo();
       dispatch(authorize(userInfo));
     } catch {

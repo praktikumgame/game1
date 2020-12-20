@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../../redux/signup/actions';
 import { withAuth } from '../../services/auth';
 import { validatePassword, validateEmail, validateLogin } from '../../services/validators';
-import { InputWithMessage, Form } from '../';
+import { InputWithMessage, Form, OAuthButton } from '../';
 import { IStateFields } from './types';
 
 import './Signup.css';
@@ -67,6 +67,7 @@ const Signup = withAuth(({ isAuthorized }) => {
           required={true}
         />
       </Form>
+      <OAuthButton />
     </div>
   );
 });

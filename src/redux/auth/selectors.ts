@@ -6,3 +6,4 @@ export const getAuthorize = createSelector(
 );
 
 export const selectName = (state: IState) => state.auth.login;
+export const selectCheckingAuthorize = (state: IState) => state.auth.checkingAuthorize;

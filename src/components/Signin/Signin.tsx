@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { validatePassword, validateLogin } from '../../services/validators';
 import { withAuth } from '../../services/auth';
 import { signinUser } from '../../redux/signin/actions';
-import { InputWithMessage, Form } from '../';
+import { InputWithMessage, Form, OAuthButton } from '../';
 import { IStateValues } from './types';
 import './Signin.css';
 import { getErrorAndPending } from '../../redux/signin/selectors';
@@ -57,6 +57,7 @@ const Signin = withAuth(({ isAuthorized }) => {
           required={true}
         />
       </Form>
+      <OAuthButton />
     </div>
   );
 });

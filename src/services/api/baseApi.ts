@@ -15,7 +15,7 @@ class BaseAPI {
     return `${API_URL}${handle}`;
   }
 
-  protected fetch(handle: string, options: { [key: string]: string | FormData }) {
+  protected fetch(handle: string, options: { [key: string]: string | FormData } = {}) {
     return fetch(this.getFullUrl(handle), {
       credentials: 'include',
       headers: {
