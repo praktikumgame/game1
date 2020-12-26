@@ -3,13 +3,11 @@ import { Camera } from './camera';
 import { levels } from './levels';
 import { Level, Levels } from './levels/types';
 
-import { Sprites, sprites } from './sources';
-
 import { Platform } from './platforms/platform';
 import { Hero } from './hero/hero';
 import { ScoreScreen } from 'components/Game/scripts/scoreScreen/scoreScreen';
 import { heroInitialState } from './hero/heroInitialState';
-import { HeroBody } from './hero/types';
+import { HeroBody } from './hero/heroBody';
 import { store } from 'index';
 import { leaderBoardApi } from 'services/api/leaderBoardApi';
 import { UserInput } from './types/UserInput';
@@ -47,7 +45,6 @@ export default class Engine {
   }
 
   async initialize() {
-    await this.loadResources();
     await this.createLevel('1');
     this.listenKeyboardEvents();
     this.start();
@@ -132,23 +129,6 @@ export default class Engine {
 
     window.onkeydown = onKeyDown;
     window.onkeyup = onKeyUp;
-  }
-
-  private async loadResources(): Promise<any> {
-    const keys = Object.keys(sprites);
-    for (const key of keys) {
-      for (const sprite of sprites[key as keyof Sprites]) {
-        try {
-          await new Promise((res) => {
-            const use = new Image();
-            use.src = sprite;
-            use.onload = () => res();
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
   }
 
   private submitHighScore(score: number): Promise<string> {

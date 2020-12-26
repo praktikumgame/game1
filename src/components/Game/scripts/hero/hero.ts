@@ -1,17 +1,18 @@
 import { Camera } from '../camera';
-import { HeroBody, HeroProps } from './types';
+import { HeroBody } from './heroBody';
 import { UserInput } from '../types/UserInput';
 import { loadImage } from '../heplers/loadImage';
 import { GlobalGameState } from '../types';
 import { playerConstants } from '../constants';
 import { isPlayerOnPlatform } from '../heplers/intersects';
+import { HeroProps } from './heroProps';
+import { heroAnimations } from './heroInitialState';
 
 export class Hero {
   width: number;
   height: number;
   ctx: CanvasRenderingContext2D;
   body: HeroBody;
-  currentImage = 'default';
   camera: Camera;
 
   constructor({ width, height, ctx, body, camera }: HeroProps) {
@@ -62,9 +63,11 @@ export class Hero {
 
     if (userInput.moveLeft) {
       this.body.coords.x -= playerConstants.runSpeed;
+      this.body.move.direction = 'left';
     }
     if (userInput.moveRight) {
       this.body.coords.x += playerConstants.runSpeed;
+      this.body.move.direction = 'right';
     }
 
     if (this.body.jump.down && !this.body.jump.fly) {
@@ -101,12 +104,12 @@ export class Hero {
     // Левые и правые координаты хит-линии в декартовой системе
     coords.view.lX = coords.x + this.camera.x;
     coords.view.lY = coords.y + this.camera.y;
-    coords.view.rX = coords.x + images[this.currentImage].frameWidth + this.camera.x;
+    coords.view.rX = coords.x + images[this.body.image].frameWidth + this.camera.x;
     coords.view.rY = coords.y + this.camera.y;
   };
 
   private draw() {
-    const current = this.body.images[this.currentImage];
+    const current = this.body.images[this.body.image];
     this.ctx.drawImage(
       current.background as CanvasImageSource,
       current.frameWidth * current.frame,
@@ -121,7 +124,17 @@ export class Hero {
   }
 
   private updateAnimationFrame() {
-    const current = this.body.images[this.currentImage];
+    // не будет работать с анимациями, у которых разное количество кадров.
+    // придется палить переход и обнулять количество фреймов
+    switch (this.body.move.direction) {
+      case 'left':
+        this.body.image = heroAnimations.runLeft;
+        break;
+      case 'right':
+        this.body.image = heroAnimations.runRight;
+        break;
+    }
+    const current = this.body.images[this.body.image];
     if (!current.perfomance) {
       current.perfomance = performance.now();
     }

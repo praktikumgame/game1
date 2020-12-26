@@ -1,5 +1,4 @@
-import { Camera } from '../camera';
-import { InitParameters, RenderBody } from '../types';
+import { RenderBody } from '../types';
 
 export interface HeroBody extends RenderBody {
   jump: {
@@ -11,9 +10,7 @@ export interface HeroBody extends RenderBody {
     fly: boolean;
     down: boolean;
   };
-}
-
-export interface HeroProps extends InitParameters {
-  body: HeroBody;
-  camera: Camera;
+  move: {
+    direction: 'left' | 'right'
+  }
 }
