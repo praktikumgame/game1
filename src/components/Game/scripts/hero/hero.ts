@@ -4,7 +4,7 @@ import { UserInput } from '../types/UserInput';
 import { loadImage } from '../heplers/loadImage';
 import { GlobalGameState } from '../types';
 import { playerConstants } from '../constants';
-import { isPlayerOnPlatform } from '../heplers/intersects';
+import { isPlayerOnPlatform } from '../heplers/intersectionHelpers';
 import { HeroProps } from './heroProps';
 import { heroAnimations } from './heroInitialState';
 
@@ -40,12 +40,17 @@ export class Hero {
   }
 
   updateHeroState(userInput: UserInput, gameState: GlobalGameState) {
-    const playerOnPlatform = gameState.platforms.some(
-      (platform) =>
-        isPlayerOnPlatform(this.body.coords.view, platform.body.coords.view, playerConstants.fallSpeed).intersects,
-    );
+    const platformUnderPlayer = gameState.platforms
+      .map((
+        platform, // не круто что для проверки используются view-координаты
+      ) => isPlayerOnPlatform(this.body.coords.view, platform.body.coords.view, playerConstants.fallSpeed))
+      .find((intersectionRes) => intersectionRes.intersects);
 
-    if (playerOnPlatform) {
+    if (platformUnderPlayer != null) {
+      if (platformUnderPlayer.yDistance >= 1) {
+        // костылёк: если игрок "висит" над платформой, аккуратно двигаем его вниз
+        this.body.coords.y -= 1;
+      }
       this.body.jump.down = false;
       if (this.body.jump.current) {
         this.body.jump.fly = false;

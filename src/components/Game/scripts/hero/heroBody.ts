@@ -11,6 +11,6 @@ export interface HeroBody extends RenderBody {
     down: boolean;
   };
   move: {
-    direction: 'left' | 'right'
-  }
+    direction: 'left' | 'right';
+  };
 }

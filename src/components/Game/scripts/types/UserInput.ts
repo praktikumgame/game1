@@ -3,9 +3,6 @@ export class UserInput {
   moveRight = false;
   jump = false;
 
-  constructor() {
-  }
-
   /** Нажата ли хоть одна кнопка */
   public get keyPressed() {
     return this.moveLeft || this.moveRight || this.jump;
