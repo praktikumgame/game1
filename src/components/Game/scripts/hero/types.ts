@@ -1,23 +1,19 @@
-import { Camera } from '../assets';
-import { InitParametrs, RenderBody } from '../types';
+import { Camera } from '../camera';
+import { InitParameters, RenderBody } from '../types';
 
 export interface HeroBody extends RenderBody {
   jump: {
+    /** Высота прыжка */
     extra: number;
+    /** Насколько высоко игрок уже прыгнул */
     current: number;
-    type: 'up' | 'down';
+    /** Летит ли сейчас игрок наверх */
     fly: boolean;
     down: boolean;
   };
-  arrows: {
-    left: boolean;
-    right: boolean;
-    top: boolean;
-    bottom: boolean;
-  };
 }
 
-export interface HeroProps extends InitParametrs {
+export interface HeroProps extends InitParameters {
   body: HeroBody;
   camera: Camera;
 }

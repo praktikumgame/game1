@@ -14,7 +14,7 @@ export class ScoreScreen {
 
     this.ctx.font = '30px Caveat';
     this.ctx.fillText('Вы проиграли:(', x, y);
-    this.ctx.fillText(`Очков набранно: ${score}`, x, y + 30);
+    this.ctx.fillText(`Очков набрано: ${score}`, x, y + 30);
   }
 
   public draw(score: number) {

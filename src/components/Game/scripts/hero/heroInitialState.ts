@@ -1,5 +1,7 @@
 import { HeroBody } from './types';
-export const heroConfig: HeroBody = {
+import { playerConstants } from '../constants';
+
+export const heroInitialState: HeroBody = {
   coords: {
     x: 120,
     y: 200,
@@ -26,16 +28,9 @@ export const heroConfig: HeroBody = {
     },
   },
   jump: {
-    extra: 100,
+    extra: playerConstants.jumpHeight, // высота прыжка
     current: 0,
-    type: 'up',
     fly: false,
     down: false,
-  },
-  arrows: {
-    left: false,
-    right: false,
-    top: false,
-    bottom: false,
   },
 };

@@ -1,7 +1,8 @@
-import { Camera } from '../assets';
-import { Hero } from '../hero/hero';
+import { Camera } from '../camera';
 import { RenderBody } from '../types';
 import { PlatformProps } from './types';
+import { loadImage } from '../heplers/loadImage';
+
 export class Platform {
   width: number;
   height: number;
@@ -19,42 +20,31 @@ export class Platform {
   }
 
   async initialize() {
-    const keys = Object.keys(this.body.images);
-    for (const imageType of keys) {
-      await new Promise(async (res) => {
-        const image = new Image();
-        const stateImage = this.body.images[imageType];
-        image.src = stateImage.link;
-        image.onload = () => res((stateImage.background = image));
-      });
+    const stateImages = Object.values(this.body.images);
+    for (const stateImage of stateImages) {
+      await loadImage(stateImage.link).then((image) => (stateImage.background = image));
     }
-    this.recalc();
+
+    this.recalcViewCoordinates();
     return this;
   }
-  recalc() {
+
+  /** Обновить координаты, отрисовать, проверить на пересечение */
+  public render() {
+    this.recalcViewCoordinates();
+    this.draw();
+  }
+
+  /** Обновить view-координаты (?) */
+  private recalcViewCoordinates() {
     const { coords, images } = this.body;
     coords.view.lX = coords.x + this.camera.x;
     coords.view.lY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
     coords.view.rX = coords.x + images[this.currentImage].frameWidth + this.camera.x;
     coords.view.rY = coords.y + images[this.currentImage].frameHeight + this.camera.y;
   }
-  render(hero: Hero) {
-    this.recalc();
-    this.draw();
-    // Проверяет пересечение хит-линий между моделькой персонажа и конкретным препятсвием
-    return this.accessory(hero.body.coords.view, this.body.coords.view);
-  }
-  accessory = (
-    a: { lX: number; lY: number; rX: number; rY: number },
-    b: { lX: number; lY: number; rX: number; rY: number },
-  ) => {
-    return (
-      (b.lX <= a.lX && a.lX <= b.rX && b.lY <= a.lY && a.lY <= b.rY) ||
-      (b.lX <= a.rX && a.rX <= b.rX && b.lY <= a.rY && a.rY <= b.rY)
-    );
-  };
 
-  draw = () => {
+  private draw = () => {
     this.ctx.drawImage(
       this.body.images[this.currentImage].background as CanvasImageSource,
       this.body.coords.view.lX,

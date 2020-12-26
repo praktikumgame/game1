@@ -1,7 +1,7 @@
 import { Hero } from '../hero/hero';
 import { Platform } from '../platforms/platform';
 
-export interface InitParametrs {
+export interface InitParameters {
   /**
    * Ширина канваса
    */
@@ -17,6 +17,7 @@ export interface InitParametrs {
 }
 
 export interface RenderBody {
+  /** Координаты игрового мира */
   coords: {
     /**
      * Координата X начала отрисовки персонажа
@@ -26,10 +27,11 @@ export interface RenderBody {
      * Координата Y начала отрисовки персонажа
      */
     y: number;
-    /**
-     * Левый X начала отрисовки
-     */
+    /** Координаты view */
     view: {
+      /**
+       * Левый X начала отрисовки
+       */
       lX: number;
       /**
        * Левый Y начала отрисовки
@@ -94,8 +96,8 @@ export type ImageParameters = {
   speed: number;
 };
 
-export type GlobalGameState = {
-  hero: Hero[];
-  platforms: Platform[];
-  enemies: [];
-};
+export class GlobalGameState {
+  hero: Hero[] = [];
+  platforms: Platform[] = [];
+  enemies?: [];
+}
