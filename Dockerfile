@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:12-alpine
 # создание директории приложения
 WORKDIR /usr/src/app
 # установка зависимостей
