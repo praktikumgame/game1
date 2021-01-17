@@ -1,5 +1,7 @@
+import { spritesLinks } from '../resourcesLinks';
+
 export const defaultPlatform = {
-  link: './images/platfom.png',
+  link: spritesLinks.platform,
   width: 0,
   height: 0,
   frameWidth: 64,
