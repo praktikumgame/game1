@@ -8,7 +8,9 @@
     "node-production": "node app.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch",
     "deploy": "cross-env NODE_ENV=production gh-pages -d dist",
-    "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
+    "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix",
+    "docker:build": "sudo docker build -t game1 .",
+    "docker:run": "sudo docker run -p 4000:4000 -d game1"
   },
   "husky": {
     "hooks": {
